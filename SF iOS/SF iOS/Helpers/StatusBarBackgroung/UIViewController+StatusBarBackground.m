@@ -18,7 +18,7 @@
     [statusBarBackground.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = true;
     [statusBarBackground.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
     [statusBarBackground.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
-    [statusBarBackground.heightAnchor constraintEqualToConstant:20].active = true;
+    [statusBarBackground.heightAnchor constraintEqualToConstant:[self statusBarHeight]].active = true;
 }
 
 
