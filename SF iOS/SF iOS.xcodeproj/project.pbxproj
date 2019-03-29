@@ -859,7 +859,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.thumbworks.SF-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -876,7 +876,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.thumbworks.SF-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
