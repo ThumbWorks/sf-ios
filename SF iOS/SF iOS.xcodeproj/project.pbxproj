@@ -260,7 +260,7 @@
 		C82516491F3054BE006B9D7E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C8CEC9811F3AB31D002A8D88 /* StatusBarBackgroung */,
+				C8CEC9811F3AB31D002A8D88 /* StatusBarBackground */,
 				C8CC49401F330F1E0064B03E /* Concurrency */,
 				C8CC49321F32A70A0064B03E /* Application */,
 				C8CC49291F3264420064B03E /* MapCameraOverlookingLocations */,
@@ -492,13 +492,13 @@
 			path = Concurrency;
 			sourceTree = "<group>";
 		};
-		C8CEC9811F3AB31D002A8D88 /* StatusBarBackgroung */ = {
+		C8CEC9811F3AB31D002A8D88 /* StatusBarBackground */ = {
 			isa = PBXGroup;
 			children = (
 				C8CEC9821F3AB342002A8D88 /* UIViewController+StatusBarBackground.h */,
 				C8CEC9831F3AB342002A8D88 /* UIViewController+StatusBarBackground.m */,
 			);
-			path = StatusBarBackgroung;
+			path = StatusBarBackground;
 			sourceTree = "<group>";
 		};
 		C8E6A3EA1F3255F70098339C /* EventDetails */ = {
