@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_END
     [self.view addSubview:closeButton];
     [closeButton.widthAnchor constraintEqualToConstant:44].active = true;
     [closeButton.heightAnchor constraintEqualToConstant:44].active = true;
-    [closeButton.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:32].active = true;
+    [closeButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:8].active = true;
     [closeButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-12].active = true;
     
     [self addStatusBarBlurBackground];
