@@ -13,6 +13,7 @@
 		5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A5C1F2C043600DCFEB6 /* Location.m */; };
 		5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */; };
 		5FECEFD7224ED01800AA8A25 /* UserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C87995CB1F312873002CA6C8 /* UserLocation.m */; };
+		5FECEFD9224EE87D00AA8A25 /* EventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD8224EE87D00AA8A25 /* EventTests.m */; };
 		C82516301F2FA260006B9D7E /* EventsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C825162F1F2FA260006B9D7E /* EventsFeedViewController.m */; };
 		C82516341F2FBBD2006B9D7E /* FeedItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C82516331F2FBBD2006B9D7E /* FeedItemCell.m */; };
 		C82516381F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = C82516371F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m */; };
@@ -81,6 +82,7 @@
 		5F3820A4224C920F00862294 /* FeedFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchService.m; sourceTree = "<group>"; };
 		5FECEFD2224ECACC00AA8A25 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		5FECEFD3224ECACC00AA8A25 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		5FECEFD8224EE87D00AA8A25 /* EventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTests.m; sourceTree = "<group>"; };
 		C825162E1F2FA260006B9D7E /* EventsFeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsFeedViewController.h; sourceTree = "<group>"; };
 		C825162F1F2FA260006B9D7E /* EventsFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsFeedViewController.m; sourceTree = "<group>"; };
 		C82516321F2FBBD2006B9D7E /* FeedItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedItemCell.h; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				C82516471F2FF293006B9D7E /* FeedItemTests.m */,
 				C897CD101F37B78200E6C2A6 /* DateTests.m */,
 				C86DD43C1F3A4DFD00C58723 /* TravelTime+ArrivalTests.m */,
+				5FECEFD8224EE87D00AA8A25 /* EventTests.m */,
 			);
 			path = "SF iOSTests";
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 				C86DD43D1F3A4DFD00C58723 /* TravelTime+ArrivalTests.m in Sources */,
 				C82516481F2FF293006B9D7E /* FeedItemTests.m in Sources */,
 				C897CD111F37B78200E6C2A6 /* DateTests.m in Sources */,
+				5FECEFD9224EE87D00AA8A25 /* EventTests.m in Sources */,
 				C88A19C81F2EC56600C08187 /* EventDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,6 +869,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -882,6 +887,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
