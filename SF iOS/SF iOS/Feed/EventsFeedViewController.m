@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    self.tableView.delaysContentTouches = NO;
     [self.view addSubview:self.tableView];
 
     [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = true;

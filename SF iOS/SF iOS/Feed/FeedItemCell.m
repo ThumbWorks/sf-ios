@@ -10,6 +10,8 @@
 #import "UIStackView+ConvenienceInitializer.h"
 #import "UIColor+SFiOSColors.h"
 
+static const CGFloat kDepressedShadowRadius = 8.0f;
+
 NS_ASSUME_NONNULL_BEGIN
 @interface FeedItemCell ()
 
@@ -38,8 +40,15 @@ NS_ASSUME_NONNULL_END
     if (!superView) {
         return CGRectZero;
     }
-    
-    return [superView convertRect:self.detailStackContainer.frame fromView:self.containerStack];
+
+    // Return a frame that is based on the bounds and center (since the transform is not identity, you cannot base this on the frame)
+    // "When the value of this property is anything other than the identity transform, the value in the frame property is undefined and should be ignored." - https://developer.apple.com/documentation/uikit/uiview/1622459-transform?language=objc
+    // And also account for the shadow radius and offset
+    const CGPoint center = CGPointMake(self.detailStackContainer.center.x, self.detailStackContainer.center.y + kDepressedShadowRadius);
+    const CGFloat width = self.detailStackContainer.bounds.size.width + (kDepressedShadowRadius * 2.0);
+    const CGFloat height = self.detailStackContainer.bounds.size.height + (kDepressedShadowRadius * 2.0);
+    const CGRect newRect = CGRectMake(center.x - (width / 2.0), center.y - (height / 2.0), width, height);
+    return [superView convertRect:newRect fromView:self.containerStack];
 }
 
 - (CGSize)coverImageSize {
@@ -176,10 +185,8 @@ NS_ASSUME_NONNULL_END
     self.detailStackContainer = [UIView new];
     self.detailStackContainer.backgroundColor = [UIColor whiteColor];
     self.detailStackContainer.layer.cornerRadius = 15;
-    self.detailStackContainer.layer.shadowOpacity = 0.22;
-    self.detailStackContainer.layer.shadowRadius = 14;
     self.detailStackContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.detailStackContainer.layer.shadowOffset = CGSizeMake(0, 12);
+    self.detailStackContainer.layer.shadowOpacity = 0.22;
     self.detailStackContainer.clipsToBounds = false;
     self.detailStackContainer.translatesAutoresizingMaskIntoConstraints = false;
     [self.detailStackContainer addSubview:detailsStack];
@@ -191,5 +198,33 @@ NS_ASSUME_NONNULL_END
     [self.containerStack addArrangedSubview:self.detailStackContainer];
 }
 
-@end
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+  const CATransform3D transformFromValue = self.layer.transform;
+  const CGFloat radiusFromValue = self.detailStackContainer.layer.shadowRadius;
+  const CGSize offsetFromValue = self.detailStackContainer.layer.shadowOffset;
 
+  if (highlighted) {
+    self.detailStackContainer.layer.transform = CATransform3DMakeScale(0.98, 0.98, 1.0);
+    self.detailStackContainer.layer.shadowRadius = 4;
+    self.detailStackContainer.layer.shadowOffset = CGSizeMake(0, 0);
+  } else {
+    self.detailStackContainer.layer.transform = CATransform3DIdentity;
+    self.detailStackContainer.layer.shadowRadius = kDepressedShadowRadius;
+    self.detailStackContainer.layer.shadowOffset = CGSizeMake(0, 8);
+  }
+
+  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"transform", [NSValue valueWithCATransform3D:transformFromValue]) forKey:@"transform"];
+  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"shadowRadius", @(radiusFromValue)) forKey:@"shadowRadius"];
+  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"shadowOffset", [NSValue valueWithCGSize:offsetFromValue]) forKey:@"shadowOffset"];
+}
+
+static CABasicAnimation *AnimationWithKeyPath(NSString *keyPath, NSValue *fromValue)
+{
+  CABasicAnimation *const animation = [CABasicAnimation animationWithKeyPath:keyPath];
+  animation.duration = 0.1;
+  animation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.0 :0.0 :0.5 :2.0];
+  animation.fromValue = fromValue;
+  return animation;
+}
+
+@end
