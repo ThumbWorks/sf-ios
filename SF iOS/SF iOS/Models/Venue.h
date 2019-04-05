@@ -7,17 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
 @class Location;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Venue : NSObject
-@property (nonatomic) NSURL *venueURL;
+@interface Venue : RLMObject
+@property (nullable, nonatomic) NSString *venueURLString;
 @property (nonatomic) Location *location;
 @property (nonatomic) NSString *name;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
+
+- (nullable NSURL *)venueURL;
 @end
 
 NS_ASSUME_NONNULL_END

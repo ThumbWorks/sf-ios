@@ -26,7 +26,9 @@
     self.dateString = [self dateStringFromDate:event.date];
     self.title = event.name;
     self.isActive = event.isActive;
-    self.coverImageFileURL = event.imageFileURL;
+    if (![event.imageFileURLString isEqual:[NSNull null]]) {
+        self.coverImageFileURL = event.imageFileURL;
+    }
     self.annotationImage = event.annotationImage;
     
     NSString *time;

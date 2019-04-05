@@ -7,15 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
+
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN
-@interface Location : NSObject
+@interface Location : RLMObject
 
 @property (nonatomic) NSString *streetAddress;
-@property (nonatomic) CLLocation *location;
+@property (nonatomic) double latitude;
+@property (nonatomic) double longitude;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
+- (CLLocation *)location;
 @end
 NS_ASSUME_NONNULL_END
