@@ -125,6 +125,11 @@ NS_ASSUME_NONNULL_END
       constraintEqualToAnchor:self.contentView.bottomAnchor] setActive:true];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.coverImageView.image = nil;
+}
+
 - (void)setupDetailsStack {
     CGFloat cornerRadius = 15;
     
