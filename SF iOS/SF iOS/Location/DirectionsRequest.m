@@ -8,22 +8,42 @@
 
 #import "DirectionsRequest.h"
 #import "SecretsStore.h"
+#import "NSUserDefaults+Settings.h"
 @import MapKit;
+
+
+static NSString *const DirectionsRequestGoogleMapsDirectionsModeFromMKLaunchOptionsDirectionsMode(NSString *const directionsMode) {
+    // gmaps constants from https://developers.google.com/maps/documentation/urls/ios-urlscheme
+    if ([directionsMode isEqualToString:MKLaunchOptionsDirectionsModeDriving]) {
+        return @"driving";
+    }
+
+    if ([directionsMode isEqualToString:MKLaunchOptionsDirectionsModeWalking]) {
+        return @"walking";
+    }
+
+    if ([directionsMode isEqualToString:MKLaunchOptionsDirectionsModeTransit]) {
+        return @"transit";
+    }
+
+    return @"";
+};
+
 
 @implementation DirectionsRequest
 
-+ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingTransportType:(TransportType)transportType {
++ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingTransportType:(TransportType)transportType completion:(void (^)(BOOL success))completion {
     switch (transportType) {
         case TransportTypeTransit:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeTransit];
+            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeTransit completion:completion];
             break;
             
         case TransportTypeAutomobile:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeDriving];
+            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeDriving completion:completion];
             break;
             
         case TransportTypeWalking:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeWalking];
+            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeWalking completion:completion];
             break;
             
         case TransportTypeUber:
@@ -39,11 +59,35 @@
     }
 }
 
-+ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode {
++ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
+    switch (NSUserDefaults.standardUserDefaults.directionsProvider) {
+        case SettingsDirectionProviderApple:
+            [self requestAppleMapsDirectionsToLocation:destination withName:name usingMode:mode completion:completion];
+            break;
+        case SettingsDirectionProviderGoogle:
+            [self requestGoogleMapsDirectionsToLocation:destination withName:name usingMode:mode completion:completion];
+            break;
+    }
+}
+
++ (void)requestAppleMapsDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:destination.coordinate];
     MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
     mapItem.name = name;
-    [mapItem openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey : mode}];
+    completion([mapItem openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey : mode}]);
+
+}
+
++ (void)requestGoogleMapsDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    components.scheme = @"comgooglemapsurl";
+    components.queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"directionsmode" value:DirectionsRequestGoogleMapsDirectionsModeFromMKLaunchOptionsDirectionsMode(mode)],
+        [NSURLQueryItem queryItemWithName:@"daddr" value:name],
+        [NSURLQueryItem queryItemWithName:@"center" value:[NSString stringWithFormat:@"%.4f,%.4f", destination.coordinate.latitude, destination.coordinate.longitude]]
+    ];
+
+    [[UIApplication sharedApplication] openURL:components.URL options:@{} completionHandler:completion];
 }
 
 + (void)requestUberRideToLocation:(CLLocation *)destination withName:(NSString *)name {

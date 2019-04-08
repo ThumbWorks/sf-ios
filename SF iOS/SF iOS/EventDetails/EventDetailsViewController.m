@@ -83,10 +83,15 @@ NS_ASSUME_NONNULL_END
 
     self.travelTimesView = [[TravelTimesView alloc]
                             initWithDirectionsRequestHandler:^(TransportType transportType) {
-        [DirectionsRequest requestDirectionsToLocation:self.event.location.location
-                                              withName:self.event.venueName
-                                    usingTransportType:transportType];
-    }];
+                                [DirectionsRequest requestDirectionsToLocation:self.event.location.location
+                                                                      withName:self.event.venueName
+                                                            usingTransportType:transportType
+                                                                    completion:^(BOOL success) {
+                                                                        if (!success) {
+                                                                            // show error
+                                                                        }
+                                                                    }];
+                            }];
     self.travelTimesView.layoutMargins = UIEdgeInsetsMake(32, 21, 21, 21);
     self.travelTimesView.translatesAutoresizingMaskIntoConstraints = false;
     [self.travelTimesView.heightAnchor constraintGreaterThanOrEqualToConstant:141].active = true;

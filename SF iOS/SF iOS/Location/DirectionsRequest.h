@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface DirectionsRequest : NSObject
 
-+ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(nullable NSString *)name usingTransportType:(TransportType)transportType;
++ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingTransportType:(TransportType)transportType completion:(void (^)(BOOL success))completion;
 
 @end
 NS_ASSUME_NONNULL_END
