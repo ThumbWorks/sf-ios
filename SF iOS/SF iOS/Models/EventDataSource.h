@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EventDataSourceDelegate
 - (void)willUpdateDataSource:(EventDataSource *)datasource;
-- (void)didUpdateDataSource:(EventDataSource *)datasource withNewData:(BOOL)hasNewData error:(nullable NSError *)error;
+- (void)didChangeDataSourceWithInsertions:(nullable NSArray <NSIndexPath *> *)insertions updates:(nullable NSArray <NSIndexPath *> *)updates deletions:(nullable NSArray <NSIndexPath *> *)deletions;
+- (void)didFailToUpdateWithError:(NSError *)error;
 @end
 
 @interface EventDataSource : NSObject

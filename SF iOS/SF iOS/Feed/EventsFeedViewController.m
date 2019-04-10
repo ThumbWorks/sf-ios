@@ -181,16 +181,23 @@ NS_ASSUME_NONNULL_END
     [self.tableView.refreshControl beginRefreshing];
 }
 
-- (void)didUpdateDataSource:(EventDataSource *)datasource withNewData:(BOOL)hasNewData error:(NSError *)error {
+- (void)didChangeDataSourceWithInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:deletions
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertRowsAtIndexPaths:insertions
+                              withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView reloadRowsAtIndexPaths:updates
+                              withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+        [self.tableView.refreshControl endRefreshing];
+    });
+}
+
+- (void)didFailToUpdateWithError:(nonnull NSError *)error {
+    [self handleError:error];
     [self.tableView.refreshControl endRefreshing];
-    
-    if (hasNewData) {
-        [self refresh];
-    }
-    
-    if (error) {
-        [self handleError:error];
-    }
 }
 
 //MARK: - Details View

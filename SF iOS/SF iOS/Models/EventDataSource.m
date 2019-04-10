@@ -19,7 +19,8 @@
 @property (nonatomic, assign) EventType eventType;
 @property (nonatomic) RLMResults<Event *> *events;
 @property (nonatomic) FeedFetchService *service;
-
+@property (nonatomic) RLMNotificationToken *notificationToken;
+@property (nonatomic) RLMRealm *realm;
 @end
 
 @implementation EventDataSource
@@ -27,11 +28,36 @@
 - (instancetype)initWithEventType:(EventType)eventType {
     if (self = [super init]) {
         self.eventType = eventType;
-        self.events = [Event allObjects];
+        self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
         self.service = [[FeedFetchService alloc] init];
         [self observeAppActivationEvents];
+        self.realm = [RLMRealm defaultRealm];
+        __weak typeof(self) welf = self;
+        self.notificationToken = [self.events
+                                  addNotificationBlock:^(RLMResults<Event *> *results, RLMCollectionChange *changes, NSError *error) {
+
+                                      if (error) {
+                                          [welf.delegate didFailToUpdateWithError:error];
+                                          return;
+                                      }
+                                      // Initial run of the query will pass nil for the change information
+                                      if (!changes) {
+                                          return;
+                                      }
+
+                                      NSArray *inserts = [changes insertionsInSection:0];
+                                      NSArray *deletions = [changes deletionsInSection:0];
+                                      NSArray *updates = [changes modificationsInSection:0];
+
+                                      [welf.delegate didChangeDataSourceWithInsertions:inserts
+                                                                               updates:updates deletions:deletions];
+                                  }];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self.notificationToken invalidate];
 }
 
 - (void)refresh {
@@ -39,7 +65,7 @@
     [self.service getFeedWithHandler:^(NSArray<Event *> * _Nonnull feedFetchItems, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didUpdateDataSource:welf withNewData:false error:error];
+                [welf.delegate didFailToUpdateWithError:error];
             });
             return;
         }
@@ -48,9 +74,6 @@
         [realm transactionWithBlock:^{
             [realm addOrUpdateObjects:feedFetchItems];
         }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [welf.delegate didUpdateDataSource:welf withNewData:true error:nil];
-        });
     }];
     [self.delegate willUpdateDataSource:self];
 }
@@ -77,3 +100,4 @@
 }
 
 @end
+
