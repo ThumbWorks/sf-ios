@@ -30,4 +30,11 @@
                                       longitude:self.longitude];
 }
 
+- (BOOL)isEqual:(Location *)object {
+    return [[self streetAddress] isEqualToString:[object streetAddress]];
+//    return [[self streetAddress] isEqualToString:[object streetAddress]] &&
+//    [self latitude] == [object latitude] &&
+//    [self longitude] == [object longitude];
+}
+
 @end
