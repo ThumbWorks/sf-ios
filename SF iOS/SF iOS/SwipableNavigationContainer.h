@@ -3,7 +3,6 @@
 //  SF iOS
 //
 //  Created by Zachary Drayer on 4/10/19.
-//  Copyright © 2019 Amit Jain. All rights reserved.
 //
 
 @import UIKit;

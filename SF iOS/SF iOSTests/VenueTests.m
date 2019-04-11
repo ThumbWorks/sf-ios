@@ -3,7 +3,6 @@
 //  SF iOSTests
 //
 //  Created by Roderic Campbell on 3/29/19.
-//  Copyright © 2019 Amit Jain. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
