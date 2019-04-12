@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8810A1E1F2BFE6900DCFEB6"
-               BuildableName = "SF iOS.app"
-               BlueprintName = "SF iOS"
+               BuildableName = "Coffup.app"
+               BlueprintName = "Coffup"
                ReferencedContainer = "container:SF iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -53,8 +53,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8810A1E1F2BFE6900DCFEB6"
-            BuildableName = "SF iOS.app"
-            BlueprintName = "SF iOS"
+            BuildableName = "Coffup.app"
+            BlueprintName = "Coffup"
             ReferencedContainer = "container:SF iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8810A1E1F2BFE6900DCFEB6"
-            BuildableName = "SF iOS.app"
-            BlueprintName = "SF iOS"
+            BuildableName = "Coffup.app"
+            BlueprintName = "Coffup"
             ReferencedContainer = "container:SF iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -95,8 +95,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8810A1E1F2BFE6900DCFEB6"
-            BuildableName = "SF iOS.app"
-            BlueprintName = "SF iOS"
+            BuildableName = "Coffup.app"
+            BlueprintName = "Coffup"
             ReferencedContainer = "container:SF iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

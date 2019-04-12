@@ -144,7 +144,7 @@
 		C8709C651F42632300DFE7A9 /* ImageStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		C87995CA1F312873002CA6C8 /* UserLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserLocation.h; sourceTree = "<group>"; };
 		C87995CB1F312873002CA6C8 /* UserLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserLocation.m; sourceTree = "<group>"; };
-		C8810A1F1F2BFE6900DCFEB6 /* SF iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SF iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8810A1F1F2BFE6900DCFEB6 /* Coffup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coffup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8810A221F2BFE6900DCFEB6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C8810A231F2BFE6900DCFEB6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C8810A2B1F2BFE6900DCFEB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -405,7 +405,7 @@
 		C8810A201F2BFE6900DCFEB6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C8810A1F1F2BFE6900DCFEB6 /* SF iOS.app */,
+				C8810A1F1F2BFE6900DCFEB6 /* Coffup.app */,
 				C8810A371F2BFE6900DCFEB6 /* SF iOSTests.xctest */,
 				C8810A421F2BFE6900DCFEB6 /* SF iOSUITests.xctest */,
 			);
@@ -592,9 +592,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C8810A1E1F2BFE6900DCFEB6 /* SF iOS */ = {
+		C8810A1E1F2BFE6900DCFEB6 /* Coffup */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C8810A4B1F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "SF iOS" */;
+			buildConfigurationList = C8810A4B1F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "Coffup" */;
 			buildPhases = (
 				3FCA513076AC4065762482C7 /* [CP] Check Pods Manifest.lock */,
 				C8810A1B1F2BFE6900DCFEB6 /* Sources */,
@@ -605,9 +605,9 @@
 			);
 			dependencies = (
 			);
-			name = "SF iOS";
+			name = Coffup;
 			productName = "SF iOS";
-			productReference = C8810A1F1F2BFE6900DCFEB6 /* SF iOS.app */;
+			productReference = C8810A1F1F2BFE6900DCFEB6 /* Coffup.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C8810A361F2BFE6900DCFEB6 /* SF iOSTests */ = {
@@ -695,7 +695,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C8810A1E1F2BFE6900DCFEB6 /* SF iOS */,
+				C8810A1E1F2BFE6900DCFEB6 /* Coffup */,
 				C8810A361F2BFE6900DCFEB6 /* SF iOSTests */,
 				C8810A411F2BFE6900DCFEB6 /* SF iOSUITests */,
 			);
@@ -875,12 +875,12 @@
 /* Begin PBXTargetDependency section */
 		C8810A391F2BFE6900DCFEB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C8810A1E1F2BFE6900DCFEB6 /* SF iOS */;
+			target = C8810A1E1F2BFE6900DCFEB6 /* Coffup */;
 			targetProxy = C8810A381F2BFE6900DCFEB6 /* PBXContainerItemProxy */;
 		};
 		C8810A441F2BFE6900DCFEB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C8810A1E1F2BFE6900DCFEB6 /* SF iOS */;
+			target = C8810A1E1F2BFE6900DCFEB6 /* Coffup */;
 			targetProxy = C8810A431F2BFE6900DCFEB6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1115,7 +1115,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C8810A4B1F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "SF iOS" */ = {
+		C8810A4B1F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "Coffup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8810A4C1F2BFE6900DCFEB6 /* Debug */,
