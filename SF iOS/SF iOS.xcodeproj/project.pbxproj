@@ -1066,7 +1066,7 @@
 			baseConfigurationReference = 757F9676D2866F448FD26FB1 /* Pods-SF iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = U699U9MM24;
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSTests";
@@ -1081,7 +1081,7 @@
 			baseConfigurationReference = E76C9B6B05C350D2C01B6FE4 /* Pods-SF iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = U699U9MM24;
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSTests";
@@ -1095,7 +1095,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC27CEEDAEC1D2083F78C4A2 /* Pods-SF iOSUITests.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = U699U9MM24;
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOSUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSUITests";
@@ -1110,7 +1110,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2DA14BB2045FEFDFE19FA8A /* Pods-SF iOSUITests.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = U699U9MM24;
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOSUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSUITests";
