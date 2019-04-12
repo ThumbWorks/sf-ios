@@ -8,16 +8,20 @@
 
 #import <XCTest/XCTest.h>
 #import "Event.h"
+#import "Venue.h"
 @interface EventTests : XCTestCase
 
 @property (nonatomic) Event *event;
+@property (nonatomic) Event *secondEvent;
 
 @end
 
 @implementation EventTests
 - (void)setUp {
     [super setUp];
-    NSDictionary *location = @{};
+    NSDictionary *location = @{@"formatted_address": @"736 Divisadero St (btwn Grove St Fulton St), San Francisco, CA 94117, United States",
+                               @"latitude": @(37.77632881728594),
+                               @"longitude": @(-122.43802428245543)};
     NSDictionary *venue = @{
                             @"name": @"The Venue Name",
                             @"location": location,
@@ -34,6 +38,9 @@
     self.event = [[Event alloc] initWithDictionary:dict];
     self.event.type = EventTypeSFCoffee;
     self.event.date = [NSDate new];
+    self.secondEvent = [[Event alloc] initWithDictionary:dict];
+    self.secondEvent.type = EventTypeSFCoffee;
+    self.secondEvent.date = self.event.date;
 }
 
 - (void)testName {
@@ -55,5 +62,43 @@
 }
 
 
+- (void)testEqual {
+    XCTAssert([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualNames {
+    self.secondEvent.name = @"something else";
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualDate {
+    self.secondEvent.date = [self.secondEvent.date dateByAddingTimeInterval:1];
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualDuration {
+    self.secondEvent.duration = 123;
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualVenue {
+    self.secondEvent.venue = [[Venue alloc] init];
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualEventID {
+    self.secondEvent.eventID = @"";
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualEndDate {
+    self.secondEvent.endDate = [self.event.endDate dateByAddingTimeInterval:1];
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
+
+- (void)testEqualImageFileURLString {
+    self.secondEvent.imageFileURLString = @"some url string";
+    XCTAssertFalse([self.event isEqual:self.secondEvent]);
+}
 
 @end

@@ -10,6 +10,7 @@
 #import "Location.h"
 @interface LocationTests : XCTestCase
 @property (nonatomic) Location *location;
+@property (nonatomic) Location *secondLocation;
 @end
 
 @implementation LocationTests
@@ -20,6 +21,7 @@
                                    @"longitude" : @35
                                    };
     self.location = [[Location alloc] initWithDictionary:locationDict];
+    self.secondLocation = [[Location alloc] initWithDictionary:locationDict];
 }
 
 - (void)testLatitude {
@@ -32,4 +34,22 @@
 - (void)testTitle {
     XCTAssertEqual(self.location.streetAddress, @"This is the address");
 }
+
+- (void)testEqualStreetAddress {
+    self.secondLocation.streetAddress = @"something different";
+    XCTAssertFalse([self.location isEqual:self.secondLocation]);
+}
+
+// Currently the backend doesn't cache the location as it's own object. As the location given by foursquare changes somewhat frequently we don't use that in our diff calculation.
+
+//- (void)testEqualLatitude {
+//    self.secondLocation.latitude = 123;
+//    XCTAssertFalse([self.location isEqual:self.secondLocation]);
+//}
+//
+//- (void)testEqualLongitude {
+//    self.secondLocation.longitude = 123;
+//    XCTAssertFalse([self.location isEqual:self.secondLocation]);
+//}
+
 @end
