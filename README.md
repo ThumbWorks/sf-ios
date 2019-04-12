@@ -22,3 +22,5 @@ The app fetches data from [CoffeeCoffeeCoffee](http://coffeecoffeecoffee.coffee)
 ## Continuous Integration
 
 We use [Bitrise](https://app.bitrise.io/referral/558bfe07e92b5498) for CI. If you'd like to help with that or learn more please use the link for referral goodies.
+
+[![Build Status](https://app.bitrise.io/app/3cef125d856baef9/status.svg?token=OgCXUkVmOo5Sbl4dMSVXVA&branch=master)](https://app.bitrise.io/app/3cef125d856baef9)
