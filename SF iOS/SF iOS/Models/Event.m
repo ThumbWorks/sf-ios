@@ -82,4 +82,16 @@
     [self isActive] == [object isActive] &&
     [[self imageFileURLString] isEqualToString:[object imageFileURLString]];
 }
+
+-(NSUInteger)hash {
+    return [[self eventID] hash] +
+    [self type] +
+    [[self date] hash] +
+    [self duration] +
+    [[self venue] hash] +
+    [[self name] hash] +
+    [[self endDate] hash] +
+    [self isActive] +
+    [[self imageFileURLString] hash];
+}
 @end

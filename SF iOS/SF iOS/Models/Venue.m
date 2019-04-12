@@ -35,4 +35,8 @@
     [[self name] isEqualToString:[object name]] &&
     [[self location] isEqual:[object location]];
 }
+
+-(NSUInteger)hash {
+    return [[self venueURLString] hash] + [[self name] hash] + [[self location] hash];
+}
 @end

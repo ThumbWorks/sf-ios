@@ -37,4 +37,7 @@
 //    [self longitude] == [object longitude];
 }
 
+-(NSUInteger)hash {
+    return [[self streetAddress] hash];
+}
 @end
