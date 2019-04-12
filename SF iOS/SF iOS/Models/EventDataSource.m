@@ -71,8 +71,30 @@
         }
         // Persist your data easily
         RLMRealm *realm = [RLMRealm defaultRealm];
+
+        // Fetch all existing events from the realm and map by {eventID : Event}
+        NSMutableDictionary *existingEvents = [[NSMutableDictionary alloc] init];
+        for (Event *object in [Event allObjects]) {
+            [existingEvents setObject:object forKey:object.eventID];
+        }
+
+        // determine if the
+        NSMutableArray *addToRealm = [NSMutableArray array];
+        for (Event *parsedEvent in feedFetchItems) {
+            Event *existingEvent = existingEvents[parsedEvent.eventID];
+            if (existingEvent) {
+                // If the event exists in the realm AND the parsed event is different, add it to the realm
+                if(![existingEvent isEqual:parsedEvent]) {
+                    [addToRealm addObject:parsedEvent];
+                }
+            } else {
+                // if this is an item that is not in the realm, add it
+                [addToRealm addObject:parsedEvent];
+            }
+        }
+
         [realm transactionWithBlock:^{
-            [realm addOrUpdateObjects:feedFetchItems];
+            [realm addOrUpdateObjects:addToRealm];
         }];
     }];
     [self.delegate willUpdateDataSource:self];
