@@ -21,6 +21,7 @@
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
 @property (nonatomic) RLMRealm *realm;
+- (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
 
 @implementation EventDataSource
@@ -28,6 +29,7 @@
 - (instancetype)initWithEventType:(EventType)eventType {
     if (self = [super init]) {
         self.eventType = eventType;
+        self.searchQuery = @"";
         self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
         self.service = [[FeedFetchService alloc] init];
         [self observeAppActivationEvents];
@@ -60,6 +62,32 @@
     [self.notificationToken invalidate];
 }
 
+/// Events array
+/// The getter will return predicated if the _searchQuery is set
+///
+/// - returns: RLMResults<Event *> * Events array
+- (RLMResults<Event *> *)events {
+    if (self.searchQuery.length > 0) {
+        return [self filterEventsWithSearchTerm:self.searchQuery];
+    }
+    return [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
+}
+
+
+
+/// Maps [Event] by {eventID : Event}
+///
+/// - parameters:
+///     - objects: RLMResults<Event *> The events to be mapped
+/// - returns: NSMutableDictionary<[eventID<NSString> : Event *]>
+- (NSMutableDictionary *)mapEventIDs:(RLMResults<Event *> *)objects {
+    NSMutableDictionary *mappedEvents = [[NSMutableDictionary alloc] init];
+    for (Event *object in objects) {
+        [mappedEvents setObject:object forKey:object.eventID];
+    }
+    return mappedEvents;
+}
+
 - (void)refresh {
     __weak typeof(self) welf = self;
     [self.service getFeedWithHandler:^(NSArray<Event *> * _Nonnull feedFetchItems, NSError * _Nullable error) {
@@ -71,12 +99,7 @@
         }
         // Persist your data easily
         RLMRealm *realm = [RLMRealm defaultRealm];
-
-        // Fetch all existing events from the realm and map by {eventID : Event}
-        NSMutableDictionary *existingEvents = [[NSMutableDictionary alloc] init];
-        for (Event *object in [Event allObjects]) {
-            [existingEvents setObject:object forKey:object.eventID];
-        }
+        NSMutableDictionary *existingEvents = [self mapEventIDs:[Event allObjects]];
 
         // determine if the
         NSMutableArray *addToRealm = [NSMutableArray array];
@@ -115,6 +138,18 @@
 
 - (Event *)eventAtIndex:(NSUInteger)index {
     return self.events[index];
+}
+
+/// Updates EventDataSoruce [Event] by text search or gets all events if there is no search term
+///
+/// - paramaters:
+///     -searchTerm: string to search
+/// - returns: RLMResults<Event *>* array of Events
+- (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm {    
+    NSPredicate *coffeeFilter = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@ OR venue.name CONTAINS[c] %@", searchTerm, searchTerm];
+    RLMResults<Event *> *filteredCoffee = [[Event objectsWithPredicate:coffeeFilter]
+                                           sortedResultsUsingKeyPath:@"date" ascending:false];
+    return filteredCoffee;
 }
 
 - (NSUInteger)numberOfEvents {

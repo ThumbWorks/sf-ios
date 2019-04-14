@@ -25,12 +25,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hasMoreEvents;
 @property (nonatomic, readonly, assign) NSUInteger numberOfEvents;
 
+/// Setting the searchQuery will filter events by Event.name
+@property (nonatomic, copy) NSString *searchQuery;
+
 /// Index of the next upcoming event. If not found, returns NSNotFound
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentEvent;
 
 - (instancetype)initWithEventType:(EventType)eventType;
 - (void)refresh;
 - (Event *)eventAtIndex:(NSUInteger)index;
-
+- (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
 NS_ASSUME_NONNULL_END

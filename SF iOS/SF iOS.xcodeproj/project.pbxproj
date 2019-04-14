@@ -115,7 +115,7 @@
 		B2DA14BB2045FEFDFE19FA8A /* Pods-SF iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SF iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-SF iOSUITests/Pods-SF iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B59B6549D07F46BFC632E473 /* libPods-SF iOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SF iOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C825162E1F2FA260006B9D7E /* EventsFeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsFeedViewController.h; sourceTree = "<group>"; };
-		C825162F1F2FA260006B9D7E /* EventsFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsFeedViewController.m; sourceTree = "<group>"; };
+		C825162F1F2FA260006B9D7E /* EventsFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsFeedViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		C82516321F2FBBD2006B9D7E /* FeedItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedItemCell.h; sourceTree = "<group>"; };
 		C82516331F2FBBD2006B9D7E /* FeedItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedItemCell.m; sourceTree = "<group>"; };
 		C82516361F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIStackView+ConvenienceInitializer.h"; sourceTree = "<group>"; };
@@ -1049,7 +1049,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
-				DEVELOPMENT_TEAM = F4WTN36U2F;
+				DEVELOPMENT_TEAM = UB37VMGP6E;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1069,7 +1069,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
-				DEVELOPMENT_TEAM = F4WTN36U2F;
+				DEVELOPMENT_TEAM = UB37VMGP6E;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
