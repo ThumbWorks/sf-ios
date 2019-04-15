@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_END
     self.extendedLayoutIncludesOpaqueBars = true;
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = self.event.venueName;
+    titleLabel.text = self.event.name;
     titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];
     titleLabel.textColor = [UIColor blackColor];
     
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_END
     subtitleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
     subtitleLabel.textColor = [UIColor abbey];
     subtitleLabel.attributedText = [NSAttributedString attributedDetailsStringFromEvent:self.event];
-    
+    subtitleLabel.numberOfLines = 2;
     UIStackView *titleStack = [[UIStackView alloc] initWithArrangedSubviews:@[titleLabel, subtitleLabel]
                                                                        axis:UILayoutConstraintAxisVertical
                                                                distribution:UIStackViewDistributionEqualSpacing

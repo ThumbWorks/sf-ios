@@ -8,7 +8,8 @@
 
 #import "FeedItem.h"
 #import "NSDate+Utilities.h"
-#import "NSAttributedString+Kerning.h"
+#import "NSAttributedString+EventDetails.h"
+#import "Venue.h"
 
 @interface FeedItem ()
 
@@ -39,8 +40,8 @@
         time = [NSDate timeslotStringFromStartDate:event.date duration:event.duration];
     }
     
-    self.subtitle = [NSAttributedString kernedStringFromString:[time uppercaseString]];
-    
+    self.subtitle = [NSAttributedString attributedDetailsStringFromEvent:event];
+
     return self;
 }
 
