@@ -8,21 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "Event.h"
+#import "FeedProvider.h"
+#import "FeedProviderDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 @class EventDataSource;
 
-@protocol EventDataSourceDelegate
-- (void)willUpdateDataSource:(EventDataSource *)datasource;
-- (void)didChangeDataSourceWithInsertions:(nullable NSArray <NSIndexPath *> *)insertions updates:(nullable NSArray <NSIndexPath *> *)updates deletions:(nullable NSArray <NSIndexPath *> *)deletions;
-- (void)didFailToUpdateWithError:(NSError *)error;
-@end
+@interface EventDataSource : NSObject <FeedProvider>
 
-@interface EventDataSource : NSObject
-
-@property (nonatomic, weak) id<EventDataSourceDelegate> delegate;
-@property (nonatomic, assign) BOOL hasMoreEvents;
+@property (nonatomic, weak) id<FeedProviderDelegate> delegate;
 @property (nonatomic, readonly, assign) NSUInteger numberOfEvents;
 
 /// Setting the searchQuery will filter events by Event.name
@@ -32,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentEvent;
 
 - (instancetype)initWithEventType:(EventType)eventType;
-- (void)refresh;
 - (Event *)eventAtIndex:(NSUInteger)index;
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end

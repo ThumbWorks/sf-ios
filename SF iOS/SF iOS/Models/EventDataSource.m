@@ -90,6 +90,7 @@
 
 - (void)refresh {
     __weak typeof(self) welf = self;
+
     [self.service getFeedWithHandler:^(NSArray<Event *> * _Nonnull feedFetchItems, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -167,6 +168,16 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:NSNotification.applicationBecameActiveNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [welf refresh];
     }];
+}
+
+/// FeedProvider protocol
+
+- (NSUInteger)numberOfItems {
+    return self.numberOfEvents;
+}
+
+- (NSUInteger)indexOfCurrentItem {
+    return self.indexOfCurrentEvent;
 }
 
 @end
