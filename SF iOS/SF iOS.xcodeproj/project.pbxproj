@@ -11,6 +11,10 @@
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
 		19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */; };
+		5F175B992267D2BA00246C08 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B982267D2BA00246C08 /* Group.m */; };
+		5F175B9B2267D47E00246C08 /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9A2267D47E00246C08 /* GroupTests.m */; };
+		5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */; };
+		5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA22267E60E00246C08 /* GroupFetchService.m */; };
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
@@ -95,6 +99,14 @@
 		19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		19DD32FA225EFE9700C0EE5A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		238F3C1035E918F044128123 /* libPods-SF iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SF iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F175B972267D2BA00246C08 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		5F175B982267D2BA00246C08 /* Group.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		5F175B9A2267D47E00246C08 /* GroupTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupTests.m; sourceTree = "<group>"; };
+		5F175B9D2267D6F200246C08 /* GroupFetchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupFetchOperation.h; sourceTree = "<group>"; };
+		5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupFetchOperation.m; sourceTree = "<group>"; };
+		5F175BA02267D71100246C08 /* GroupCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupCompletion.h; sourceTree = "<group>"; };
+		5F175BA12267E60E00246C08 /* GroupFetchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupFetchService.h; sourceTree = "<group>"; };
+		5F175BA22267E60E00246C08 /* GroupFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupFetchService.m; sourceTree = "<group>"; };
 		5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "secrets-example.plist"; sourceTree = "<group>"; };
 		5F38209F224C90B400862294 /* FeedFetchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchOperation.h; sourceTree = "<group>"; };
 		5F3820A0224C90B400862294 /* FeedFetchOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchOperation.m; sourceTree = "<group>"; };
@@ -268,6 +280,18 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		5F175B9C2267D6D600246C08 /* GroupFetch */ = {
+			isa = PBXGroup;
+			children = (
+				5F175B9D2267D6F200246C08 /* GroupFetchOperation.h */,
+				5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */,
+				5F175BA02267D71100246C08 /* GroupCompletion.h */,
+				5F175BA12267E60E00246C08 /* GroupFetchService.h */,
+				5F175BA22267E60E00246C08 /* GroupFetchService.m */,
+			);
+			path = GroupFetch;
+			sourceTree = "<group>";
+		};
 		5F38209E224C908600862294 /* FeedFetch */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +403,7 @@
 				C89401021F36C273001E8E27 /* DirectionsRequest.h */,
 				C89401031F36C273001E8E27 /* DirectionsRequest.m */,
 				C89401051F36C2A0001E8E27 /* TransportType.h */,
+				5F175B9C2267D6D600246C08 /* GroupFetch */,
 				C8CC493C1F3307C70064B03E /* TravelTime */,
 			);
 			path = Location;
@@ -483,6 +508,7 @@
 				5FECEFD8224EE87D00AA8A25 /* EventTests.m */,
 				5FECEFDA224EEB3100AA8A25 /* VenueTests.m */,
 				5FECEFDC224EEBE900AA8A25 /* LocationTests.m */,
+				5F175B9A2267D47E00246C08 /* GroupTests.m */,
 			);
 			path = "SF iOSTests";
 			sourceTree = "<group>";
@@ -509,6 +535,8 @@
 				C89A8DE21F2D926A007A5B0C /* EventDataSource.m */,
 				5FECEFD2224ECACC00AA8A25 /* Venue.h */,
 				5FECEFD3224ECACC00AA8A25 /* Venue.m */,
+				5F175B972267D2BA00246C08 /* Group.h */,
+				5F175B982267D2BA00246C08 /* Group.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -848,6 +876,7 @@
 				C86DD43B1F3A4A6200C58723 /* TravelTime+Arrival.m in Sources */,
 				C8810A321F2BFE6900DCFEB6 /* main.m in Sources */,
 				19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */,
+				5F175B992267D2BA00246C08 /* Group.m in Sources */,
 				C82516301F2FA260006B9D7E /* EventsFeedViewController.m in Sources */,
 				C89A8DDF1F2D8BCF007A5B0C /* Event.m in Sources */,
 				5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */,
@@ -856,6 +885,7 @@
 				C8CEC9841F3AB342002A8D88 /* UIViewController+StatusBarBackground.m in Sources */,
 				C8CC49491F33B9150064B03E /* TravelTimesView.m in Sources */,
 				C89401041F36C273001E8E27 /* DirectionsRequest.m in Sources */,
+				5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */,
 				C88A19C61F2DC52D00C08187 /* NSError+Constructor.m in Sources */,
 				19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */,
 				C86DD4381F3A3D3100C58723 /* NSAttributedString+Kerning.m in Sources */,
@@ -867,6 +897,7 @@
 				5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */,
 				C86DD4351F3A389B00C58723 /* NSAttributedString+EventDetails.m in Sources */,
 				5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */,
+				5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */,
 				C86E386B1F31B78300E35EBF /* UIImage+URL.m in Sources */,
 				C82516381F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m in Sources */,
 				C8CC494C1F33BA420064B03E /* TravelTimeView.m in Sources */,
@@ -895,6 +926,7 @@
 				5FECEFDD224EEBE900AA8A25 /* LocationTests.m in Sources */,
 				C88A19C81F2EC56600C08187 /* EventDataSourceTests.m in Sources */,
 				5FECEFDB224EEB3100AA8A25 /* VenueTests.m in Sources */,
+				5F175B9B2267D47E00246C08 /* GroupTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
