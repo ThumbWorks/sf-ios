@@ -45,6 +45,7 @@
                                           [welf.delegate didChangeDataSourceWithInsertions:nil
                                                                                    updates:nil
                                                                                  deletions:nil];
+                                          return;
                                       }
 
                                       NSArray *inserts = [changes insertionsInSection:0];
