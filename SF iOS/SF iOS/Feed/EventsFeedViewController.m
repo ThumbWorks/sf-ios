@@ -16,7 +16,7 @@
 #import "ImageStore.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface EventsFeedViewController () <EventDataSourceDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
+@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic) EventDataSource *dataSource;
 @property (nonatomic) UITableView *tableView;
@@ -271,9 +271,9 @@ NS_ASSUME_NONNULL_END
     [self handleFilterResults];
 }
 
-//MARK: - EventDataSourceDelegate
+//MARK: - DataSourceDelegate
 
-- (void)willUpdateDataSource:(EventDataSource *)datasource {
+- (void)willUpdateDataSource:(id<FeedProvider>)datasource {
     [self.tableView.refreshControl beginRefreshing];
 }
 

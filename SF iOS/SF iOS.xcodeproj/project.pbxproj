@@ -15,6 +15,7 @@
 		5F175B9B2267D47E00246C08 /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9A2267D47E00246C08 /* GroupTests.m */; };
 		5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */; };
 		5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA22267E60E00246C08 /* GroupFetchService.m */; };
+		5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA52267EB3B00246C08 /* GroupDataSource.m */; };
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
@@ -109,6 +110,10 @@
 		5F175BA02267D71100246C08 /* GroupCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupCompletion.h; sourceTree = "<group>"; };
 		5F175BA12267E60E00246C08 /* GroupFetchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupFetchService.h; sourceTree = "<group>"; };
 		5F175BA22267E60E00246C08 /* GroupFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupFetchService.m; sourceTree = "<group>"; };
+		5F175BA42267EB3B00246C08 /* GroupDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupDataSource.h; sourceTree = "<group>"; };
+		5F175BA52267EB3B00246C08 /* GroupDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupDataSource.m; sourceTree = "<group>"; };
+		5F175BA72267EB6600246C08 /* FeedProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedProvider.h; sourceTree = "<group>"; };
+		5F175BA82267F08200246C08 /* FeedProviderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedProviderDelegate.h; sourceTree = "<group>"; };
 		5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "secrets-example.plist"; sourceTree = "<group>"; };
 		5F38209F224C90B400862294 /* FeedFetchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchOperation.h; sourceTree = "<group>"; };
 		5F3820A0224C90B400862294 /* FeedFetchOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchOperation.m; sourceTree = "<group>"; };
@@ -548,6 +553,10 @@
 				5FECEFD3224ECACC00AA8A25 /* Venue.m */,
 				5F175B972267D2BA00246C08 /* Group.h */,
 				5F175B982267D2BA00246C08 /* Group.m */,
+				5F175BA42267EB3B00246C08 /* GroupDataSource.h */,
+				5F175BA52267EB3B00246C08 /* GroupDataSource.m */,
+				5F175BA72267EB6600246C08 /* FeedProvider.h */,
+				5F175BA82267F08200246C08 /* FeedProviderDelegate.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -919,6 +928,7 @@
 				C8CC49431F330F360064B03E /* AsyncOperation.m in Sources */,
 				E2EDC106225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m in Sources */,
 				5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */,
+				5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */,
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,
 				C8CC493B1F3303170064B03E /* TravelTimeService.m in Sources */,
