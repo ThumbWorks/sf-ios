@@ -17,7 +17,9 @@
 #import "NSUserDefaults+Settings.h"
 #import <UserNotifications/UserNotifications.h>
 #import "ImageBasedCollectionViewCell.h"
-
+#import "GroupCollectionViewController.h"
+#import "GroupSelectionTableViewCell.h"
+#import "GroupDataSource.h"
 typedef NS_ENUM(NSInteger, FeedSections) {
     FeedSectionsGroups,
     FeedSectionsEvents,
@@ -28,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic) EventDataSource *dataSource;
+@property (nonatomic) GroupCollectionViewController *groupController;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic) ImageStore *imageStore;
@@ -164,7 +167,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.feedItemCellClass)];
-    [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.groupItemCellClass)];
+    [self.tableView registerClass:self.groupItemCellClass forCellReuseIdentifier:NSStringFromClass(self.groupItemCellClass)];
     self.tableView.rowHeight = self.cellHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
@@ -257,7 +260,7 @@ NS_ASSUME_NONNULL_END
     case FeedSectionsEvents:
         return self.dataSource.numberOfEvents;
     case FeedSectionsGroups:
-        return 0;
+        return 1;
     }
     return 0;
 }
@@ -296,8 +299,24 @@ NS_ASSUME_NONNULL_END
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView groupCellAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.groupItemCellClass) forIndexPath:indexPath];
+    GroupSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.groupItemCellClass) forIndexPath:indexPath];
+    GroupDataSource *dataSource = [[GroupDataSource alloc] init];
+    self.groupController = [[GroupCollectionViewController alloc] initWithDataSource:dataSource collectionView:cell.collectionView];
+    dataSource.delegate = self.groupController;
+    cell.collectionView.dataSource = self.groupController;
+    cell.collectionView.delegate = self.groupController;
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case FeedSectionsEvents:
+            return self.cellHeight;
+        case FeedSectionsGroups:
+            return self.groupsHeight;
+        default:
+            return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -316,7 +335,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (Class)groupItemCellClass {
-    return [UITableViewCell class];
+    return [GroupSelectionTableViewCell class];
 }
 
 //MARK: - UITableViewDelegate
@@ -446,6 +465,10 @@ static CGFloat const eventCellAspectRatio = 1.352;
 
 - (CGFloat)cellHeight{
     return [UIScreen mainScreen].bounds.size.width * eventCellAspectRatio;
+}
+
+- (CGFloat)groupsHeight {
+    return 80;
 }
 
 //MARK: - Error Handling

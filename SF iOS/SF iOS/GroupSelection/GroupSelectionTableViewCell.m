@@ -6,7 +6,7 @@
 //
 
 #import "GroupSelectionTableViewCell.h"
-#import "ImageBasedCollectionViewCell.h"
+#import "BasicTextCollectionViewCell.h"
 
 @interface GroupSelectionTableViewCell()
 @property (nonatomic) UICollectionView *collectionView;
@@ -14,17 +14,29 @@
 
 @implementation GroupSelectionTableViewCell
 
-- (instancetype)init {
-    self = [super init];
+- (void)setupConstraints {
+    [self.collectionView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant: 20].active = true;
+    [self.collectionView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant: -20].active = true;
+    [self.collectionView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
+    [self.collectionView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
+        layout.minimumInteritemSpacing = 8.0;
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                             collectionViewLayout:layout];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.showsHorizontalScrollIndicator = false;
         _collectionView.translatesAutoresizingMaskIntoConstraints = false;
         [self.contentView addSubview:_collectionView];
-        [_collectionView.topAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.topAnchor].active = true;
-        [_collectionView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.bottomAnchor].active = true;
-        [_collectionView.leftAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leftAnchor].active = true;
-        [_collectionView.rightAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.rightAnchor].active = true;
-        [_collectionView registerClass:[ImageBasedCollectionViewCell class] forCellWithReuseIdentifier:[ImageBasedCollectionViewCell reuseID]];
+        [self setupConstraints];
+        [_collectionView registerClass:[BasicTextCollectionViewCell class]
+            forCellWithReuseIdentifier:[BasicTextCollectionViewCell reuseID]];
     }
     return self;
 }

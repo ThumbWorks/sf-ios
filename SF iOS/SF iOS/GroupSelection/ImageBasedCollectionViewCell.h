@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageBasedCollectionViewCell : UICollectionViewCell
 - (void)updateWithImage:(UIImage *)image title:(NSString *)title;
 + (NSString *)reuseID;
+
 @end
 
 NS_ASSUME_NONNULL_END
