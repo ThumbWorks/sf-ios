@@ -16,11 +16,13 @@
 		5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */; };
 		5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA22267E60E00246C08 /* GroupFetchService.m */; };
 		5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA52267EB3B00246C08 /* GroupDataSource.m */; };
+		5F2CFE91226910B3004DB902 /* GroupSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CFE90226910B3004DB902 /* GroupSelectionTableViewCell.m */; };
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
 		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
+		5F6C1F7B2267FC9F00D96330 /* ImageBasedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */; };
 		5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD3224ECACC00AA8A25 /* Venue.m */; };
 		5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A5C1F2C043600DCFEB6 /* Location.m */; };
 		5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */; };
@@ -114,6 +116,8 @@
 		5F175BA52267EB3B00246C08 /* GroupDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupDataSource.m; sourceTree = "<group>"; };
 		5F175BA72267EB6600246C08 /* FeedProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedProvider.h; sourceTree = "<group>"; };
 		5F175BA82267F08200246C08 /* FeedProviderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedProviderDelegate.h; sourceTree = "<group>"; };
+		5F2CFE8F226910B3004DB902 /* GroupSelectionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupSelectionTableViewCell.h; sourceTree = "<group>"; };
+		5F2CFE90226910B3004DB902 /* GroupSelectionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupSelectionTableViewCell.m; sourceTree = "<group>"; };
 		5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "secrets-example.plist"; sourceTree = "<group>"; };
 		5F38209F224C90B400862294 /* FeedFetchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchOperation.h; sourceTree = "<group>"; };
 		5F3820A0224C90B400862294 /* FeedFetchOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchOperation.m; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		5F868EA42273C10600CEEBCA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5FCD225B226E898A002A85B8 /* Analytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
 		5FCD225C226E898A002A85B8 /* Analytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
+		5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageBasedCollectionViewCell.h; sourceTree = "<group>"; };
+		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5FECEFD2224ECACC00AA8A25 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		5FECEFD3224ECACC00AA8A25 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		5FECEFD8224EE87D00AA8A25 /* EventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTests.m; sourceTree = "<group>"; };
@@ -324,6 +330,17 @@
 			path = FoursquareFetch;
 			sourceTree = "<group>";
 		};
+		5F6C1F7C2267FD2500D96330 /* GroupSelection */ = {
+			isa = PBXGroup;
+			children = (
+				5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */,
+				5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */,
+				5F2CFE8F226910B3004DB902 /* GroupSelectionTableViewCell.h */,
+				5F2CFE90226910B3004DB902 /* GroupSelectionTableViewCell.m */,
+			);
+			path = GroupSelection;
+			sourceTree = "<group>";
+		};
 		5FF08D062261015E0091FAC8 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +506,7 @@
 		C8810A211F2BFE6900DCFEB6 /* SF iOS */ = {
 			isa = PBXGroup;
 			children = (
+				5F6C1F7C2267FD2500D96330 /* GroupSelection */,
 				C8709C631F42630B00DFE7A9 /* ImageStore */,
 				C83079FC1F3649EF005CB3D2 /* Secrets */,
 				C86E38651F31B75700E35EBF /* RemoteUIImage */,
@@ -903,6 +921,7 @@
 				5FECEFD7224ED01800AA8A25 /* UserLocation.m in Sources */,
 				C825164D1F3054F6006B9D7E /* MapView.m in Sources */,
 				C8CEC9841F3AB342002A8D88 /* UIViewController+StatusBarBackground.m in Sources */,
+				5F6C1F7B2267FC9F00D96330 /* ImageBasedCollectionViewCell.m in Sources */,
 				C8CC49491F33B9150064B03E /* TravelTimesView.m in Sources */,
 				C89401041F36C273001E8E27 /* DirectionsRequest.m in Sources */,
 				5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */,
@@ -930,6 +949,7 @@
 				5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */,
 				5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */,
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
+				5F2CFE91226910B3004DB902 /* GroupSelectionTableViewCell.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,
 				C8CC493B1F3303170064B03E /* TravelTimeService.m in Sources */,
 				5FCD225D226E898A002A85B8 /* Analytics.m in Sources */,
