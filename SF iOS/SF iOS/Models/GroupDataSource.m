@@ -54,8 +54,9 @@
 }
 
 - (Group *)groupAtIndex:(NSUInteger)index {
-    return [[Group alloc] initWithDictionary:@{}]; // NO
+    return self.groups[index];
 }
+
 - (NSUInteger)indexOfCurrentItem {
     // TODO when we set the current feed
     return 0;
@@ -64,6 +65,7 @@
 - (NSUInteger)numberOfItems {
     return self.groups.count;
 }
+
 
 - (void)refresh {
     __weak typeof(self) welf = self;
@@ -74,8 +76,42 @@
             });
             return;
         }
-        NSLog(@"Groups %@", groupFetchItems);
-    }];
+
+        // Persist your data easily
+        RLMRealm *realm = [RLMRealm defaultRealm];
+
+        // Fetch all existing events from the realm and map by {eventID : Event}
+        NSMutableDictionary *existingEvents = [[NSMutableDictionary alloc] init];
+        for (Group *object in [Group allObjects]) {
+            [existingEvents setObject:object forKey:object.groupID];
+        }
+
+        // TODO delete items
+        
+        // determine if the
+        NSMutableArray *addToRealm = [NSMutableArray array];
+        for (Group *parsedEvent in groupFetchItems) {
+            Group *existingEvent = existingEvents[parsedEvent.groupID];
+            if (existingEvent) {
+                // If the event exists in the realm AND the parsed event is different, add it to the realm
+                if(![existingEvent isEqual:parsedEvent]) {
+                    [addToRealm addObject:parsedEvent];
+                }
+            } else {
+                // if this is an item that is not in the realm, add it
+                [addToRealm addObject:parsedEvent];
+            }
+        }
+
+        if ([addToRealm count]) {
+            [realm transactionWithBlock:^{
+                [realm addOrUpdateObjects:addToRealm];
+            }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [welf.delegate didChangeDataSourceWithInsertions:nil updates:nil deletions:nil];
+            });
+        }    }];
 }
 
 - (void)observeAppActivationEvents {
