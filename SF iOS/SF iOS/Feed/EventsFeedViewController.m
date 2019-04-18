@@ -16,6 +16,13 @@
 #import "ImageStore.h"
 #import "NSUserDefaults+Settings.h"
 #import <UserNotifications/UserNotifications.h>
+#import "ImageBasedCollectionViewCell.h"
+
+typedef NS_ENUM(NSInteger, FeedSections) {
+    FeedSectionsGroups,
+    FeedSectionsEvents,
+    FeedSectionsCount
+};
 
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
@@ -157,6 +164,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.feedItemCellClass)];
+    [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.groupItemCellClass)];
     self.tableView.rowHeight = self.cellHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
@@ -241,22 +249,28 @@ NS_ASSUME_NONNULL_END
 //MARK: - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return FeedSectionsCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.numberOfEvents;
+    switch (section) {
+    case FeedSectionsEvents:
+        return self.dataSource.numberOfEvents;
+    case FeedSectionsGroups:
+        return 0;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView eventCellAtIndexPath:(NSIndexPath *)indexPath {
     FeedItemCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.feedItemCellClass) forIndexPath:indexPath];
     if (!cell) {
         NSAssert(false, @"cell couldn't be dequeued");
     }
-    
+
     FeedItem *item = [[FeedItem alloc] initWithEvent:[self.dataSource eventAtIndex:indexPath.row]];
     [cell configureWithFeedItem:item];
-    
+
     UIImage *image = [self.imageStore imageForKey:[item.coverImageFileURL absoluteString]];
     if (image) {
         [cell setCoverToImage:image];
@@ -277,12 +291,32 @@ NS_ASSUME_NONNULL_END
              [(FeedItemCell *)[tableView cellForRowAtIndexPath:indexPath] setCoverToImage:image];
          }];
     }
-    
+
     return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView groupCellAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.groupItemCellClass) forIndexPath:indexPath];
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case FeedSectionsEvents:
+            return [self tableView:tableView eventCellAtIndexPath:indexPath];
+        case FeedSectionsGroups:
+            return [self tableView:tableView groupCellAtIndexPath:indexPath];
+        default:
+            return nil;
+    }
 }
 
 - (Class)feedItemCellClass {
     return [FeedItemCell class];
+}
+
+- (Class)groupItemCellClass {
+    return [UITableViewCell class];
 }
 
 //MARK: - UITableViewDelegate
