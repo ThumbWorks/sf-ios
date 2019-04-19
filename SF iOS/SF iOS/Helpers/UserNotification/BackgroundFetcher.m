@@ -44,6 +44,7 @@
         self.backgroundCompletionBlock(UIBackgroundFetchResultNoData);
         return;
     }
+    NSInteger currentBadgeCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
 
     for (NSIndexPath *update in updates) {
         NSString *contentTitle = NSLocalizedString(@"Coffee Events change",
@@ -58,6 +59,7 @@
         [notificationCenter scheduleNotificationWithIdentifier:event.eventID
                                                   contentTitle:contentTitle
                                                    contentBody:contentBody];
+        currentBadgeCount++;
     }
 
     // This is a new event, it should have a nice alert.
@@ -75,26 +77,11 @@
         [notificationCenter scheduleNotificationWithIdentifier:event.eventID
                                                   contentTitle:contentTitle
                                                    contentBody:contentBody];
-    }
-
-    // And finally deletes get custom copy
-    for (NSIndexPath *delete in deletions) {
-        Event *event = [self.backgroundDataSource eventAtIndex:[delete row]];
-        NSString *contentTitle = NSLocalizedString(@"Event Cancelled",
-                                                   @"notification title for cancelled events");
-        NSString *bodyTemplate = NSLocalizedString(@"%@ has been cancelled",
-                                                   @"notification body for cancelled events");
-        NSString *contentBody = [NSString stringWithFormat:bodyTemplate,
-                                 event.name];
-        UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
-        [notificationCenter scheduleNotificationWithIdentifier:event.eventID
-                                                  contentTitle:contentTitle
-                                                   contentBody:contentBody];
+        currentBadgeCount++;
     }
 
     // Increment the badge value by one every time a fetch with a change occurs
-    NSInteger currentBadgeCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:(currentBadgeCount+1)];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:currentBadgeCount];
 
     // Tell the OS that we got new data. It should adjust accordingly.
     self.backgroundCompletionBlock(UIBackgroundFetchResultNewData);
