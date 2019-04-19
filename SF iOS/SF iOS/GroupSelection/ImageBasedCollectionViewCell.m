@@ -26,6 +26,10 @@
     return self;
 }
 
++ (UIFont)labelFont {
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
 - (void)setupViews {
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _imageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -49,7 +53,7 @@
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.textColor = UIColor.blackColor;
     _nameLabel.backgroundColor = UIColor.whiteColor;
-    _nameLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+    _nameLabel.font = [ImageBasedCollectionViewCell labelFont];
     _nameLabel.numberOfLines = 0;
     [self.contentView addSubview:self.imageView];
     [self.imageView addSubview:self.nameLabel];

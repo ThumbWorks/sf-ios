@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BasicTextCollectionViewCell : UICollectionViewCell
 + (NSString *)reuseID;
 - (void)updateWithTitle:(NSString *)title;
++ (UIFont *)labelFont;
 @end
 
 NS_ASSUME_NONNULL_END

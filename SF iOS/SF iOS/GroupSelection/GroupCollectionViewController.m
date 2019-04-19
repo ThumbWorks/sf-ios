@@ -14,11 +14,18 @@
 #import "ImageStore.h"
 #import "UIImage+URL.h"
 
+@protocol GroupCollectionViewControllerDelegate <NSObject>
+
+- (void)controller:(GroupCollectionViewController *)controller tappedGroup:(Group *)group;
+
+@end
+
 @interface GroupCollectionViewController() <UICollectionViewDelegateFlowLayout>
 @property(nonatomic) id<FeedProvider> dataSource;
 @property(nonatomic) UICollectionView *collectionView;
 @property(nonatomic) ImageStore *cache;
 @property (nonatomic) NSOperationQueue *imageFetchQueue;
+@property (nonatomic, weak) id<GroupCollectionViewControllerDelegate> delegate;
 @end
 
 @implementation GroupCollectionViewController
@@ -54,10 +61,14 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     Group *group = [((GroupDataSource *)self.dataSource) groupAtIndex:indexPath.row];
-    UIFont *font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+    UIFont *font = [BasicTextCollectionViewCell labelFont];
     CGSize size = [group.name sizeWithAttributes:@{NSFontAttributeName:font}];
-    NSLog(@"Size %@", NSStringFromCGSize(size));
-    return CGSizeMake(size.width + 10, size.height + 10);
+    return CGSizeMake(size.width + 35, size.height);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Group *group = [((GroupDataSource *)self.dataSource) groupAtIndex:indexPath.row];
+    [self.delegate controller:self tappedGroup:group];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
