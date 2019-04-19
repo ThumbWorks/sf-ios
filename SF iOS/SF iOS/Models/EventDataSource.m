@@ -82,6 +82,7 @@
 
         // determine if the
         NSMutableArray *addToRealm = [NSMutableArray array];
+        NSMutableDictionary *removeFromRealm = [existingEvents mutableCopy];
         for (Event *parsedEvent in feedFetchItems) {
             Event *existingEvent = existingEvents[parsedEvent.eventID];
             if (existingEvent) {
@@ -89,15 +90,21 @@
                 if(![existingEvent isEqual:parsedEvent]) {
                     [addToRealm addObject:parsedEvent];
                 }
+                [removeFromRealm removeObjectForKey:existingEvent.eventID];
             } else {
                 // if this is an item that is not in the realm, add it
                 [addToRealm addObject:parsedEvent];
             }
         }
 
-        if ([addToRealm count]) {
+        if ([addToRealm count] || [removeFromRealm count]) {
             [realm transactionWithBlock:^{
-                [realm addOrUpdateObjects:addToRealm];
+                if([addToRealm count]) {
+                    [realm addOrUpdateObjects:addToRealm];
+                }
+                if([removeFromRealm count]) {
+                    [realm deleteObjects:[removeFromRealm allValues]];
+                }
             }];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
