@@ -65,6 +65,8 @@
 		C8CEC9841F3AB342002A8D88 /* UIViewController+StatusBarBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = C8CEC9831F3AB342002A8D88 /* UIViewController+StatusBarBackground.m */; };
 		CED16D5C64A6DD2CE70F99F8 /* libPods-SF iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 669D4943CDB7B5B8CBC1B27E /* libPods-SF iOSTests.a */; };
 		E0037C5422A4AF58E1158B64 /* libPods-SF iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 238F3C1035E918F044128123 /* libPods-SF iOSTests.a */; };
+		E28D38E12267B259004266BA /* BackgroundFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E28D38E02267B259004266BA /* BackgroundFetcher.m */; };
+		E2EDC106225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EDC104225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +203,10 @@
 		C8CEC9831F3AB342002A8D88 /* UIViewController+StatusBarBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+StatusBarBackground.m"; sourceTree = "<group>"; };
 		C8E6A3EB1F3256180098339C /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
 		C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
+		E28D38DF2267B259004266BA /* BackgroundFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundFetcher.h; sourceTree = "<group>"; };
+		E28D38E02267B259004266BA /* BackgroundFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackgroundFetcher.m; sourceTree = "<group>"; };
+		E2EDC104225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UNUserNotificationCenter+ConvenienceInitializer.m"; sourceTree = "<group>"; };
+		E2EDC105225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UNUserNotificationCenter+ConvenienceInitializer.h"; sourceTree = "<group>"; };
 		E76C9B6B05C350D2C01B6FE4 /* Pods-SF iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SF iOSTests.release.xcconfig"; path = "Target Support Files/Pods-SF iOSTests/Pods-SF iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -356,6 +362,7 @@
 				C82516391F2FDF01006B9D7E /* Styles */,
 				C82516351F2FBDEF006B9D7E /* StackViews */,
 				C88A19C31F2DC51500C08187 /* Errors */,
+				E2EDC103225D059100F618C9 /* UserNotification */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -605,6 +612,17 @@
 			path = EventDetails;
 			sourceTree = "<group>";
 		};
+		E2EDC103225D059100F618C9 /* UserNotification */ = {
+			isa = PBXGroup;
+			children = (
+				E28D38DF2267B259004266BA /* BackgroundFetcher.h */,
+				E28D38E02267B259004266BA /* BackgroundFetcher.m */,
+				E2EDC105225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.h */,
+				E2EDC104225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m */,
+			);
+			path = UserNotification;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -823,6 +841,7 @@
 				C8307A111F365E58005CB3D2 /* AsyncBlockOperation.m in Sources */,
 				C8307A081F365687005CB3D2 /* UberTravelTimeEstimateOperation.m in Sources */,
 				C82516421F2FE9E7006B9D7E /* FeedItem.m in Sources */,
+				E28D38E12267B259004266BA /* BackgroundFetcher.m in Sources */,
 				C8CC493F1F3307DD0064B03E /* TravelTime.m in Sources */,
 				C8709C661F42632300DFE7A9 /* ImageStore.m in Sources */,
 				C825163C1F2FDF46006B9D7E /* UIColor+SFiOSColors.m in Sources */,
@@ -856,6 +875,7 @@
 				C82516461F2FEB6F006B9D7E /* NSDate+Utilities.m in Sources */,
 				C82516341F2FBBD2006B9D7E /* FeedItemCell.m in Sources */,
 				C8CC49431F330F360064B03E /* AsyncOperation.m in Sources */,
+				E2EDC106225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.m in Sources */,
 				5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */,
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,

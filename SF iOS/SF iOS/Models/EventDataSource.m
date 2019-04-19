@@ -42,9 +42,6 @@
                                       }
                                       // Initial run of the query will pass nil for the change information
                                       if (!changes) {
-                                          [welf.delegate didChangeDataSourceWithInsertions:nil
-                                                                                   updates:nil
-                                                                                 deletions:nil];
                                           return;
                                       }
 
@@ -91,7 +88,6 @@
                     [addToRealm addObject:parsedEvent];
                 }
             } else {
-                // if this is an item that is not in the realm, add it
                 [addToRealm addObject:parsedEvent];
             }
         }

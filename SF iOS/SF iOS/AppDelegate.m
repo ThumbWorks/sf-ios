@@ -9,11 +9,12 @@
 #import "AppDelegate.h"
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "SwipableNavigationContainer.h"
+#import "BackgroundFetcher.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
-
 @property (nonatomic) SwipableNavigationContainer *navigationContainer;
-
+@property (nonatomic) BackgroundFetcher *bgFetcher;
 @end
 
 @implementation AppDelegate
@@ -24,6 +25,15 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
+    UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+    [notificationCenter requestAuthorizationWithOptions:options
+                                      completionHandler:^(BOOL granted, NSError *error){}];
+
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
     [self.navigationContainer.window makeKeyAndVisible];
     return YES;
 }
@@ -37,4 +47,11 @@
     return self.navigationContainer.window;
 }
 
+// MARK: - Background Fetch
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    self.bgFetcher = [[BackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
+        completionHandler(result);
+        self.bgFetcher = nil;
+    }];
+}
 @end
