@@ -13,10 +13,14 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
         self.streetAddress = dict[@"formatted_address"];
-        CLLocationDegrees latitude = [dict[@"latitude"] doubleValue];
-        CLLocationDegrees longitude = [dict[@"longitude"] doubleValue];
-        self.latitude = latitude;
-        self.longitude = longitude;
+        if (![dict[@"latitude"] isKindOfClass:[NSNull class]]) {
+            CLLocationDegrees latitude = [dict[@"latitude"] doubleValue];
+            self.latitude = latitude;
+        }
+        if (![dict[@"longitude"] isKindOfClass:[NSNull class]]) {
+            CLLocationDegrees longitude = [dict[@"longitude"] doubleValue];
+            self.longitude = longitude;
+        }
     }
     return self;
 }
