@@ -38,7 +38,10 @@
         NSString *time = [NSDate timeslotStringFromStartDate:eventDate duration:event.duration];
         timeLabelText = [NSString stringWithFormat:@"%@ %@", date, time];
     }
-    NSString *subTitleText = [event.venueName stringByAppendingFormat:@"\n%@", timeLabelText];
+    NSString *subTitleText = timeLabelText;
+    if (event.venueName) {
+        subTitleText = [event.venueName stringByAppendingFormat:@"\n%@", timeLabelText];
+    }
     return [NSAttributedString kernedStringFromString:[subTitleText uppercaseString]];
 }
 
