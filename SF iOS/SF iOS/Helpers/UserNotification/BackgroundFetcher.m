@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "UNUserNotificationCenter+ConvenienceInitializer.h"
 #import "NSDate+Utilities.h"
+#import "Analytics.h"
 
 @interface BackgroundFetcher () <EventDataSourceDelegate>
 // The backgroundDataSource will tell us what if anything has changed
@@ -23,7 +24,17 @@
     if (self = [super init]) {
         self.backgroundDataSource = [[EventDataSource alloc] initWithEventType:EventTypeSFCoffee];
         self.backgroundDataSource.delegate = self;
-        self.backgroundCompletionBlock = completionHandler;
+        self.backgroundCompletionBlock = ^ (UIBackgroundFetchResult result) {
+            Analytics *analytics = [[Analytics alloc] init];
+            [analytics trackEvent:@"Background fetch complete"
+                   withProperties:@{@"result" :  @(result)}
+                     onCompletion:^(NSError * _Nullable error) {
+                         if (error) {
+                             NSLog(@"An error occured in analytics %@", error);
+                         }
+                         completionHandler(result);
+                   }];
+        };
 
         // start the fetch/check process
         [self.backgroundDataSource refresh];
@@ -54,7 +65,6 @@
         if ([[event endDate] isInFuture] == NO) {
             continue;
         }
-        
         NSString *contentTitle = NSLocalizedString(@"Coffee Event changed",
                                                    @"notification title for changed events");
         
@@ -99,7 +109,7 @@
 
 - (void)didFailToUpdateWithError:(nonnull NSError *)error {
         self.backgroundCompletionBlock(UIBackgroundFetchResultFailed);
-    }
+}
 
 - (void)willUpdateDataSource:(nonnull EventDataSource *)datasource {
     NSLog(@"will update background fetcher data source ");

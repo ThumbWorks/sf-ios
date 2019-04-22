@@ -18,6 +18,8 @@
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
+		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
+		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
 		5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD3224ECACC00AA8A25 /* Venue.m */; };
 		5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A5C1F2C043600DCFEB6 /* Location.m */; };
 		5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */; };
@@ -113,6 +115,10 @@
 		5F3820A2224C910300862294 /* FeedCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedCompletion.h; sourceTree = "<group>"; };
 		5F3820A3224C920F00862294 /* FeedFetchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchService.h; sourceTree = "<group>"; };
 		5F3820A4224C920F00862294 /* FeedFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchService.m; sourceTree = "<group>"; };
+		5F868EA32273C10300CEEBCA /* Coffup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coffup.entitlements; sourceTree = "<group>"; };
+		5F868EA42273C10600CEEBCA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5FCD225B226E898A002A85B8 /* Analytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
+		5FCD225C226E898A002A85B8 /* Analytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		5FECEFD2224ECACC00AA8A25 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		5FECEFD3224ECACC00AA8A25 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		5FECEFD8224EE87D00AA8A25 /* EventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTests.m; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0910754EFA129307D1836813 /* libPods-Coffup.a in Frameworks */,
+				5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +262,7 @@
 		0C459E6F210C8142CB1EB677 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F868EA42273C10600CEEBCA /* CloudKit.framework */,
 				0EB561B7A11FAA66CFCF67FE /* libPods-Coffup.a */,
 				238F3C1035E918F044128123 /* libPods-SF iOSTests.a */,
 				B59B6549D07F46BFC632E473 /* libPods-SF iOSUITests.a */,
@@ -387,6 +395,8 @@
 				C82516351F2FBDEF006B9D7E /* StackViews */,
 				C88A19C31F2DC51500C08187 /* Errors */,
 				E2EDC103225D059100F618C9 /* UserNotification */,
+				5FCD225B226E898A002A85B8 /* Analytics.h */,
+				5FCD225C226E898A002A85B8 /* Analytics.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -450,6 +460,7 @@
 		C8810A161F2BFE6900DCFEB6 = {
 			isa = PBXGroup;
 			children = (
+				5F868EA32273C10300CEEBCA /* Coffup.entitlements */,
 				C8810A211F2BFE6900DCFEB6 /* SF iOS */,
 				C8810A3A1F2BFE6900DCFEB6 /* SF iOSTests */,
 				C8810A451F2BFE6900DCFEB6 /* SF iOSUITests */,
@@ -727,10 +738,10 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -911,6 +922,7 @@
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,
 				C8CC493B1F3303170064B03E /* TravelTimeService.m in Sources */,
+				5FCD225D226E898A002A85B8 /* Analytics.m in Sources */,
 				C89A8DE31F2D926A007A5B0C /* EventDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1078,10 +1090,11 @@
 			baseConfigurationReference = 95933610458B233CD7F79875 /* Pods-Coffup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Coffup.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1098,10 +1111,11 @@
 			baseConfigurationReference = 657137982D0CEF4F9D8C04C9 /* Pods-Coffup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Coffup.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F4WTN36U2F;
 				INFOPLIST_FILE = "SF iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
