@@ -634,6 +634,7 @@
 				C8810A1B1F2BFE6900DCFEB6 /* Sources */,
 				C8810A1C1F2BFE6900DCFEB6 /* Frameworks */,
 				C8810A1D1F2BFE6900DCFEB6 /* Resources */,
+				775C0BC1557680A2A7A8221F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -765,6 +766,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		775C0BC1557680A2A7A8221F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Coffup/Pods-Coffup-resources.sh",
+				"${PODS_ROOT}/Amplitude-iOS/Amplitude/api.amplitude.com.der",
+				"${PODS_ROOT}/Amplitude-iOS/Amplitude/ComodoCaLimitedRsaCertificationAuthority.der",
+				"${PODS_ROOT}/Amplitude-iOS/Amplitude/ComodoRsaCA.der",
+				"${PODS_ROOT}/Amplitude-iOS/Amplitude/ComodoRsaDomainValidationCA.der",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/api.amplitude.com.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoCaLimitedRsaCertificationAuthority.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaCA.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Coffup/Pods-Coffup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8022872039CEEA139628B408 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

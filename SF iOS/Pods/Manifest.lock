@@ -1,19 +1,23 @@
 PODS:
+  - Amplitude-iOS (4.0.4)
   - Realm (3.14.1):
     - Realm/Headers (= 3.14.1)
   - Realm/Headers (3.14.1)
 
 DEPENDENCIES:
+  - Amplitude-iOS (~> 4.0.4)
   - Realm
   - Realm/Headers
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Amplitude-iOS
     - Realm
 
 SPEC CHECKSUMS:
+  Amplitude-iOS: 2ad4d7270c99186236c1272a3a9425463b1ae1a7
   Realm: e12c9c2387d05c5bba3a9c394838f5870e85763b
 
-PODFILE CHECKSUM: bd535be8ad32bf81a1c26a6de1ff86044753dc4c
+PODFILE CHECKSUM: b794f75b77a70c417f6a97e4cd451fdf595f4911
 
 COCOAPODS: 1.6.1

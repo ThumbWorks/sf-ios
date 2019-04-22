@@ -7,6 +7,7 @@ target 'Coffup' do
 
   # Pods for Coffup
   pod 'Realm'
+  pod 'Amplitude-iOS', '~> 4.0.4'
 
   target 'SF iOSTests' do
     inherit! :search_paths
