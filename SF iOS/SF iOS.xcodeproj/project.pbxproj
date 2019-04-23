@@ -14,6 +14,7 @@
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
+		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
 		5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD3224ECACC00AA8A25 /* Venue.m */; };
 		5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A5C1F2C043600DCFEB6 /* Location.m */; };
 		5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */; };
@@ -101,6 +102,8 @@
 		5F3820A2224C910300862294 /* FeedCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedCompletion.h; sourceTree = "<group>"; };
 		5F3820A3224C920F00862294 /* FeedFetchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchService.h; sourceTree = "<group>"; };
 		5F3820A4224C920F00862294 /* FeedFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchService.m; sourceTree = "<group>"; };
+		5FCD225B226E898A002A85B8 /* Analytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
+		5FCD225C226E898A002A85B8 /* Analytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		5FECEFD2224ECACC00AA8A25 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		5FECEFD3224ECACC00AA8A25 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		5FECEFD8224EE87D00AA8A25 /* EventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTests.m; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				C82516351F2FBDEF006B9D7E /* StackViews */,
 				C88A19C31F2DC51500C08187 /* Errors */,
 				E2EDC103225D059100F618C9 /* UserNotification */,
+				5FCD225B226E898A002A85B8 /* Analytics.h */,
+				5FCD225C226E898A002A85B8 /* Analytics.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -909,6 +914,7 @@
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,
 				C8CC493B1F3303170064B03E /* TravelTimeService.m in Sources */,
+				5FCD225D226E898A002A85B8 /* Analytics.m in Sources */,
 				C89A8DE31F2D926A007A5B0C /* EventDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

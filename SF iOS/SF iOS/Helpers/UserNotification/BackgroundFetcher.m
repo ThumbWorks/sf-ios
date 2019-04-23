@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "UNUserNotificationCenter+ConvenienceInitializer.h"
 #import "NSDate+Utilities.h"
+#import "Analytics.h"
 
 @interface BackgroundFetcher () <EventDataSourceDelegate>
 // The backgroundDataSource will tell us what if anything has changed
@@ -46,8 +47,10 @@
         return;
     }
     NSInteger currentBadgeCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    Analytics *analytics = [[Analytics alloc] init];
 
     for (NSIndexPath *update in updates) {
+
         NSString *contentTitle = NSLocalizedString(@"Coffee Event changed",
                                                    @"notification title for changed events");
         Event *event = [self.backgroundDataSource eventAtIndex:[update row]];
@@ -57,6 +60,11 @@
                                  [event.date dateString],
                                  event.name,
                                  event.venueName];
+        [analytics trackEvent:@"Event change notification scheduled"
+               withProperties:@{@"date" : event.date.description,
+                                @"name" : event.name,
+                                @"venue" : event.venueName,
+                                @"eventID": event.eventID}];
         UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notificationCenter scheduleNotificationWithIdentifier:event.eventID
                                                   contentTitle:contentTitle
@@ -76,6 +84,12 @@
                                  [event.date dateString],
                                  event.venueName,
                                  event.name];
+
+        [analytics trackEvent:@"New event notification scheduled"
+               withProperties:@{@"date" : event.date.description,
+                                @"name" : event.name,
+                                @"venue" : event.venueName,
+                                @"eventID": event.eventID}];
         UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notificationCenter scheduleNotificationWithIdentifier:event.eventID
                                                   contentTitle:contentTitle

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Analytics.h"
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "SwipableNavigationContainer.h"
 #import "BackgroundFetcher.h"
@@ -26,6 +27,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
+    [[[Analytics alloc] init] start];
 
     UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
     UNAuthorizationOptions options = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;

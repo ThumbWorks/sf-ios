@@ -19,6 +19,7 @@ static NSString *const secretsFileName = @"secrets";
  */
 @interface SecretsStore : NSObject
 
+@property (readonly, nonatomic) NSString *amplitudeToken;
 @property (readonly, nonatomic) NSString *uberClientID;
 @property (readonly, nonatomic) NSString *uberServerToken;
 @property (readonly, nonatomic) NSString *lyftClientID;

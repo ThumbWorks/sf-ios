@@ -25,6 +25,10 @@
     return self;
 }
 
+- (NSString *)amplitudeToken {
+    return self.secrets[@"amplitude-token"];
+}
+
 - (NSString *)uberClientID {
     return self.secrets[@"uber-client-id"];
 }
