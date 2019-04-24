@@ -12,7 +12,7 @@
 #import "NSDate+Utilities.h"
 #import "Analytics.h"
 
-@interface BackgroundFetcher () <EventDataSourceDelegate>
+@interface BackgroundFetcher () <FeedProviderDelegate>
 // The backgroundDataSource will tell us what if anything has changed
 @property (nonatomic) EventDataSource *backgroundDataSource;
 @property (nonatomic, copy) void (^backgroundCompletionBlock)(UIBackgroundFetchResult);
