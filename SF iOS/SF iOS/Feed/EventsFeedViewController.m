@@ -95,9 +95,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
-    }
+    [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     CGRect searchBarRect = CGRectMake(0, 0, self.view.frame.size.width, kSEARCHBARHEIGHT);
     self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
