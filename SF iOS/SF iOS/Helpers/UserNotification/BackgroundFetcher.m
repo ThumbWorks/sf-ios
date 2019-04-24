@@ -50,7 +50,7 @@
     for (NSIndexPath *update in updates) {
         Event *event = [self.backgroundDataSource eventAtIndex:[update row]];
         // Prevent notifications if changes, e.g. images and URLs, are made to past events
-        if ([[event endDate] compare:[NSDate date]] == NSOrderedAscending) {
+        if ([[event endDate] isInFuture] == NO) {
             continue;
         }
         
