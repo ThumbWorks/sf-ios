@@ -131,19 +131,7 @@ NS_ASSUME_NONNULL_END
     noResultsLabel.textAlignment = NSTextAlignmentCenter;
     noResultsLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     [self.noResultsView addSubview:noResultsLabel];
-    
-    [noResultsLabel.topAnchor constraintEqualToAnchor:self.noResultsView.topAnchor].active = true;
-    [noResultsLabel.leftAnchor constraintEqualToAnchor:self.noResultsView.leftAnchor].active = true;
-    [noResultsLabel.rightAnchor constraintEqualToAnchor:self.noResultsView.rightAnchor].active = true;
-    [noResultsLabel.bottomAnchor constraintEqualToAnchor:self.noResultsView.bottomAnchor].active = true;
-    [noResultsLabel.widthAnchor constraintEqualToAnchor:self.noResultsView.widthAnchor].active = true;
-
-    [self.noResultsView.topAnchor constraintEqualToAnchor:self.searchBar.bottomAnchor].active = true;
-    [self.noResultsView.leftAnchor constraintEqualToAnchor:self.tableView.leftAnchor].active = true;
-    [self.noResultsView.rightAnchor constraintEqualToAnchor:self.tableView.rightAnchor].active = true;
-    [self.noResultsView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
-    [self.noResultsView.widthAnchor constraintEqualToAnchor:self.tableView.widthAnchor].active = true;
-    
+        
     [self addStatusBarBlurBackground];
 
     [self.dataSource refresh];
