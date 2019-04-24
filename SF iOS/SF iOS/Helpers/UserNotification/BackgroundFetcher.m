@@ -48,9 +48,14 @@
     NSInteger currentBadgeCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
 
     for (NSIndexPath *update in updates) {
-        NSString *contentTitle = NSLocalizedString(@"Coffee Event changed",
-                                                   @"notification title for changed events");
         Event *event = [self.backgroundDataSource eventAtIndex:[update row]];
+        // Prevent notifications if changes, e.g. images and URLs, are made to past events
+        if ([[event endDate] isInFuture] == NO) {
+            continue;
+        }
+        
+        NSString *contentTitle = NSLocalizedString(@"Coffee Event changed",
+                                                   @"notification title for changed events");        
         NSString *bodyTemplate = NSLocalizedString(@"%@'s %@ at %@ has changed. Find the latest info in app.",
                                                    @"notification body: <Date>'s <Event name> at <venue name> has changed");
         NSString *contentBody = [NSString stringWithFormat:bodyTemplate,
