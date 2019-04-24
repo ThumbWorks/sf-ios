@@ -87,12 +87,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.rowHeight = self.cellHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
-    
-    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
-    self.tableView.contentInset = UIEdgeInsetsMake(safeInsets.top + kSEARCHBARHEIGHT,
-                                                   safeInsets.right,
-                                                   safeInsets.bottom,
-                                                   safeInsets.right);
+
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
     self.tableView.delaysContentTouches = NO;
     [self.view addSubview:self.tableView];
@@ -114,18 +109,12 @@ NS_ASSUME_NONNULL_END
     self.searchBar.placeholder = NSLocalizedString(@"Filter", @"Prompt to search for event names. Here, `Filter` is a joke in English because people filter coffee and this list can be filtered by a term.");
     self.searchBar.showsCancelButton = true;
     self.searchBar.delegate = self;
-    
-    // TODO: There’s probably a better way of doing this that doesn’t require a new view
-    // https://github.com/ThumbWorks/sf-ios/issues/37
-    CGRect tableSearchViewRect = CGRectMake(0, 0, self.searchBar.frame.size.width, kTABLEHEADERHEIGHT);
-    UIView *tableSearchView = [[UIView alloc] initWithFrame:tableSearchViewRect];
-    tableSearchView.backgroundColor = UIColor.whiteColor;
-    [tableSearchView addSubview:self.searchBar];
-    self.tableView.tableHeaderView = tableSearchView;
+
+    self.tableView.tableHeaderView = self.searchBar;
     
     self.tableView.tableHeaderView.backgroundColor = UIColor.whiteColor;
     CGPoint contentOffest = self.tableView.contentOffset;
-    contentOffest.y += kSEARCHBARHEIGHT;
+    contentOffest.y += self.searchBar.frame.size.height * 2;
     self.tableView.contentOffset = contentOffest;
     
     // TODO: Add an invisible, dismissng button below the search UI
