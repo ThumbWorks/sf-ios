@@ -64,7 +64,8 @@ NS_ASSUME_NONNULL_END
     titleLabel.text = self.event.name;
     titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];
     titleLabel.textColor = [UIColor blackColor];
-    
+    titleLabel.numberOfLines = 0;
+
     UILabel *subtitleLabel = [UILabel new];
     subtitleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
     subtitleLabel.textColor = [UIColor abbey];
