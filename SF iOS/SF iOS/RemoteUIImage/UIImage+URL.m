@@ -16,13 +16,13 @@
     if (!queue) {
         queue = [NSOperationQueue new];
     }
-    [self setSharedImageCacheMegabytes:25];
 
     [queue addOperationWithBlock:^{
         NSURLSession *sharedSession = [NSURLSession sharedSession];
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:fileURL
                                                       cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                                   timeoutInterval:30];
+        
         [[sharedSession dataTaskWithRequest:request
                          completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             UIImage *image = nil;
@@ -34,16 +34,6 @@
             }];
         }] resume];
     }];
-}
-
-+ (void)setSharedImageCacheMegabytes:(NSInteger)megabytes
-{
-    NSUInteger cashSize = megabytes * 1024 * 1024;
-    NSUInteger cashDiskSize = megabytes * 1024 * 1024;
-    NSURLCache *imageCache = [[NSURLCache alloc] initWithMemoryCapacity:cashSize
-                                                           diskCapacity:cashDiskSize
-                                                               diskPath:@"images"];
-    [NSURLCache setSharedURLCache:imageCache];
 }
 
 @end

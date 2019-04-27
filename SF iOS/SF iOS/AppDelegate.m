@@ -30,6 +30,8 @@
     [notificationCenter requestAuthorizationWithOptions:options
                                       completionHandler:^(BOOL granted, NSError *error){}];
 
+    [self setSharedNetworkCacheMemoryMegabytes:5
+                                 diskMegabytes:25];
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     [self.navigationContainer.window makeKeyAndVisible];
@@ -54,4 +56,16 @@
         self.bgFetcher = nil;
     }];
 }
+
+//MARK: - Configure cache
+- (void)setSharedNetworkCacheMemoryMegabytes:(NSInteger)memoryMiB diskMegabytes:(NSInteger)diskMiB
+{
+    NSUInteger cashSize = memoryMiB * 1024 * 1024;
+    NSUInteger cashDiskSize = diskMiB * 1024 * 1024;
+    NSURLCache *imageCache = [[NSURLCache alloc] initWithMemoryCapacity:cashSize
+                                                           diskCapacity:cashDiskSize
+                                                               diskPath:@"networking"];
+    [NSURLCache setSharedURLCache:imageCache];
+}
+
 @end
