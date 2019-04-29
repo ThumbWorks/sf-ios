@@ -6,7 +6,7 @@ target 'Coffup' do
   # use_frameworks!
 
   # Pods for Coffup
-  pod 'Realm'
+  pod 'Realm', '3.14.2'
 
   target 'SF iOSTests' do
     inherit! :search_paths
