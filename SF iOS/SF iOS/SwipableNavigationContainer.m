@@ -34,7 +34,7 @@
     _pageViewController.dataSource = self;
 
     // TODO need to see what the last selection was, if we don't know, we need to fetch all of the groups first, then pick the first one probably
-    EventDataSource *datasource = [[EventDataSource alloc] initWithSlug:@"sf-ios-coffee"
+    EventDataSource *datasource = [[EventDataSource alloc] initWithFeedID:@"sf-ios-coffee"
                                                      forEventsInSection:FeedSectionsEvents];
     EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:datasource];
 

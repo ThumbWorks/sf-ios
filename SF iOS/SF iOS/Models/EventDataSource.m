@@ -26,11 +26,11 @@
 
 @implementation EventDataSource
 // TODO This is only here until we figure out how to initialize the whole thing without a default group
-- (id)initWithSlug:(NSString *)slug forEventsInSection:(NSUInteger)section {
+- (id)initWithFeedID:(NSString *)feedID forEventsInSection:(NSUInteger)section {
     if (self = [super init]) {
         self.searchQuery = @"";
         self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
-        self.service = [[FeedFetchService alloc] initWithSlug:slug];
+        self.service = [[FeedFetchService alloc] initWithFeedID:feedID];
         [self observeAppActivationEvents];
         self.realm = [RLMRealm defaultRealm];
         __weak typeof(self) welf = self;

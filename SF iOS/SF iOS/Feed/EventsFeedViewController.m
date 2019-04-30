@@ -518,8 +518,7 @@ static CGFloat const eventCellAspectRatio = 1.352;
 }
 
 -(void)controller:(GroupCollectionViewController *)controller tappedGroup:(Group *)group {
-    NSString *slug = [[[group urlString] componentsSeparatedByString:@"/"] lastObject];
-    self.dataSource = [[EventDataSource alloc] initWithSlug:slug forEventsInSection:FeedSectionsEvents];
+    self.dataSource = [[EventDataSource alloc] initWithFeedID:[group groupID] forEventsInSection:FeedSectionsEvents];
     self.dataSource.delegate = self;
     [self.dataSource refresh];
 }

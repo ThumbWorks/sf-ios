@@ -29,6 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (Event *)eventAtIndex:(NSUInteger)index;
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 
-- (id)initWithSlug:(NSString *)urlString forEventsInSection:(NSUInteger)section;
+- (id)initWithFeedID:(NSString *)feedID forEventsInSection:(NSUInteger)section;
 @end
 NS_ASSUME_NONNULL_END

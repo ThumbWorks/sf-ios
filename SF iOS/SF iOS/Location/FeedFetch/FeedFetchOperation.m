@@ -10,8 +10,7 @@
 
 
 - (instancetype)initWithURLString:(NSString *)urlString completionHandler:(FeedCompletion)completionHandler {
-    NSString *endpoint = [NSString stringWithFormat:@"%@/events", urlString];
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     request.HTTPMethod = @"GET";
     [request addValue:@"en_US" forHTTPHeaderField:@"Accept-Language"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
