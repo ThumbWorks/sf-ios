@@ -33,7 +33,9 @@
     _pageViewController.doubleSided = YES;
     _pageViewController.dataSource = self;
 
-    EventDataSource *datasource = [[EventDataSource alloc] initWithEventType:EventTypeSFCoffee];
+    // TODO need to see what the last selection was, if we don't know, we need to fetch all of the groups first, then pick the first one probably
+    EventDataSource *datasource = [[EventDataSource alloc] initWithSlug:@"sf-ios-coffee"
+                                                     forEventsInSection:FeedSectionsEvents];
     EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:datasource];
 
     [_pageViewController setViewControllers:@[ feedController ] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];

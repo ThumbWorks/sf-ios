@@ -9,8 +9,8 @@
 @implementation FeedFetchOperation
 
 
-- (instancetype)initWithCompletionHandler:(FeedCompletion)completionHandler {
-    NSString *endpoint = @"https://coffeecoffeecoffee.coffee/api/groups/sf-ios-coffee/events";
+- (instancetype)initWithURLString:(NSString *)urlString completionHandler:(FeedCompletion)completionHandler {
+    NSString *endpoint = [NSString stringWithFormat:@"%@/events", urlString];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
     request.HTTPMethod = @"GET";
     [request addValue:@"en_US" forHTTPHeaderField:@"Accept-Language"];

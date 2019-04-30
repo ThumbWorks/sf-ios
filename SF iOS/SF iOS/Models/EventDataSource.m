@@ -12,11 +12,11 @@
 #import "NSError+Constructor.h"
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "FeedFetchService.h"
+#import "Group.h"
 #import <Realm/Realm.h>
 
 @interface EventDataSource ()
 
-@property (nonatomic, assign) EventType eventType;
 @property (nonatomic) RLMResults<Event *> *events;
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
@@ -25,13 +25,12 @@
 @end
 
 @implementation EventDataSource
-
-- (instancetype)initWithEventType:(EventType)eventType {
+// TODO This is only here until we figure out how to initialize the whole thing without a default group
+- (id)initWithSlug:(NSString *)slug forEventsInSection:(NSUInteger)section {
     if (self = [super init]) {
-        self.eventType = eventType;
         self.searchQuery = @"";
         self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
-        self.service = [[FeedFetchService alloc] init];
+        self.service = [[FeedFetchService alloc] initWithSlug:slug];
         [self observeAppActivationEvents];
         self.realm = [RLMRealm defaultRealm];
         __weak typeof(self) welf = self;
@@ -47,9 +46,9 @@
                                           return;
                                       }
 
-                                      NSArray *inserts = [changes insertionsInSection:0];
-                                      NSArray *deletions = [changes deletionsInSection:0];
-                                      NSArray *updates = [changes modificationsInSection:0];
+                                      NSArray *inserts = [changes insertionsInSection:section];
+                                      NSArray *deletions = [changes deletionsInSection:section];
+                                      NSArray *updates = [changes modificationsInSection:section];
 
                                       [welf.delegate didChangeDataSourceWithInsertions:inserts
                                                                                updates:updates deletions:deletions];

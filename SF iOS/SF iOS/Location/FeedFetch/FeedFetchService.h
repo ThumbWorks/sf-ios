@@ -10,10 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FeedFetchService : NSObject
-
 typedef void(^FeedFetchCompletionHandler)(NSArray<Event *> *feedFetchItems, NSError *_Nullable error);
 -(void)getFeedWithHandler:(FeedFetchCompletionHandler)completionHandler;
-
+- (id)initWithSlug:(NSString *)slug;
 @end
 
 NS_ASSUME_NONNULL_END

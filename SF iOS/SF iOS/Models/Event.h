@@ -12,9 +12,12 @@
 @import UIKit;
 @class Venue;
 @class Location;
+@class Group;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface Event : RLMObject
+
+@property Group *group;
 
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic) NSDate* date;

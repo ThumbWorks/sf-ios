@@ -11,19 +11,23 @@
 
 @interface FeedFetchService ()
 @property (nonatomic) NSOperationQueue *feedFetchQueue;
+@property (nonatomic) NSString *urlString;
 @end
 
 @implementation FeedFetchService
 
-- (instancetype)init {
+- (id)initWithSlug:(NSString *)slug {
     if (self = [super init]) {
         self.feedFetchQueue = [NSOperationQueue new];
+        self.urlString = [NSString stringWithFormat:@"https://coffeecoffeecoffee.coffee/api/groups/%@", slug];
     }
     return self;
 }
 
 -(void)getFeedWithHandler:(FeedFetchCompletionHandler)completionHandler {
-    FeedFetchOperation *operation = [[FeedFetchOperation alloc] initWithCompletionHandler:^(NSArray<NSDictionary *> *feed, NSError *_Nullable error) {
+    FeedFetchOperation *operation = [[FeedFetchOperation alloc] initWithURLString:self.urlString
+                                                                completionHandler:^(NSArray<NSDictionary *> *feed,
+                                                                                    NSError *_Nullable error) {
         NSMutableArray<Event *> *events = [[NSMutableArray alloc] initWithCapacity:feed.count];
         for (NSDictionary *dict in feed) {
             [events addObject:[[Event alloc] initWithDictionary:dict]];

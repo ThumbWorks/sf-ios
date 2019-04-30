@@ -22,7 +22,8 @@
 
 - (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     if (self = [super init]) {
-        self.backgroundDataSource = [[EventDataSource alloc] initWithEventType:EventTypeSFCoffee];
+        // TODO need to figure out which of the data sources they care about
+        self.backgroundDataSource = [[EventDataSource alloc] init];
         self.backgroundDataSource.delegate = self;
         self.backgroundCompletionBlock = ^ (UIBackgroundFetchResult result) {
             Analytics *analytics = [[Analytics alloc] init];

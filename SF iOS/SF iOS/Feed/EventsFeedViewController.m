@@ -20,16 +20,12 @@
 #import "GroupCollectionViewController.h"
 #import "GroupSelectionTableViewCell.h"
 #import "GroupDataSource.h"
-typedef NS_ENUM(NSInteger, FeedSections) {
-    FeedSectionsGroups,
-    FeedSectionsEvents,
-    FeedSectionsCount
-};
+#import "Group.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
+@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate, GroupCollectionViewControllerDelegate>
 
-@property (nonatomic) EventDataSource *dataSource;
+@property (nonatomic, nonnull) EventDataSource *dataSource;
 @property (nonatomic) GroupCollectionViewController *groupController;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, assign) BOOL firstLoad;
@@ -51,6 +47,7 @@ NS_ASSUME_NONNULL_END
 - (instancetype)initWithDataSource:(EventDataSource *)dataSource {
     if (self = [super initWithNibName:nil bundle:nil]) {
         self.dataSource = dataSource;
+        
         dataSource.delegate = self;
         self.userLocationService = [UserLocation new];
         self.imageFetchQueue = [[NSOperationQueue alloc] init];
@@ -291,6 +288,7 @@ NS_ASSUME_NONNULL_END
     GroupSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.groupItemCellClass) forIndexPath:indexPath];
     GroupDataSource *dataSource = [[GroupDataSource alloc] init];
     self.groupController = [[GroupCollectionViewController alloc] initWithDataSource:dataSource collectionView:cell.collectionView];
+    self.groupController.selectionDelegate = self;
     dataSource.delegate = self.groupController;
     cell.collectionView.dataSource = self.groupController;
     cell.collectionView.delegate = self.groupController;
@@ -517,6 +515,13 @@ static CGFloat const eventCellAspectRatio = 1.352;
          }
          completion:nil];
     }];
+}
+
+-(void)controller:(GroupCollectionViewController *)controller tappedGroup:(Group *)group {
+    NSString *slug = [[[group urlString] componentsSeparatedByString:@"/"] lastObject];
+    self.dataSource = [[EventDataSource alloc] initWithSlug:slug forEventsInSection:FeedSectionsEvents];
+    self.dataSource.delegate = self;
+    [self.dataSource refresh];
 }
 
 @end

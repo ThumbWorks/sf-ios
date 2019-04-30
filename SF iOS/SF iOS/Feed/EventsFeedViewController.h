@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "EventDataSource.h"
 
+typedef NS_ENUM(NSInteger, FeedSections) {
+    FeedSectionsGroups,
+    FeedSectionsEvents,
+    FeedSectionsCount
+};
+
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController : UIViewController
 

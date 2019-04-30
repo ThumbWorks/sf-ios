@@ -11,7 +11,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)record {
     if (self = [super init]) {
         self.groupID = record[@"id"];
-        self.slug = record[@"slug"];
+        self.urlString = record[@"url"];
         self.imageURLString = record[@"image_url"];
         self.name = record[@"name"];
     }

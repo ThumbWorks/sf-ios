@@ -18,7 +18,7 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     NSDictionary *data = @{
                            @"id": @"28ef50f9-b909-4f03-9a69-a8218a8cbd99",
-                           @"slug": @"sf-ios-coffee",
+                           @"url": @"http://www.cool.com",
                            @"name": @"SF iOS Coffee",
                            @"image_url": @"https://fastly.4sqi.net/img/general/612x612/403777_tR60tUZMVoJ5Q5ylr8hQnp0pgZTy5BOQLqydzAoHWiA.jpg"
                            };
@@ -38,7 +38,7 @@
 }
 
 - (void)testSlug {
-    XCTAssertTrue([[self.group slug] isEqualToString:@"sf-ios-coffee"]);
+    XCTAssertTrue([[self.group urlString] isEqualToString:@"http://www.cool.com"]);
 }
 
 - (void)testImageURL {
