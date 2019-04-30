@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Group : RLMObject
 
 @property (nonatomic, nonnull) NSString *groupID;
-@property (nonatomic, nonnull) NSString *urlString;
 @property (nonatomic, nonnull) NSString *name;
 @property (nonatomic, nullable) NSString *imageURLString;
 

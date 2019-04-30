@@ -37,10 +37,6 @@
     XCTAssertTrue([[self.group name] isEqualToString:@"SF iOS Coffee"]);
 }
 
-- (void)testSlug {
-    XCTAssertTrue([[self.group urlString] isEqualToString:@"http://www.cool.com"]);
-}
-
 - (void)testImageURL {
     XCTAssertTrue([[self.group imageURLString] isEqualToString:@"https://fastly.4sqi.net/img/general/612x612/403777_tR60tUZMVoJ5Q5ylr8hQnp0pgZTy5BOQLqydzAoHWiA.jpg"]);
 }
