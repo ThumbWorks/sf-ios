@@ -10,9 +10,10 @@
 #import "Event.h"
 #import "FeedProvider.h"
 #import "FeedProviderDelegate.h"
+@class EventDataSource;
+@class Group;
 
 NS_ASSUME_NONNULL_BEGIN
-@class EventDataSource;
 
 @interface EventDataSource : NSObject <FeedProvider>
 
@@ -25,8 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Index of the next upcoming event. If not found, returns NSNotFound
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentEvent;
 
-- (instancetype)initWithEventType:(EventType)eventType;
 - (Event *)eventAtIndex:(NSUInteger)index;
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
+
+- (id)initWithSlug:(NSString *)urlString forEventsInSection:(NSUInteger)section;
 @end
 NS_ASSUME_NONNULL_END
