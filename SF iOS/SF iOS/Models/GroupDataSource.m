@@ -80,38 +80,44 @@
         // Persist your data easily
         RLMRealm *realm = [RLMRealm defaultRealm];
 
-        // Fetch all existing events from the realm and map by {eventID : Event}
-        NSMutableDictionary *existingEvents = [[NSMutableDictionary alloc] init];
+        // Fetch all existing groups from the realm and map by {groupID : Event}
+        NSMutableDictionary *existingGroups = [[NSMutableDictionary alloc] init];
         for (Group *object in [Group allObjects]) {
-            [existingEvents setObject:object forKey:object.groupID];
+            [existingGroups setObject:object forKey:object.groupID];
         }
 
-        // TODO delete items
-        
         // determine if the
         NSMutableArray *addToRealm = [NSMutableArray array];
-        for (Group *parsedEvent in groupFetchItems) {
-            Group *existingEvent = existingEvents[parsedEvent.groupID];
-            if (existingEvent) {
-                // If the event exists in the realm AND the parsed event is different, add it to the realm
-                if(![existingEvent isEqual:parsedEvent]) {
-                    [addToRealm addObject:parsedEvent];
+        NSMutableDictionary *removeFromRealm = [existingGroups mutableCopy];
+        for (Group *parsedGroup in groupFetchItems) {
+            Group *existingGroup = existingGroups[parsedGroup.groupID];
+            if (existingGroup) {
+                // If the group exists in the realm AND the parsed group is different, add it to the realm
+                if(![existingGroup isEqual:parsedGroup]) {
+                    [addToRealm addObject:parsedGroup];
                 }
+                [removeFromRealm removeObjectForKey:existingGroup.groupID];
             } else {
                 // if this is an item that is not in the realm, add it
-                [addToRealm addObject:parsedEvent];
+                [addToRealm addObject:parsedGroup];
             }
         }
 
-        if ([addToRealm count]) {
+        if ([addToRealm count] || [removeFromRealm count]) {
             [realm transactionWithBlock:^{
-                [realm addOrUpdateObjects:addToRealm];
+                if([addToRealm count]) {
+                    [realm addOrUpdateObjects:addToRealm];
+                }
+                if([removeFromRealm count]) {
+                    [realm deleteObjects:[removeFromRealm allValues]];
+                }
             }];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [welf.delegate didChangeDataSourceWithInsertions:nil updates:nil deletions:nil];
             });
-        }    }];
+        }
+    }];
 }
 
 - (void)observeAppActivationEvents {
