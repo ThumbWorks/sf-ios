@@ -19,6 +19,8 @@
 		5F313554227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F313553227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m */; };
 		5F313558227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F313557227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m */; };
 		5F31355A227A4D1F00751CE5 /* UNNotificationContentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F313559227A4D1F00751CE5 /* UNNotificationContentTests.m */; };
+		5F31355D227A546C00751CE5 /* NSString+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F31355C227A546C00751CE5 /* NSString+EventNotifications.m */; };
+		5F31355F227A5F7000751CE5 /* EventNotificationCopyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F31355E227A5F7000751CE5 /* EventNotificationCopyTests.m */; };
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
@@ -120,6 +122,9 @@
 		5F313556227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UNNotificationContent+EventNotifications.h"; sourceTree = "<group>"; };
 		5F313557227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UNNotificationContent+EventNotifications.m"; sourceTree = "<group>"; };
 		5F313559227A4D1F00751CE5 /* UNNotificationContentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UNNotificationContentTests.m; sourceTree = "<group>"; };
+		5F31355B227A546C00751CE5 /* NSString+EventNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+EventNotifications.h"; sourceTree = "<group>"; };
+		5F31355C227A546C00751CE5 /* NSString+EventNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+EventNotifications.m"; sourceTree = "<group>"; };
+		5F31355E227A5F7000751CE5 /* EventNotificationCopyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventNotificationCopyTests.m; sourceTree = "<group>"; };
 		5F38209F224C90B400862294 /* FeedFetchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchOperation.h; sourceTree = "<group>"; };
 		5F3820A0224C90B400862294 /* FeedFetchOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchOperation.m; sourceTree = "<group>"; };
 		5F3820A2224C910300862294 /* FeedCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedCompletion.h; sourceTree = "<group>"; };
@@ -533,6 +538,7 @@
 				5FECEFDC224EEBE900AA8A25 /* LocationTests.m */,
 				5F175B9A2267D47E00246C08 /* GroupTests.m */,
 				5F313559227A4D1F00751CE5 /* UNNotificationContentTests.m */,
+				5F31355E227A5F7000751CE5 /* EventNotificationCopyTests.m */,
 			);
 			path = "SF iOSTests";
 			sourceTree = "<group>";
@@ -678,6 +684,8 @@
 				5F313555227A49A100751CE5 /* EventNotificationType.h */,
 				5F313556227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.h */,
 				5F313557227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m */,
+				5F31355B227A546C00751CE5 /* NSString+EventNotifications.h */,
+				5F31355C227A546C00751CE5 /* NSString+EventNotifications.m */,
 			);
 			path = UserNotification;
 			sourceTree = "<group>";
@@ -915,6 +923,7 @@
 				C825164D1F3054F6006B9D7E /* MapView.m in Sources */,
 				C8CEC9841F3AB342002A8D88 /* UIViewController+StatusBarBackground.m in Sources */,
 				C8CC49491F33B9150064B03E /* TravelTimesView.m in Sources */,
+				5F31355D227A546C00751CE5 /* NSString+EventNotifications.m in Sources */,
 				C89401041F36C273001E8E27 /* DirectionsRequest.m in Sources */,
 				5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */,
 				C88A19C61F2DC52D00C08187 /* NSError+Constructor.m in Sources */,
@@ -959,6 +968,7 @@
 				C897CD111F37B78200E6C2A6 /* DateTests.m in Sources */,
 				5FECEFD9224EE87D00AA8A25 /* EventTests.m in Sources */,
 				5F31355A227A4D1F00751CE5 /* UNNotificationContentTests.m in Sources */,
+				5F31355F227A5F7000751CE5 /* EventNotificationCopyTests.m in Sources */,
 				5FECEFDD224EEBE900AA8A25 /* LocationTests.m in Sources */,
 				C88A19C81F2EC56600C08187 /* EventDataSourceTests.m in Sources */,
 				5FECEFDB224EEB3100AA8A25 /* VenueTests.m in Sources */,

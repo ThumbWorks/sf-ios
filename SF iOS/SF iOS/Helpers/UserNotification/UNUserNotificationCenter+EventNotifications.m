@@ -10,20 +10,14 @@
 #import "NSDate+Utilities.h"
 #import "UNNotificationAttachment+EventNotifications.h"
 #import "UNNotificationContent+EventNotifications.h"
+#import "NSString+EventNotifications.h"
 
 @implementation UNUserNotificationCenter (EventNotifications)
 
 + (UNNotificationContent *)contentForNewEvent:(Event *)event {
     NSString *contentTitle = NSLocalizedString(@"New Coffee Event",
                                                @"notification title for new events");
-
-    NSString *bodyTemplate = NSLocalizedString(@"Meet your friends %@ at %@ for %@",
-                                               @"notification body for newly created events");
-
-    NSString *contentBody = [NSString stringWithFormat:bodyTemplate,
-                             [event.date dateString],
-                             event.venueName,
-                             event.name];
+    NSString *contentBody = [NSString newEventNotificationBodyForEvent:event withRandomSeed:rand()];
     return [UNNotificationContent contentForEvent:event
                                             title:contentTitle
                                              body:contentBody];
