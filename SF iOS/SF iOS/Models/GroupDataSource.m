@@ -14,7 +14,6 @@
 @interface GroupDataSource()
 
 @property (nonatomic) RLMResults<Group *> *groups;
-@property (nonatomic) Group *selectedGroup;
 @property (nonatomic) GroupFetchService *service;
 @property (nonatomic) RLMRealm *realm;
 @property (nonatomic) RLMNotificationToken *notificationToken;

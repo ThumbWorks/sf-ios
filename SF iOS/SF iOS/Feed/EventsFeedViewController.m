@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)notificationTapped:(UIButton *)button {
-    Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
+    Group *group = [self.groupDataSource selectedGroup];
     BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
     NSString *buttonTitle;
     if (isNotificationSet) {
@@ -226,8 +226,6 @@ NS_ASSUME_NONNULL_END
                                                    safeInsets.right);
 
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
-    [self.tableView.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-
 }
 
 - (void)configureNoResultsView {
@@ -289,13 +287,14 @@ NS_ASSUME_NONNULL_END
 - (void)updateDataSourceWithGroup:(Group *)group {
     self.dataSource = [[EventDataSource alloc] initWithFeedID:group.groupID
                                            forEventsInSection:0];
+    [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView reloadData];
     self.dataSource.delegate = self;
     [self.dataSource refresh];
 }
 
 - (void)updateNotificationButton {
-    Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
+    Group *group = [self.groupDataSource selectedGroup];
     BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
     [self.notificationSettingButton setSelected:isNotificationSet];
     [self.notificationSettingButton setHidden:false];
@@ -461,16 +460,20 @@ NS_ASSUME_NONNULL_END
                   deletions:(nullable NSArray<NSIndexPath *> *)deletions {
 
     if (datasource == self.groupDataSource) {
-        if (!insertions && !updates && !deletions) {
-            NSLog(@"Empty update");
-            return;
-        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.groupButton setHidden:false];
             [self updateNotificationButton];
             [self.tableView.refreshControl endRefreshing];
         });
-        Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
+        if (!insertions && !updates && !deletions) {
+            NSLog(@"Empty update");
+            return;
+        }
+        Group *group = [self.groupDataSource selectedGroup];
+        if (!group) {
+            group = [self.groupDataSource groupAtIndex:0];
+            [self.groupDataSource selectGroup:group];
+        }
         [self updateDataSourceWithGroup:group];
     } else if (datasource == self.dataSource) {
         // Don’t crash the app by modifying the table while the user is searching
@@ -478,6 +481,7 @@ NS_ASSUME_NONNULL_END
 
         // Otherwise update on changes
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.refreshControl endRefreshing];
             [self updateNotificationButton];
             if (!insertions && !updates && !deletions) {
                 NSLog(@"Empty update");
