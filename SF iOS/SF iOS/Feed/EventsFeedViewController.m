@@ -200,7 +200,9 @@ NS_ASSUME_NONNULL_END
 
     [alert addAction:[UIAlertAction actionWithTitle:cancel
                                               style:UIAlertActionStyleCancel
-                                            handler:nil]];
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                [self.groupButton setHidden:false];
+                                            }]];
     [self presentViewController:alert animated:true completion:nil];
 
 }
