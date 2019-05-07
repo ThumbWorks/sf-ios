@@ -12,7 +12,9 @@
 #import "NSNotification+ApplicationEventNotifications.h"
 
 @interface GroupDataSource()
+
 @property (nonatomic) RLMResults<Group *> *groups;
+@property (nonatomic) Group *selectedGroup;
 @property (nonatomic) GroupFetchService *service;
 @property (nonatomic) RLMRealm *realm;
 @property (nonatomic) RLMNotificationToken *notificationToken;
@@ -31,12 +33,14 @@
                                   addNotificationBlock:^(RLMResults<Group *> *results, RLMCollectionChange *changes, NSError *error) {
 
                                       if (error) {
-                                          [welf.delegate didFailToUpdateWithError:error];
+                                          [welf.delegate didFailToUpdateDataSource:welf
+                                                                         withError:error];
                                           return;
                                       }
                                       // Initial run of the query will pass nil for the change information
                                       if (!changes) {
-                                          [welf.delegate didChangeDataSourceWithInsertions:nil
+                                          [welf.delegate didChangeDataSource:welf
+                                                              withInsertions:nil
                                                                                    updates:nil
                                                                                  deletions:nil];
                                           return;
@@ -46,8 +50,10 @@
                                       NSArray *deletions = [changes deletionsInSection:0];
                                       NSArray *updates = [changes modificationsInSection:0];
 
-                                      [welf.delegate didChangeDataSourceWithInsertions:inserts
-                                                                               updates:updates deletions:deletions];
+                                      [welf.delegate didChangeDataSource:welf
+                                                          withInsertions:inserts
+                                                                 updates:updates
+                                                               deletions:deletions];
                                   }];
     }
     return self;
@@ -58,21 +64,27 @@
 }
 
 - (NSUInteger)indexOfCurrentItem {
-    // TODO when we set the current feed
-    return 0;
+    if (!self.selectedGroup) {
+        return 0;
+    }
+    return [self.groups indexOfObject:self.selectedGroup];
 }
 
 - (NSUInteger)numberOfItems {
     return self.groups.count;
 }
 
+- (void)selectGroup:(Group *)group {
+    self.selectedGroup = group;
+}
 
 - (void)refresh {
     __weak typeof(self) welf = self;
     [self.service getGroupsWithHandler:^(NSArray<Group *> * _Nonnull groupFetchItems, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didFailToUpdateWithError:error];
+                [welf.delegate didFailToUpdateDataSource:welf
+                                               withError:error];
             });
             return;
         }
@@ -114,10 +126,14 @@
             }];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didChangeDataSourceWithInsertions:nil updates:nil deletions:nil];
+                [welf.delegate didChangeDataSource:welf
+                                    withInsertions:nil
+                                           updates:nil
+                                         deletions:nil];
             });
         }
     }];
+    [self.delegate willUpdateDataSource:self];
 }
 
 - (void)observeAppActivationEvents {

@@ -38,7 +38,8 @@
                                   addNotificationBlock:^(RLMResults<Event *> *results, RLMCollectionChange *changes, NSError *error) {
 
                                       if (error) {
-                                          [welf.delegate didFailToUpdateWithError:error];
+                                          [welf.delegate didFailToUpdateDataSource:welf
+                                                                         withError:error];
                                           return;
                                       }
                                       // Initial run of the query will pass nil for the change information
@@ -50,8 +51,10 @@
                                       NSArray *deletions = [changes deletionsInSection:section];
                                       NSArray *updates = [changes modificationsInSection:section];
 
-                                      [welf.delegate didChangeDataSourceWithInsertions:inserts
-                                                                               updates:updates deletions:deletions];
+                                      [welf.delegate didChangeDataSource:welf
+                                                          withInsertions:inserts
+                                                                 updates:updates
+                                                               deletions:deletions];
                                   }];
     }
     return self;
@@ -93,7 +96,8 @@
     [self.service getFeedWithHandler:^(NSArray<Event *> * _Nonnull feedFetchItems, NSError * _Nullable error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didFailToUpdateWithError:error];
+                [welf.delegate didFailToUpdateDataSource:welf
+                                                withError:error];
             });
             return;
         }
@@ -128,7 +132,10 @@
             }];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didChangeDataSourceWithInsertions:nil updates:nil deletions:nil];
+                [welf.delegate didChangeDataSource:welf
+                                    withInsertions:nil
+                                           updates:nil
+                                         deletions:nil];
             });
         }
 

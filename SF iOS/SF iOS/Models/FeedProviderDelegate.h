@@ -12,8 +12,14 @@
 
 @protocol FeedProviderDelegate
 - (void)willUpdateDataSource:(nonnull id<FeedProvider> )datasource;
-- (void)didChangeDataSourceWithInsertions:(nullable NSArray <NSIndexPath *> *)insertions updates:(nullable NSArray <NSIndexPath *> *)updates deletions:(nullable NSArray <NSIndexPath *> *)deletions;
-- (void)didFailToUpdateWithError:(NSError *_Nonnull)error;
+
+- (void)didChangeDataSource:(nonnull id<FeedProvider> )datasource
+             withInsertions:(nullable NSArray <NSIndexPath *> *)insertions
+                    updates:(nullable NSArray <NSIndexPath *> *)updates
+                  deletions:(nullable NSArray <NSIndexPath *> *)deletions;
+
+- (void)didFailToUpdateDataSource:(nonnull id<FeedProvider> )datasource
+                        withError:(NSError *_Nonnull)error;
 @end
 
 #endif /* DataSourceDelegate_h */

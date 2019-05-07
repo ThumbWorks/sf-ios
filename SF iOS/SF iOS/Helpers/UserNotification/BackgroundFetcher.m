@@ -44,7 +44,7 @@
     return self;
 }
 
-- (void)didChangeDataSourceWithInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
+- (void)didChangeDataSource:(nonnull id<FeedProvider>)datasource withInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
 
     // No changes
     if (insertions == nil && deletions == nil && updates == nil) {
@@ -99,7 +99,7 @@
     self.backgroundCompletionBlock(UIBackgroundFetchResultNewData);
 }
 
-- (void)didFailToUpdateWithError:(nonnull NSError *)error {
+- (void)didFailToUpdateDataSource:(nonnull id<FeedProvider>)datasource withError:(NSError * _Nonnull)error {
         self.backgroundCompletionBlock(UIBackgroundFetchResultFailed);
 }
 

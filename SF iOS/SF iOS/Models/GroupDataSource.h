@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GroupDataSource : NSObject <FeedProvider>
 @property (nonatomic, weak) id<FeedProviderDelegate> delegate;
 - (Group *)groupAtIndex:(NSUInteger)index;
+- (void)selectGroup:(Group *)group;
 - (void)refresh;
 @end
 

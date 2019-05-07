@@ -34,7 +34,7 @@
     return self;
 }
 
-- (void)didChangeDataSourceWithInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
+- (void)didChangeDataSource:(nonnull id<FeedProvider>)datasource withInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
     [self.collectionView performBatchUpdates:^{
         [self.collectionView insertItemsAtIndexPaths:insertions];
         [self.collectionView reloadItemsAtIndexPaths:updates];
@@ -44,7 +44,7 @@
     }];
 }
 
-- (void)didFailToUpdateWithError:(NSError * _Nonnull)error {
+- (void)didFailToUpdateDataSource:(nonnull id<FeedProvider>)datasource withError:(NSError * _Nonnull)error {
     NSLog(@"we got an error %@", [error localizedDescription]);
 }
 

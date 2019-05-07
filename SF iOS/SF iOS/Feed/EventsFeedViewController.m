@@ -18,13 +18,16 @@
 #import <UserNotifications/UserNotifications.h>
 #import "ImageBasedCollectionViewCell.h"
 #import "GroupDataSource.h"
+#import "EventDataSource.h"
 #import "Group.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic, nonnull) EventDataSource *dataSource;
+@property (nonatomic, nonnull) GroupDataSource *groupDataSource;
 @property (nonatomic) UITableView *tableView;
+@property (nonatomic) UIButton *groupButton;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic) ImageStore *imageStore;
 @property (nonatomic) NSOperationQueue *imageFetchQueue;
@@ -41,11 +44,10 @@ NS_ASSUME_NONNULL_END
 #define kSEARCHBARMARGIN 12
 #define kTABLEHEADERHEIGHT (2 * kSEARCHBARHEIGHT)
 
-- (instancetype)initWithDataSource:(EventDataSource *)dataSource {
+- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource {
     if (self = [super initWithNibName:nil bundle:nil]) {
-        self.dataSource = dataSource;
-        
-        dataSource.delegate = self;
+        self.groupDataSource = groupDataSource;
+        groupDataSource.delegate = self;
         self.userLocationService = [UserLocation new];
         self.imageFetchQueue = [[NSOperationQueue alloc] init];
         self.imageFetchQueue.name = @"Image Fetch Queue";
@@ -58,19 +60,19 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[EventDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new]];
     return self;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[EventDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new]];
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[EventDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new]];
     return self;
 }
 
@@ -155,6 +157,51 @@ NS_ASSUME_NONNULL_END
 }
 
     
+- (void)configureGroupButton {
+    self.groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.groupButton addTarget:self
+                         action:@selector(changeGroups:)
+               forControlEvents:UIControlEventTouchUpInside];
+    [self.groupButton setTitle:@"Groups" forState:UIControlStateNormal];
+    [self.groupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.groupButton.translatesAutoresizingMaskIntoConstraints = false;
+}
+
+- (void)changeGroups:(UIButton *)button {
+    [button setHidden:true];
+    NSString *groupSelectionTitle = NSLocalizedString(@"Select group",
+                                                      @"Title for the group selection alert");
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:groupSelectionTitle
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+
+    for (int i = 0; i < self.groupDataSource.numberOfItems; i++) {
+        Group *group = [self.groupDataSource groupAtIndex:i];
+        NSString *title;
+        if ([self.groupDataSource indexOfCurrentItem] == i) {
+            title = [NSString stringWithFormat:@"✓ %@ ", group.name];
+        } else {
+            title = group.name;
+        }
+        [alert addAction:[UIAlertAction actionWithTitle:title
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                    NSLog(@"selected %@", group.name);
+                                                    [self.groupDataSource selectGroup:group];
+                                                    [self updateDataSourceWithGroup:group];
+                                                    [self.groupButton setHidden:false];
+                                                }]];
+    }
+    NSString *cancel = NSLocalizedString(@"Cancel", @"Cancel");
+
+    [alert addAction:[UIAlertAction actionWithTitle:cancel
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [self presentViewController:alert animated:true completion:nil];
+
+}
+
 - (void)configureTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
@@ -196,6 +243,11 @@ NS_ASSUME_NONNULL_END
     [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
     [self.tableView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = true;
+
+    [self.groupButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
+                                                  constant:10].active = true;
+    [self.groupButton.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor
+                                                 constant:10].active = true;
 }
 
 - (void)viewDidLoad {
@@ -203,6 +255,10 @@ NS_ASSUME_NONNULL_END
     
     [self configureTableView];
     [self.view addSubview:self.tableView];
+
+    [self configureGroupButton];
+    [self.view addSubview:self.groupButton];
+
     [self addConstraints];
 
     [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
@@ -222,6 +278,12 @@ NS_ASSUME_NONNULL_END
 
     [self configureNoResultsView];
     [self addStatusBarBlurBackground];
+}
+
+- (void)updateDataSourceWithGroup:(Group *)group {
+    self.dataSource = [[EventDataSource alloc] initWithFeedID:group.groupID
+                                           forEventsInSection:0];
+    self.dataSource.delegate = self;
     [self.dataSource refresh];
 }
 
@@ -385,28 +447,53 @@ NS_ASSUME_NONNULL_END
     [self.tableView.refreshControl beginRefreshing];
 }
 
-- (void)didChangeDataSourceWithInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
-    
-    // Don’t crash the app by modifying the table while the user is searching
-    if (self.dataSource.searchQuery.length > 0) { return; }
-    
-    // Otherwise update on changes
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:deletions
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView insertRowsAtIndexPaths:insertions
-                              withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView reloadRowsAtIndexPaths:updates
-                              withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
-        [self.tableView.refreshControl endRefreshing];
-    });
+- (void)didChangeDataSource:(id<FeedProvider>)datasource
+             withInsertions:(nullable NSArray<NSIndexPath *> *)insertions
+                    updates:(nullable NSArray<NSIndexPath *> *)updates
+                  deletions:(nullable NSArray<NSIndexPath *> *)deletions {
+
+    if (datasource == self.groupDataSource) {
+        if (!insertions && !updates && !deletions) {
+            NSLog(@"Empty update");
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.refreshControl endRefreshing];
+        });
+        Group *group = [self.groupDataSource groupAtIndex:datasource.indexOfCurrentItem];
+        [self updateDataSourceWithGroup:group];
+    } else if (datasource == self.dataSource) {
+        // Don’t crash the app by modifying the table while the user is searching
+        if (self.dataSource.searchQuery.length > 0) { return; }
+
+        // Otherwise update on changes
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!insertions && !updates && !deletions) {
+                NSLog(@"Empty update");
+                [self.tableView reloadData];
+                return;
+            }
+
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:deletions
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:insertions
+                                  withRowAnimation:UITableViewRowAnimationTop];
+            [self.tableView reloadRowsAtIndexPaths:updates
+                                  withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView endUpdates];
+            [self.tableView.refreshControl endRefreshing];
+        });
+    }
 }
 
-- (void)didFailToUpdateWithError:(nonnull NSError *)error {
+- (void)didFailToUpdateDataSource:(id<FeedProvider>)datasource withError:(NSError *)error {
     [self handleError:error];
-    [self.tableView.refreshControl endRefreshing];
+    if (datasource == self.groupDataSource) {
+
+    } else if (datasource == self.dataSource) {
+        [self.tableView.refreshControl endRefreshing];
+    }
 }
 
 //MARK: - Details View
