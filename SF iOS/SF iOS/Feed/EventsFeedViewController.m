@@ -21,10 +21,9 @@
 #import "Group.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate, GroupCollectionViewControllerDelegate>
+@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic, nonnull) EventDataSource *dataSource;
-@property (nonatomic) GroupCollectionViewController *groupController;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (nonatomic) ImageStore *imageStore;
@@ -161,12 +160,17 @@ NS_ASSUME_NONNULL_END
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.feedItemCellClass)];
-    [self.tableView registerClass:self.groupItemCellClass forCellReuseIdentifier:NSStringFromClass(self.groupItemCellClass)];
     self.tableView.rowHeight = self.cellHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
     self.tableView.delaysContentTouches = NO;
+
+    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+    self.tableView.contentInset = UIEdgeInsetsMake(safeInsets.top + kSEARCHBARHEIGHT,
+                                                   safeInsets.right,
+                                                   safeInsets.bottom,
+                                                   safeInsets.right);
 
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
@@ -213,7 +217,7 @@ NS_ASSUME_NONNULL_END
     self.tableView.tableHeaderView = self.searchBar;
     self.tableView.tableHeaderView.backgroundColor = UIColor.whiteColor;
     CGPoint contentOffest = self.tableView.contentOffset;
-    contentOffest.y += self.searchBar.frame.size.height * 2;
+    contentOffest.y += kSEARCHBARHEIGHT;
     self.tableView.contentOffset = contentOffest;
 
     [self configureNoResultsView];
@@ -242,18 +246,8 @@ NS_ASSUME_NONNULL_END
 
 //MARK: - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return FeedSectionsCount;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-    case FeedSectionsEvents:
-        return self.dataSource.numberOfEvents;
-    case FeedSectionsGroups:
-        return 1;
-    }
-    return 0;
+    return self.dataSource.numberOfEvents;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView eventCellAtIndexPath:(NSIndexPath *)indexPath {
@@ -289,45 +283,16 @@ NS_ASSUME_NONNULL_END
     return cell;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView groupCellAtIndexPath:(NSIndexPath *)indexPath {
-    GroupSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.groupItemCellClass) forIndexPath:indexPath];
-    GroupDataSource *dataSource = [[GroupDataSource alloc] init];
-    self.groupController = [[GroupCollectionViewController alloc] initWithDataSource:dataSource collectionView:cell.collectionView];
-    self.groupController.selectionDelegate = self;
-    dataSource.delegate = self.groupController;
-    cell.collectionView.dataSource = self.groupController;
-    cell.collectionView.delegate = self.groupController;
-    return cell;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case FeedSectionsEvents:
-            return self.cellHeight;
-        case FeedSectionsGroups:
-            return self.groupsHeight;
-        default:
-            return 0;
-    }
+    return self.cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case FeedSectionsEvents:
-            return [self tableView:tableView eventCellAtIndexPath:indexPath];
-        case FeedSectionsGroups:
-            return [self tableView:tableView groupCellAtIndexPath:indexPath];
-        default:
-            return nil;
-    }
+    return [self tableView:tableView eventCellAtIndexPath:indexPath];
 }
 
 - (Class)feedItemCellClass {
     return [FeedItemCell class];
-}
-
-- (Class)groupItemCellClass {
-    return [GroupSelectionTableViewCell class];
 }
 
 //MARK: - UITableViewDelegate
@@ -521,11 +486,4 @@ static CGFloat const eventCellAspectRatio = 1.352;
          completion:nil];
     }];
 }
-
--(void)controller:(GroupCollectionViewController *)controller tappedGroup:(Group *)group {
-    self.dataSource = [[EventDataSource alloc] initWithFeedID:[group groupID] forEventsInSection:FeedSectionsEvents];
-    self.dataSource.delegate = self;
-    [self.dataSource refresh];
-}
-
 @end

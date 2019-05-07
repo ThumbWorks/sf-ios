@@ -10,7 +10,6 @@
 #import "EventDataSource.h"
 
 typedef NS_ENUM(NSInteger, FeedSections) {
-    FeedSectionsGroups,
     FeedSectionsEvents,
     FeedSectionsCount
 };
