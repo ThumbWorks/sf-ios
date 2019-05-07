@@ -13,7 +13,7 @@
 @interface FeedItemTests : XCTestCase
 
 @property (nonatomic) Event *event;
-
+@property (nonatomic) NSDate *noon;
 @end
 
 @implementation FeedItemTests
@@ -40,7 +40,10 @@
                            };
     self.event = [[Event alloc] initWithDictionary:dict];
     self.event.type = EventTypeSFCoffee;
-    self.event.date = [NSDate new];
+    self.event.date = self.noon;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    self.noon = [calendar dateBySettingHour:12 minute:0 second:0 ofDate:[NSDate date] options:0];
+
 }
 
 - (void)tearDown {
@@ -49,8 +52,7 @@
 }
 
 - (void)testEventInTomorrow {
-    NSDate *startDate = [NSDate date];
-    NSDate *eventEndDate = [self dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate];
+    NSDate *eventEndDate = [self dateByAddingUnit:NSCalendarUnitDay value:1 toDate:self.noon];
 
     self.event.date = eventEndDate;
     self.event.endDate = eventEndDate;
@@ -60,8 +62,8 @@
 }
 
 - (void)testEventInToday {
-    NSDate *tomorrow = [self dateByAddingUnit:NSCalendarUnitHour value:1 toDate:[NSDate new]];
-    self.event.date = [NSDate new];
+    NSDate *tomorrow = [self dateByAddingUnit:NSCalendarUnitDay value:1 toDate:self.noon];
+    self.event.date = self.noon;
     self.event.endDate = tomorrow;
     FeedItem *item = [[FeedItem alloc] initWithEvent:self.event];
     
@@ -70,7 +72,7 @@
 }
 
 - (void)testEventInPastButStillInToday {
-    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitHour value:-2 toDate:[NSDate new]];
+    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitHour value:-2 toDate:self.noon];
     self.event.date = eventDate;
     FeedItem *item = [[FeedItem alloc] initWithEvent:self.event];
     
@@ -79,7 +81,7 @@
 }
 
 - (void)testEventInYesterday {
-    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:[NSDate new]];
+    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:self.noon];
     self.event.date = eventDate;
     FeedItem *item = [[FeedItem alloc] initWithEvent:self.event];
     
@@ -88,7 +90,7 @@
 }
 
 - (void)testEventInLastMonth {
-    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitMonth value:-1 toDate:[NSDate new]];
+    NSDate *eventDate = [self dateByAddingUnit:NSCalendarUnitMonth value:-1 toDate:self.noon];
     self.event.date = eventDate;
     FeedItem *item = [[FeedItem alloc] initWithEvent:self.event];
     
