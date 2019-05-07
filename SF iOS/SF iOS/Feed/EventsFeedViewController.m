@@ -162,6 +162,7 @@ NS_ASSUME_NONNULL_END
     
 - (void)configureGroupButton {
     self.groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.groupButton setHidden:true];
     [self.groupButton addTarget:self
                          action:@selector(changeGroups:)
                forControlEvents:UIControlEventTouchUpInside];
@@ -464,6 +465,7 @@ NS_ASSUME_NONNULL_END
             return;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.groupButton setHidden:false];
             [self updateNotificationButton];
             [self.tableView.refreshControl endRefreshing];
         });
