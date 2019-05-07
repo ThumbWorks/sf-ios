@@ -17,8 +17,6 @@
 #import "NSUserDefaults+Settings.h"
 #import <UserNotifications/UserNotifications.h>
 #import "ImageBasedCollectionViewCell.h"
-#import "GroupCollectionViewController.h"
-#import "GroupSelectionTableViewCell.h"
 #import "GroupDataSource.h"
 #import "Group.h"
 

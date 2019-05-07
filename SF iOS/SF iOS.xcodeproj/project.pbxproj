@@ -31,7 +31,6 @@
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
 		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
 		5FE80F68227A33D100080000 /* UNNotificationAttachment+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE80F67227A33D100080000 /* UNNotificationAttachment+EventNotifications.m */; };
-		5F6C1F7B2267FC9F00D96330 /* ImageBasedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */; };
 		5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD3224ECACC00AA8A25 /* Venue.m */; };
 		5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A5C1F2C043600DCFEB6 /* Location.m */; };
 		5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E6A3EC1F3256180098339C /* EventDetailsViewController.m */; };
@@ -147,14 +146,14 @@
 		5F3820A2224C910300862294 /* FeedCompletion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedCompletion.h; sourceTree = "<group>"; };
 		5F3820A3224C920F00862294 /* FeedFetchService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedFetchService.h; sourceTree = "<group>"; };
 		5F3820A4224C920F00862294 /* FeedFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchService.m; sourceTree = "<group>"; };
+		5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageBasedCollectionViewCell.h; sourceTree = "<group>"; };
+		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5F868EA32273C10300CEEBCA /* Coffup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coffup.entitlements; sourceTree = "<group>"; };
 		5F868EA42273C10600CEEBCA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5FCD225B226E898A002A85B8 /* Analytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
 		5FCD225C226E898A002A85B8 /* Analytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		5FE80F66227A33D100080000 /* UNNotificationAttachment+EventNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UNNotificationAttachment+EventNotifications.h"; sourceTree = "<group>"; };
 		5FE80F67227A33D100080000 /* UNNotificationAttachment+EventNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UNNotificationAttachment+EventNotifications.m"; sourceTree = "<group>"; };
-		5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageBasedCollectionViewCell.h; sourceTree = "<group>"; };
-		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5FECEFD2224ECACC00AA8A25 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		5FECEFD3224ECACC00AA8A25 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		5FECEFD8224EE87D00AA8A25 /* EventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTests.m; sourceTree = "<group>"; };
