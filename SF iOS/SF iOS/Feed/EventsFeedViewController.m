@@ -97,7 +97,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)notificationTapped:(UIButton *)button {
-    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:nil];
+    Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
+    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
     NSString *buttonTitle;
     if (isNotificationSet) {
         buttonTitle = NSLocalizedString(@"Turn off notifications",
@@ -110,13 +111,13 @@ NS_ASSUME_NONNULL_END
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-
+    __weak typeof(self) welf = self;
     void (^notificationsPreferenceChangeTapped)(UIAlertAction * _Nonnull) = ^void(UIAlertAction * _Nonnull action) {
 
         // if notifications are turned on, set them to off
         if (isNotificationSet) {
             [[NSUserDefaults standardUserDefaults] setNotificationSetting:FALSE
-                                                                 forGroup:nil];
+                                                                 forGroup:group];
             [self updateNotificationButton];
         }
         // if notifications are turned off, request permissions
@@ -124,20 +125,21 @@ NS_ASSUME_NONNULL_END
         else {
             UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
             UNAuthorizationOptions options = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-            __weak typeof(self) welf = self;
 
             [notificationCenter requestAuthorizationWithOptions:options
                                               completionHandler:^(BOOL granted, NSError *error){
-                                                  // Not a very robust error handling solution here
                                                   if (error) {
+                                                      [welf handleError:error];
                                                       NSLog(@"Error %@", error);
+                                                      return;
                                                   }
                                                   // if they've granted perms, update the setting, notify UI
                                                   if (granted) {
-                                                      [[NSUserDefaults standardUserDefaults] setNotificationSetting:!isNotificationSet
-                                                                                                           forGroup:nil];
-                                                      // This hits UI so we must dispatch on main queue
+                                                      // This hits UI and accesses a main thread group object so we must dispatch on main queue
                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                          [defaults setNotificationSetting:!isNotificationSet
+                                                                                  forGroup:group];
                                                           [welf updateNotificationButton];
                                                       });
                                                   }
@@ -150,8 +152,9 @@ NS_ASSUME_NONNULL_END
 
     [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle
                                               style:UIAlertActionStyleCancel
-                                            handler:nil]];
-
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                  [welf updateNotificationButton];
+                                              }]];
     button.hidden = true;
     [self presentViewController:alert animated:true completion:nil];
 }
@@ -288,7 +291,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)updateNotificationButton {
-    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:nil];
+    Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
+    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
     [self.notificationSettingButton setSelected:isNotificationSet];
     [self.notificationSettingButton setHidden:false];
 
@@ -458,9 +462,10 @@ NS_ASSUME_NONNULL_END
             return;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateNotificationButton];
             [self.tableView.refreshControl endRefreshing];
         });
-        Group *group = [self.groupDataSource groupAtIndex:datasource.indexOfCurrentItem];
+        Group *group = [self.groupDataSource groupAtIndex:self.groupDataSource.indexOfCurrentItem];
         [self updateDataSourceWithGroup:group];
     } else if (datasource == self.dataSource) {
         // Don’t crash the app by modifying the table while the user is searching
@@ -468,6 +473,7 @@ NS_ASSUME_NONNULL_END
 
         // Otherwise update on changes
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateNotificationButton];
             if (!insertions && !updates && !deletions) {
                 NSLog(@"Empty update");
                 [self.tableView reloadData];

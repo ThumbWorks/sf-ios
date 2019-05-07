@@ -10,6 +10,7 @@
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "SwipableNavigationContainer.h"
 #import "BackgroundFetcher.h"
+#import <Realm/Realm.h>
 
 @interface AppDelegate ()
 @property (nonatomic) SwipableNavigationContainer *navigationContainer;
