@@ -155,9 +155,8 @@ NS_ASSUME_NONNULL_END
     [self presentViewController:alert animated:true completion:nil];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
     
+- (void)configureTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -166,38 +165,15 @@ NS_ASSUME_NONNULL_END
     self.tableView.rowHeight = self.cellHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
-
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
     self.tableView.delaysContentTouches = NO;
-    [self.view addSubview:self.tableView];
 
-    [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = true;
-    [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
-    [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
-    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
-    [self.tableView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = true;
-    
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
-    
-    [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
-    
-    CGRect searchBarRect = CGRectMake(kSEARCHBARMARGIN, 0, self.view.frame.size.width-(kSEARCHBARMARGIN*2), kSEARCHBARHEIGHT);
-    [self setupNotificationsButton];
-    self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
-    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    self.searchBar.placeholder = NSLocalizedString(@"Filter", @"Prompt to search for event names. Here, `Filter` is a joke in English because people filter coffee and this list can be filtered by a term.");
-    self.searchBar.delegate = self;
 
-    self.tableView.tableHeaderView = self.searchBar;
-    
-    self.tableView.tableHeaderView.backgroundColor = UIColor.whiteColor;
-    CGPoint contentOffest = self.tableView.contentOffset;
-    contentOffest.y += self.searchBar.frame.size.height * 2;
-    self.tableView.contentOffset = contentOffest;
-    
-    // TODO: Add an invisible, dismissng button below the search UI
-    
+}
+
+- (void)configureNoResultsView {
     self.noResultsView = [[UIView alloc] init];
     self.noResultsView.frame = CGRectMake(0, (1.5 * kTABLEHEADERHEIGHT), self.tableView.frame.size.width, (self.view.bounds.size.height - (4 * kTABLEHEADERHEIGHT)));
     [self.noResultsView setHidden:true];
@@ -208,9 +184,40 @@ NS_ASSUME_NONNULL_END
     noResultsLabel.textAlignment = NSTextAlignmentCenter;
     noResultsLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     [self.noResultsView addSubview:noResultsLabel];
-        
-    [self addStatusBarBlurBackground];
+}
 
+- (void)addConstraints {
+    [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = true;
+    [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
+    [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
+    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
+    [self.tableView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = true;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self configureTableView];
+    [self.view addSubview:self.tableView];
+    [self addConstraints];
+
+    [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    
+    CGRect searchBarRect = CGRectMake(kSEARCHBARMARGIN, 0, self.view.frame.size.width-(kSEARCHBARMARGIN*2), kSEARCHBARHEIGHT);
+    [self setupNotificationsButton];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchBar.placeholder = NSLocalizedString(@"Filter", @"Prompt to search for event names. Here, `Filter` is a joke in English because people filter coffee and this list can be filtered by a term.");
+    self.searchBar.delegate = self;
+
+    self.tableView.tableHeaderView = self.searchBar;
+    self.tableView.tableHeaderView.backgroundColor = UIColor.whiteColor;
+    CGPoint contentOffest = self.tableView.contentOffset;
+    contentOffest.y += self.searchBar.frame.size.height * 2;
+    self.tableView.contentOffset = contentOffest;
+
+    [self configureNoResultsView];
+    [self addStatusBarBlurBackground];
     [self.dataSource refresh];
 }
 
