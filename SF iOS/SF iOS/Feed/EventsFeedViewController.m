@@ -289,6 +289,7 @@ NS_ASSUME_NONNULL_END
 - (void)updateDataSourceWithGroup:(Group *)group {
     self.dataSource = [[EventDataSource alloc] initWithFeedID:group.groupID
                                            forEventsInSection:0];
+    [self.tableView reloadData];
     self.dataSource.delegate = self;
     [self.dataSource refresh];
 }
