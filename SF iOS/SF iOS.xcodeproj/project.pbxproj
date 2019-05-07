@@ -38,8 +38,6 @@
 		5FECEFD9224EE87D00AA8A25 /* EventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD8224EE87D00AA8A25 /* EventTests.m */; };
 		5FECEFDB224EEB3100AA8A25 /* VenueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFDA224EEB3100AA8A25 /* VenueTests.m */; };
 		5FECEFDD224EEBE900AA8A25 /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFDC224EEBE900AA8A25 /* LocationTests.m */; };
-		6C37D4ADD7CD283A3F61DAFE /* libPods-SF iOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A175B7862F3FA30ED2D111F /* libPods-SF iOSUITests.a */; };
-		A95F12DF6A70BE48FCC3B0BF /* libPods-SF iOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B59B6549D07F46BFC632E473 /* libPods-SF iOSUITests.a */; };
 		C82516301F2FA260006B9D7E /* EventsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C825162F1F2FA260006B9D7E /* EventsFeedViewController.m */; };
 		C82516341F2FBBD2006B9D7E /* FeedItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C82516331F2FBBD2006B9D7E /* FeedItemCell.m */; };
 		C82516381F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = C82516371F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m */; };
@@ -64,7 +62,6 @@
 		C8810A2C1F2BFE6900DCFEB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8810A2B1F2BFE6900DCFEB6 /* Assets.xcassets */; };
 		C8810A2F1F2BFE6900DCFEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8810A2D1F2BFE6900DCFEB6 /* LaunchScreen.storyboard */; };
 		C8810A321F2BFE6900DCFEB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A311F2BFE6900DCFEB6 /* main.m */; };
-		C8810A471F2BFE6900DCFEB6 /* SF_iOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8810A461F2BFE6900DCFEB6 /* SF_iOSUITests.m */; };
 		C88A19C61F2DC52D00C08187 /* NSError+Constructor.m in Sources */ = {isa = PBXBuildFile; fileRef = C88A19C51F2DC52D00C08187 /* NSError+Constructor.m */; };
 		C88A19C81F2EC56600C08187 /* EventDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C88A19C71F2EC56600C08187 /* EventDataSourceTests.m */; };
 		C89401041F36C273001E8E27 /* DirectionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C89401031F36C273001E8E27 /* DirectionsRequest.m */; };
@@ -88,13 +85,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		C8810A381F2BFE6900DCFEB6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C8810A171F2BFE6900DCFEB6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C8810A1E1F2BFE6900DCFEB6;
-			remoteInfo = "SF iOS";
-		};
-		C8810A431F2BFE6900DCFEB6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C8810A171F2BFE6900DCFEB6 /* Project object */;
 			proxyType = 1;
@@ -216,9 +206,6 @@
 		C8810A311F2BFE6900DCFEB6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C8810A371F2BFE6900DCFEB6 /* SF iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SF iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8810A3D1F2BFE6900DCFEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C8810A421F2BFE6900DCFEB6 /* SF iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SF iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8810A461F2BFE6900DCFEB6 /* SF_iOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SF_iOSUITests.m; sourceTree = "<group>"; };
-		C8810A481F2BFE6900DCFEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8810A541F2BFE9400DCFEB6 /* SF iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SF iOS.entitlements"; sourceTree = "<group>"; };
 		C8810A5B1F2C043600DCFEB6 /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		C8810A5C1F2C043600DCFEB6 /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -279,15 +266,6 @@
 			files = (
 				CED16D5C64A6DD2CE70F99F8 /* libPods-SF iOSTests.a in Frameworks */,
 				E0037C5422A4AF58E1158B64 /* libPods-SF iOSTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8810A3F1F2BFE6900DCFEB6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6C37D4ADD7CD283A3F61DAFE /* libPods-SF iOSUITests.a in Frameworks */,
-				A95F12DF6A70BE48FCC3B0BF /* libPods-SF iOSUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +491,6 @@
 				5F868EA32273C10300CEEBCA /* Coffup.entitlements */,
 				C8810A211F2BFE6900DCFEB6 /* SF iOS */,
 				C8810A3A1F2BFE6900DCFEB6 /* SF iOSTests */,
-				C8810A451F2BFE6900DCFEB6 /* SF iOSUITests */,
 				C8810A201F2BFE6900DCFEB6 /* Products */,
 				B76E4D3CFF34FCE8B77E13EC /* Pods */,
 				5FF08D062261015E0091FAC8 /* Recovered References */,
@@ -526,7 +503,6 @@
 			children = (
 				C8810A1F1F2BFE6900DCFEB6 /* Coffup.app */,
 				C8810A371F2BFE6900DCFEB6 /* SF iOSTests.xctest */,
-				C8810A421F2BFE6900DCFEB6 /* SF iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -576,15 +552,6 @@
 				5F0DE172227CA592003467DC /* SettingsTests.m */,
 			);
 			path = "SF iOSTests";
-			sourceTree = "<group>";
-		};
-		C8810A451F2BFE6900DCFEB6 /* SF iOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C8810A461F2BFE6900DCFEB6 /* SF_iOSUITests.m */,
-				C8810A481F2BFE6900DCFEB6 /* Info.plist */,
-			);
-			path = "SF iOSUITests";
 			sourceTree = "<group>";
 		};
 		C8810A5A1F2C028900DCFEB6 /* Models */ = {
@@ -769,25 +736,6 @@
 			productReference = C8810A371F2BFE6900DCFEB6 /* SF iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C8810A411F2BFE6900DCFEB6 /* SF iOSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C8810A511F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "SF iOSUITests" */;
-			buildPhases = (
-				FF7C6944C00ED646161D2A97 /* [CP] Check Pods Manifest.lock */,
-				C8810A3E1F2BFE6900DCFEB6 /* Sources */,
-				C8810A3F1F2BFE6900DCFEB6 /* Frameworks */,
-				C8810A401F2BFE6900DCFEB6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C8810A441F2BFE6900DCFEB6 /* PBXTargetDependency */,
-			);
-			name = "SF iOSUITests";
-			productName = "SF iOSUITests";
-			productReference = C8810A421F2BFE6900DCFEB6 /* SF iOSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -816,10 +764,6 @@
 						CreatedOnToolsVersion = 9.0;
 						TestTargetID = C8810A1E1F2BFE6900DCFEB6;
 					};
-					C8810A411F2BFE6900DCFEB6 = {
-						CreatedOnToolsVersion = 9.0;
-						TestTargetID = C8810A1E1F2BFE6900DCFEB6;
-					};
 				};
 			};
 			buildConfigurationList = C8810A1A1F2BFE6900DCFEB6 /* Build configuration list for PBXProject "SF iOS" */;
@@ -837,7 +781,6 @@
 			targets = (
 				C8810A1E1F2BFE6900DCFEB6 /* Coffup */,
 				C8810A361F2BFE6900DCFEB6 /* SF iOSTests */,
-				C8810A411F2BFE6900DCFEB6 /* SF iOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -855,13 +798,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C8810A351F2BFE6900DCFEB6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8810A401F2BFE6900DCFEB6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -909,28 +845,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SF iOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FF7C6944C00ED646161D2A97 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SF iOSUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1020,14 +934,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8810A3E1F2BFE6900DCFEB6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C8810A471F2BFE6900DCFEB6 /* SF_iOSUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1035,11 +941,6 @@
 			isa = PBXTargetDependency;
 			target = C8810A1E1F2BFE6900DCFEB6 /* Coffup */;
 			targetProxy = C8810A381F2BFE6900DCFEB6 /* PBXContainerItemProxy */;
-		};
-		C8810A441F2BFE6900DCFEB6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C8810A1E1F2BFE6900DCFEB6 /* Coffup */;
-			targetProxy = C8810A431F2BFE6900DCFEB6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1235,36 +1136,6 @@
 			};
 			name = Release;
 		};
-		C8810A521F2BFE6900DCFEB6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC27CEEDAEC1D2083F78C4A2 /* Pods-SF iOSUITests.debug.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = F4WTN36U2F;
-				INFOPLIST_FILE = "SF iOSUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Coffup;
-			};
-			name = Debug;
-		};
-		C8810A531F2BFE6900DCFEB6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2DA14BB2045FEFDFE19FA8A /* Pods-SF iOSUITests.release.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = F4WTN36U2F;
-				INFOPLIST_FILE = "SF iOSUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.amitjain.SF-iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Coffup;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1291,15 +1162,6 @@
 			buildConfigurations = (
 				C8810A4F1F2BFE6900DCFEB6 /* Debug */,
 				C8810A501F2BFE6900DCFEB6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C8810A511F2BFE6900DCFEB6 /* Build configuration list for PBXNativeTarget "SF iOSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C8810A521F2BFE6900DCFEB6 /* Debug */,
-				C8810A531F2BFE6900DCFEB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

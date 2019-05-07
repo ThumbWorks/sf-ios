@@ -13,9 +13,4 @@ target 'Coffup' do
     pod 'Realm/Headers'
   end
 
-  target 'SF iOSUITests' do
-    inherit! :search_paths
-    pod 'Realm/Headers'
-  end
-
 end
