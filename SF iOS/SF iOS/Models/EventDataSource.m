@@ -20,7 +20,7 @@
 @property (nonatomic) RLMResults<Event *> *events;
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
-@property (nonatomic) RLMRealm *realm;
+
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
 
@@ -32,7 +32,6 @@
         self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
         self.service = [[FeedFetchService alloc] initWithFeedID:feedID];
         [self observeAppActivationEvents];
-        self.realm = [RLMRealm defaultRealm];
         __weak typeof(self) welf = self;
         self.notificationToken = [self.events
                                   addNotificationBlock:^(RLMResults<Event *> *results, RLMCollectionChange *changes, NSError *error) {
