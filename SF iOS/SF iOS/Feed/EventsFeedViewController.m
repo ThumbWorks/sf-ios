@@ -256,7 +256,6 @@ NS_ASSUME_NONNULL_END
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self configureTableView];
     [self.view addSubview:self.tableView];
 
@@ -369,7 +368,7 @@ NS_ASSUME_NONNULL_END
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.userLocationService requestLocationPermission];
     EventDetailsViewController *vc = [self eventDetailsViewControllerForEventAtIndexPath:indexPath];
-    [self presentViewController:vc animated:true completion:nil];
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 - (void)handleRefresh {

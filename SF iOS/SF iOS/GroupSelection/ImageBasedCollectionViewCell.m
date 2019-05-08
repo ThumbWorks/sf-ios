@@ -26,7 +26,7 @@
     return self;
 }
 
-+ (UIFont)labelFont {
++ (UIFont *)labelFont {
     return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 

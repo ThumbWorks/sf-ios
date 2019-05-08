@@ -10,28 +10,41 @@
 #import "GroupDataSource.h"
 #import "Group.h"
 #import "FeedProvider.h"
-#import "BasicTextCollectionViewCell.h"
+#import "ImageBasedCollectionViewCell.h"
 #import "ImageStore.h"
 #import "UIImage+URL.h"
-
+#import "GroupCollectionView.h"
 @interface GroupCollectionViewController() <UICollectionViewDelegateFlowLayout>
 @property(nonatomic) id<FeedProvider> dataSource;
-@property(nonatomic) UICollectionView *collectionView;
+@property(nonatomic) GroupCollectionView *collectionView;
 @property(nonatomic) ImageStore *cache;
 @property (nonatomic) NSOperationQueue *imageFetchQueue;
 @end
 
 @implementation GroupCollectionViewController
 
-- (instancetype)initWithDataSource:(id<FeedProvider>)dataSource collectionView:(UICollectionView *)collectionView {
+- (instancetype)initWithDataSource:(id<FeedProvider>)dataSource {
     self = [super init];
     if (self) {
         // set the delegate outside of this scope probably
         _dataSource = dataSource;
-        _collectionView = collectionView;
+        _collectionView = [GroupCollectionView view];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
         _imageFetchQueue = [[NSOperationQueue alloc] init];
+        [_collectionView registerClass:[ImageBasedCollectionViewCell class]
+            forCellWithReuseIdentifier:[ImageBasedCollectionViewCell reuseID]];
     }
     return self;
+}
+
+- (void)loadView {
+    self.view = self.collectionView;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = NSLocalizedString(@"Groups", @"Groups view title");
 }
 
 - (void)didChangeDataSource:(nonnull id<FeedProvider>)datasource withInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
@@ -53,10 +66,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    Group *group = [((GroupDataSource *)self.dataSource) groupAtIndex:indexPath.row];
-    UIFont *font = [BasicTextCollectionViewCell labelFont];
-    CGSize size = [group.name sizeWithAttributes:@{NSFontAttributeName:font}];
-    return CGSizeMake(size.width + 35, size.height);
+    return CGSizeMake(collectionView.bounds.size.width - 20, 200);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,9 +79,30 @@
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    BasicTextCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[BasicTextCollectionViewCell reuseID] forIndexPath:indexPath];
+    ImageBasedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ImageBasedCollectionViewCell reuseID] forIndexPath:indexPath];
     Group *group = [((GroupDataSource *)self.dataSource) groupAtIndex:indexPath.row];
-    [cell updateWithTitle:group.name];
+    UIImage *image = [self.cache imageForKey:group.imageURLString];
+    if (image) {
+        [cell updateWithImage:image title:group.name];
+    } else {
+        __weak typeof(self) welf = self;
+
+        [UIImage
+         fetchImageFromURL:[NSURL URLWithString:group.imageURLString]
+         onQueue: self.imageFetchQueue
+         withCompletionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+             if (!image || error) {
+                 NSLog(@"Error decoding image: %@", error);
+                 return;
+             }
+             [welf.cache storeImage:image forKey:group.imageURLString];
+
+             // Fetch the cell again, if it exists as the original instance of cell might have been
+             // dequeued by now. If the cell does not exist, setting the image will silently fail.
+             ImageBasedCollectionViewCell *fetchedCell = (ImageBasedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+             [fetchedCell updateWithImage:image title:group.name];
+         }];
+    }
     return cell;
 }
 

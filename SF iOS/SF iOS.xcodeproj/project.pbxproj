@@ -29,6 +29,8 @@
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
+		5F960DE52283757900D8A96C /* ImageBasedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */; };
+		5F960DE8228387C100D8A96C /* GroupCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F960DE7228387C100D8A96C /* GroupCollectionView.m */; };
 		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
 		5FE80F68227A33D100080000 /* UNNotificationAttachment+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE80F67227A33D100080000 /* UNNotificationAttachment+EventNotifications.m */; };
 		5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FECEFD3224ECACC00AA8A25 /* Venue.m */; };
@@ -140,6 +142,8 @@
 		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5F868EA32273C10300CEEBCA /* Coffup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coffup.entitlements; sourceTree = "<group>"; };
 		5F868EA42273C10600CEEBCA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5F960DE6228387C100D8A96C /* GroupCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupCollectionView.h; sourceTree = "<group>"; };
+		5F960DE7228387C100D8A96C /* GroupCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupCollectionView.m; sourceTree = "<group>"; };
 		5FCD225B226E898A002A85B8 /* Analytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
 		5FCD225C226E898A002A85B8 /* Analytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		5FE80F66227A33D100080000 /* UNNotificationAttachment+EventNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UNNotificationAttachment+EventNotifications.h"; sourceTree = "<group>"; };
@@ -343,6 +347,8 @@
 				5F2CFE93226914E3004DB902 /* GroupCollectionViewController.m */,
 				5F2CFE952269350C004DB902 /* BasicTextCollectionViewCell.h */,
 				5F2CFE962269350C004DB902 /* BasicTextCollectionViewCell.m */,
+				5F960DE6228387C100D8A96C /* GroupCollectionView.h */,
+				5F960DE7228387C100D8A96C /* GroupCollectionView.m */,
 			);
 			path = GroupSelection;
 			sourceTree = "<group>";
@@ -892,8 +898,10 @@
 				C86DD4351F3A389B00C58723 /* NSAttributedString+EventDetails.m in Sources */,
 				5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */,
 				5F313558227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m in Sources */,
+				5F960DE52283757900D8A96C /* ImageBasedCollectionViewCell.m in Sources */,
 				5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */,
 				5FE80F68227A33D100080000 /* UNNotificationAttachment+EventNotifications.m in Sources */,
+				5F960DE8228387C100D8A96C /* GroupCollectionView.m in Sources */,
 				C86E386B1F31B78300E35EBF /* UIImage+URL.m in Sources */,
 				C82516381F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m in Sources */,
 				C8CC494C1F33BA420064B03E /* TravelTimeView.m in Sources */,

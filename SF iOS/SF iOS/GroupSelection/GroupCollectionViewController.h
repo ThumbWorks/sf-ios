@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface GroupCollectionViewController : NSObject <FeedProviderDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
-- (instancetype)initWithDataSource:(id<FeedProvider>)dataSource collectionView:(UICollectionView *)collectionView;
+@interface GroupCollectionViewController : UIViewController <FeedProviderDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+- (instancetype)initWithDataSource:(id<FeedProvider>)dataSource;
 @property (nonatomic, weak) id<GroupCollectionViewControllerDelegate> selectionDelegate;
 
 @end
