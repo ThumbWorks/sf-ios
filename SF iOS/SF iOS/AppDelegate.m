@@ -71,10 +71,12 @@
 
 // MARK: - Background Fetch
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    self.bgFetcher = [[BackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
-        completionHandler(result);
-        self.bgFetcher = nil;
-    }];
+    completionHandler(UIBackgroundFetchResultNoData);
+    // TODO Temporarily shut off background notifications
+//    self.bgFetcher = [[BackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
+//        completionHandler(result);
+//        self.bgFetcher = nil;
+//    }];
 }
 
 //MARK: - Configure cache
