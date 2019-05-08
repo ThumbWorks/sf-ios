@@ -30,7 +30,7 @@
     if (self = [super init]) {
         self.searchQuery = @"";
         self.group = group;
-        self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
+        self.events = [[Event objectsWhere:@"groupID == %@", group.groupID] sortedResultsUsingKeyPath:@"date" ascending:false];
         self.service = [[FeedFetchService alloc] initWithGroupID:group.groupID];
         [self observeAppActivationEvents];
         __weak typeof(self) welf = self;
