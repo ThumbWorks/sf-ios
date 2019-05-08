@@ -17,7 +17,6 @@
 #import "NSUserDefaults+Settings.h"
 #import <UserNotifications/UserNotifications.h>
 #import "ImageBasedCollectionViewCell.h"
-#import "GroupDataSource.h"
 #import "EventDataSource.h"
 #import "Group.h"
 #import "UIViewController+ErrorHandling.h"
@@ -26,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic, nonnull) EventDataSource *dataSource;
-@property (nonatomic, nonnull) GroupDataSource *groupDataSource;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) UIButton *groupButton;
 @property (nonatomic, assign) BOOL firstLoad;
@@ -45,9 +43,9 @@ NS_ASSUME_NONNULL_END
 #define kSEARCHBARMARGIN 12
 #define kTABLEHEADERHEIGHT (2 * kSEARCHBARHEIGHT)
 
-- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource tableView:(UITableView *)tableView {
+- (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView {
     if (self = [super initWithNibName:nil bundle:nil]) {
-        self.groupDataSource = groupDataSource;
+        self.dataSource = eventDataSource;
         self.userLocationService = [UserLocation new];
         self.imageFetchQueue = [[NSOperationQueue alloc] init];
         self.imageFetchQueue.name = @"Image Fetch Queue";
@@ -63,19 +61,19 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
+    self = [self initWithDataSource:[EventDataSource new] tableView:[UITableView new]];
     return self;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
+    self = [self initWithDataSource:[EventDataSource new] tableView:[UITableView new]];
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
+    self = [self initWithDataSource:[EventDataSource new] tableView:[UITableView new]];
     return self;
 }
 
@@ -99,117 +97,106 @@ NS_ASSUME_NONNULL_END
     [self.notificationSettingButton.widthAnchor constraintEqualToConstant:44].active = true;
 }
 
-- (void)notificationTapped:(UIButton *)button {
-    Group *group = [self.groupDataSource selectedGroup];
-    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
-    NSString *buttonTitle;
-    if (isNotificationSet) {
-        buttonTitle = NSLocalizedString(@"Turn off notifications",
-                                        @"Turn off notifications action sheet button");
-    } else {
-        buttonTitle = NSLocalizedString(@"Turn on notifications",
-                                        @"Turn on notifications action sheet button");
-    }
-    NSString *cancelButtonTitle = NSLocalizedString(@"Cancel", @"Cancel");
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    __weak typeof(self) welf = self;
-    void (^notificationsPreferenceChangeTapped)(UIAlertAction * _Nonnull) = ^void(UIAlertAction * _Nonnull action) {
-
-        // if notifications are turned on, set them to off
-        if (isNotificationSet) {
-            [[NSUserDefaults standardUserDefaults] setNotificationSetting:FALSE
-                                                                 forGroup:group];
-            [self updateNotificationButton];
-        }
-        // if notifications are turned off, request permissions
-        // only if they are granted do we update the setting
-        else {
-            UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
-            UNAuthorizationOptions options = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
-
-            [notificationCenter requestAuthorizationWithOptions:options
-                                              completionHandler:^(BOOL granted, NSError *error){
-                                                  if (error) {
-                                                      [welf handleError:error];
-                                                      NSLog(@"Error %@", error);
-                                                      return;
-                                                  }
-                                                  // if they've granted perms, update the setting, notify UI
-                                                  if (granted) {
-                                                      // This hits UI and accesses a main thread group object so we must dispatch on main queue
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                                                          [defaults setNotificationSetting:!isNotificationSet
-                                                                                  forGroup:group];
-                                                          [welf updateNotificationButton];
-                                                      });
-                                                  }
-                                              }];
-        };
-    };
-    [alert addAction:[UIAlertAction actionWithTitle:buttonTitle
-                                              style:UIAlertActionStyleDefault
-                                            handler:notificationsPreferenceChangeTapped]];
-
-    [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle
-                                              style:UIAlertActionStyleCancel
-                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                  [welf updateNotificationButton];
-                                              }]];
-    button.hidden = true;
-    [self presentViewController:alert animated:true completion:nil];
-}
-
-    
-- (void)configureGroupButton {
-    self.groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.groupButton setHidden:true];
-    [self.groupButton addTarget:self
-                         action:@selector(changeGroups:)
-               forControlEvents:UIControlEventTouchUpInside];
-    [self.groupButton setTitle:@"Groups" forState:UIControlStateNormal];
-    [self.groupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.groupButton.translatesAutoresizingMaskIntoConstraints = false;
-}
-
-- (void)changeGroups:(UIButton *)button {
-    [button setHidden:true];
-    NSString *groupSelectionTitle = NSLocalizedString(@"Select group",
-                                                      @"Title for the group selection alert");
-
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:groupSelectionTitle
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-
-    for (int i = 0; i < self.groupDataSource.numberOfItems; i++) {
-        Group *group = [self.groupDataSource groupAtIndex:i];
-        NSString *title;
-        if ([self.groupDataSource indexOfCurrentItem] == i) {
-            title = [NSString stringWithFormat:@"✓ %@ ", group.name];
-        } else {
-            title = group.name;
-        }
-        [alert addAction:[UIAlertAction actionWithTitle:title
-                                                  style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * _Nonnull action) {
-                                                    NSLog(@"selected %@", group.name);
-                                                    [self.groupDataSource selectGroup:group];
-                                                    [self updateWithGroup:group];
-                                                    [self.groupButton setHidden:false];
-                                                }]];
-    }
-    NSString *cancel = NSLocalizedString(@"Cancel", @"Cancel");
-
-    [alert addAction:[UIAlertAction actionWithTitle:cancel
-                                              style:UIAlertActionStyleCancel
-                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                [self.groupButton setHidden:false];
-                                            }]];
-    [self presentViewController:alert animated:true completion:nil];
-
-}
+//- (void)notificationTapped:(UIButton *)button {
+//    Group *group;// = [self.groupDataSource selectedGroup];
+//    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
+//    NSString *buttonTitle;
+//    if (isNotificationSet) {
+//        buttonTitle = NSLocalizedString(@"Turn off notifications",
+//                                        @"Turn off notifications action sheet button");
+//    } else {
+//        buttonTitle = NSLocalizedString(@"Turn on notifications",
+//                                        @"Turn on notifications action sheet button");
+//    }
+//    NSString *cancelButtonTitle = NSLocalizedString(@"Cancel", @"Cancel");
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+//                                                                   message:nil
+//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+//    __weak typeof(self) welf = self;
+//    void (^notificationsPreferenceChangeTapped)(UIAlertAction * _Nonnull) = ^void(UIAlertAction * _Nonnull action) {
+//
+//        // if notifications are turned on, set them to off
+//        if (isNotificationSet) {
+//            [[NSUserDefaults standardUserDefaults] setNotificationSetting:FALSE
+//                                                                 forGroup:group];
+//            [self updateNotificationButton];
+//        }
+//        // if notifications are turned off, request permissions
+//        // only if they are granted do we update the setting
+//        else {
+//            UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+//            UNAuthorizationOptions options = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
+//
+//            [notificationCenter requestAuthorizationWithOptions:options
+//                                              completionHandler:^(BOOL granted, NSError *error){
+//                                                  if (error) {
+//                                                      [welf handleError:error];
+//                                                      NSLog(@"Error %@", error);
+//                                                      return;
+//                                                  }
+//                                                  // if they've granted perms, update the setting, notify UI
+//                                                  if (granted) {
+//                                                      // This hits UI and accesses a main thread group object so we must dispatch on main queue
+//                                                      dispatch_async(dispatch_get_main_queue(), ^{
+//                                                          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                                                          [defaults setNotificationSetting:!isNotificationSet
+//                                                                                  forGroup:group];
+//                                                          [welf updateNotificationButton];
+//                                                      });
+//                                                  }
+//                                              }];
+//        };
+//    };
+//    [alert addAction:[UIAlertAction actionWithTitle:buttonTitle
+//                                              style:UIAlertActionStyleDefault
+//                                            handler:notificationsPreferenceChangeTapped]];
+//
+//    [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle
+//                                              style:UIAlertActionStyleCancel
+//                                            handler:^(UIAlertAction * _Nonnull action) {
+//                                                  [welf updateNotificationButton];
+//                                              }]];
+//    button.hidden = true;
+//    [self presentViewController:alert animated:true completion:nil];
+//}
+//
+//
+//- (void)changeGroups:(UIButton *)button {
+//    [button setHidden:true];
+//    NSString *groupSelectionTitle = NSLocalizedString(@"Select group",
+//                                                      @"Title for the group selection alert");
+//
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:groupSelectionTitle
+//                                                                   message:nil
+//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//    for (int i = 0; i < self.groupDataSource.numberOfItems; i++) {
+//        Group *group = [self.groupDataSource groupAtIndex:i];
+//        NSString *title;
+//        if ([self.groupDataSource indexOfCurrentItem] == i) {
+//            title = [NSString stringWithFormat:@"✓ %@ ", group.name];
+//        } else {
+//            title = group.name;
+//        }
+//        [alert addAction:[UIAlertAction actionWithTitle:title
+//                                                  style:UIAlertActionStyleDefault
+//                                                handler:^(UIAlertAction * _Nonnull action) {
+//                                                    NSLog(@"selected %@", group.name);
+//                                                    [self.groupDataSource selectGroup:group];
+//                                                    [self updateWithGroup:group];
+//                                                    [self.groupButton setHidden:false];
+//                                                }]];
+//    }
+//    NSString *cancel = NSLocalizedString(@"Cancel", @"Cancel");
+//
+//    [alert addAction:[UIAlertAction actionWithTitle:cancel
+//                                              style:UIAlertActionStyleCancel
+//                                            handler:^(UIAlertAction * _Nonnull action) {
+//                                                [self.groupButton setHidden:false];
+//                                            }]];
+//    [self presentViewController:alert animated:true completion:nil];
+//
+//}
 
 - (void)configureNoResultsView {
     self.noResultsView = [[UIView alloc] init];
@@ -240,8 +227,7 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-
-    [self configureGroupButton];
+    self.title = self.dataSource.groupName;
     [self.view addSubview:self.groupButton];
 
     [self addConstraints];
@@ -266,25 +252,15 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)updateWithGroup:(Group *)group {
-    self.dataSource = [[EventDataSource alloc] initWithGroupID:group.groupID
-                                           forEventsInSection:0];
+    self.dataSource = [[EventDataSource alloc] initWithGroup:group];
     [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView reloadData];
     self.dataSource.delegate = self;
     [self.dataSource refresh];
 }
 
-- (void)updateNotificationButton {
-    Group *group = [self.groupDataSource selectedGroup];
-    BOOL isNotificationSet = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:group];
-    [self.notificationSettingButton setSelected:isNotificationSet];
-    [self.notificationSettingButton setHidden:false];
-
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateNotificationButton];
     [self.tableView reloadData];
 }
 

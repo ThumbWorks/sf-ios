@@ -19,11 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<FeedProviderDelegate> delegate;
 @property (nonatomic, readonly, assign) NSUInteger numberOfEvents;
+@property (nonatomic, readonly) NSString *groupName;
 
 /// Setting the searchQuery will filter events by Event.name
 @property (nonatomic, copy) NSString *searchQuery;
-
-@property (nonatomic, copy) NSString *groupID;
 
 /// Index of the next upcoming event. If not found, returns NSNotFound
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentEvent;
@@ -31,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (Event *)eventAtIndex:(NSUInteger)index;
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 
-// TODO we can get rid of the section
-- (id)initWithGroupID:(NSString *)feedID forEventsInSection:(NSUInteger)section;
+- (id)initWithGroup:(Group *)group;
+
 @end
 NS_ASSUME_NONNULL_END

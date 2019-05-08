@@ -12,6 +12,8 @@
 #import "SettingsViewController.h"
 #import "GroupCollectionViewController.h"
 #import "GroupAndFeedLoadingCoordinator.h"
+#import "GroupDataSource.h"
+#import "Group.h"
 
 // TODO copy pasted
 #define kSEARCHBARHEIGHT 32
@@ -85,22 +87,13 @@
 }
 
 - (void)controller:(nonnull GroupCollectionViewController *)controller tappedGroup:(nonnull Group *)group {
-    GroupDataSource *groupDataSource = [GroupDataSource new];
     UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
-    UIEdgeInsets safeInsets = controller.view.safeAreaInsets;
-    tableView.contentInset = UIEdgeInsetsMake(safeInsets.top + kSEARCHBARHEIGHT,
-                                              safeInsets.right,
-                                              safeInsets.bottom,
-                                              safeInsets.right);
-
-    EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:groupDataSource tableView:tableView];
-    self.groupAndFeedLoadingCoordinator = [[GroupAndFeedLoadingCoordinator alloc] initWithGroupDataSource:groupDataSource
-                                                                                                tableView:tableView
-                                                                                       feedViewController:feedController];
-    groupDataSource.delegate = self.groupAndFeedLoadingCoordinator;
+    EventDataSource *dataSource = [[EventDataSource alloc] initWithGroup:group];
+    EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:dataSource
+                                                                                          tableView:tableView];
     [self.mainNav pushViewController:feedController animated:true];
-    [groupDataSource refresh];
+    [dataSource refresh];
 }
 
 @end

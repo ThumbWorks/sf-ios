@@ -20,18 +20,18 @@
 @property (nonatomic) RLMResults<Event *> *events;
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
+@property (nonatomic) Group *group;
 
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
 
 @implementation EventDataSource
-// TODO This is only here until we figure out how to initialize the whole thing without a default group
-- (id)initWithGroupID:(NSString *)feedID forEventsInSection:(NSUInteger)section {
+- (id)initWithGroup:(Group *)group {
     if (self = [super init]) {
         self.searchQuery = @"";
-        self.groupID = feedID;
+        self.group = group;
         self.events = [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
-        self.service = [[FeedFetchService alloc] initWithGroupID:feedID];
+        self.service = [[FeedFetchService alloc] initWithGroupID:group.groupID];
         [self observeAppActivationEvents];
         __weak typeof(self) welf = self;
         self.notificationToken = [self.events
@@ -47,9 +47,9 @@
                                           return;
                                       }
 
-                                      NSArray *inserts = [changes insertionsInSection:section];
-                                      NSArray *deletions = [changes deletionsInSection:section];
-                                      NSArray *updates = [changes modificationsInSection:section];
+                                      NSArray *inserts = [changes insertionsInSection:0];
+                                      NSArray *deletions = [changes deletionsInSection:0];
+                                      NSArray *updates = [changes modificationsInSection:0];
 
                                       [welf.delegate didChangeDataSource:welf
                                                           withInsertions:inserts
@@ -62,6 +62,10 @@
 
 - (void)dealloc {
     [self.notificationToken invalidate];
+}
+
+- (NSString *)groupName {
+    return self.group.name;
 }
 
 /// Events array

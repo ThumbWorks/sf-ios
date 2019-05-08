@@ -48,7 +48,7 @@
 
     [RLMRealmConfiguration setDefaultConfiguration:self.realmConfiguration];
 
-    self.dataSource = [[EventDataSource alloc] initWithGroupID:@"abc" forEventsInSection:0];
+    self.dataSource = [[EventDataSource alloc] initWithGroup:nil];
 
     self.dataSource.delegate = self;
     [super setUp];

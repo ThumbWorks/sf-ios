@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GroupDataSource.h"
+#import "EventDataSource.h"
 
 typedef NS_ENUM(NSInteger, FeedSections) {
     FeedSectionsEvents,
@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, FeedSections) {
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController : UIViewController
 
-- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource tableView:(UITableView *)tableView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView NS_DESIGNATED_INITIALIZER;
 - (void)updateWithGroup:(Group *)group;
 
 @end
