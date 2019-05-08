@@ -20,9 +20,10 @@
 #import "GroupDataSource.h"
 #import "EventDataSource.h"
 #import "Group.h"
+#import "UIViewController+ErrorHandling.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface EventsFeedViewController () <FeedProviderDelegate, UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
+@interface EventsFeedViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic, nonnull) EventDataSource *dataSource;
 @property (nonatomic, nonnull) GroupDataSource *groupDataSource;
@@ -44,15 +45,17 @@ NS_ASSUME_NONNULL_END
 #define kSEARCHBARMARGIN 12
 #define kTABLEHEADERHEIGHT (2 * kSEARCHBARHEIGHT)
 
-- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource {
+- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource tableView:(UITableView *)tableView {
     if (self = [super initWithNibName:nil bundle:nil]) {
         self.groupDataSource = groupDataSource;
-        groupDataSource.delegate = self;
         self.userLocationService = [UserLocation new];
         self.imageFetchQueue = [[NSOperationQueue alloc] init];
         self.imageFetchQueue.name = @"Image Fetch Queue";
         self.imageStore = [[ImageStore alloc] init];
         self.firstLoad = self.dataSource.numberOfEvents == 0;
+        self.tableView = tableView;
+        tableView.delegate = self;
+        tableView.dataSource = self;
     }
     
     return self;
@@ -60,19 +63,19 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
     return self;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSAssert(false, @"Use -initWithDataSource");
-    self = [self initWithDataSource:[GroupDataSource new]];
+    self = [self initWithDataSource:[GroupDataSource new] tableView:[UITableView new]];
     return self;
 }
 
@@ -193,7 +196,7 @@ NS_ASSUME_NONNULL_END
                                                 handler:^(UIAlertAction * _Nonnull action) {
                                                     NSLog(@"selected %@", group.name);
                                                     [self.groupDataSource selectGroup:group];
-                                                    [self updateDataSourceWithGroup:group];
+                                                    [self updateWithGroup:group];
                                                     [self.groupButton setHidden:false];
                                                 }]];
     }
@@ -206,26 +209,6 @@ NS_ASSUME_NONNULL_END
                                             }]];
     [self presentViewController:alert animated:true completion:nil];
 
-}
-
-- (void)configureTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    [self.tableView registerClass:self.feedItemCellClass forCellReuseIdentifier:NSStringFromClass(self.feedItemCellClass)];
-    self.tableView.rowHeight = self.cellHeight;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableHeaderView.backgroundColor = UIColor.clearColor;
-    self.tableView.translatesAutoresizingMaskIntoConstraints = false;
-    self.tableView.delaysContentTouches = NO;
-
-    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
-    self.tableView.contentInset = UIEdgeInsetsMake(safeInsets.top + kSEARCHBARHEIGHT,
-                                                   safeInsets.right,
-                                                   safeInsets.bottom,
-                                                   safeInsets.right);
-
-    self.tableView.refreshControl = [[UIRefreshControl alloc] init];
 }
 
 - (void)configureNoResultsView {
@@ -256,7 +239,6 @@ NS_ASSUME_NONNULL_END
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureTableView];
     [self.view addSubview:self.tableView];
 
     [self configureGroupButton];
@@ -283,7 +265,7 @@ NS_ASSUME_NONNULL_END
     [self addStatusBarBlurBackground];
 }
 
-- (void)updateDataSourceWithGroup:(Group *)group {
+- (void)updateWithGroup:(Group *)group {
     self.dataSource = [[EventDataSource alloc] initWithGroupID:group.groupID
                                            forEventsInSection:0];
     [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -303,6 +285,7 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateNotificationButton];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -447,68 +430,6 @@ NS_ASSUME_NONNULL_END
     [self handleFilterResults];
 }
 
-//MARK: - DataSourceDelegate
-
-- (void)willUpdateDataSource:(id<FeedProvider>)datasource {
-    [self.tableView.refreshControl beginRefreshing];
-}
-
-- (void)didChangeDataSource:(id<FeedProvider>)datasource
-             withInsertions:(nullable NSArray<NSIndexPath *> *)insertions
-                    updates:(nullable NSArray<NSIndexPath *> *)updates
-                  deletions:(nullable NSArray<NSIndexPath *> *)deletions {
-
-    if (datasource == self.groupDataSource) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.groupButton setHidden:false];
-            [self updateNotificationButton];
-            [self.tableView.refreshControl endRefreshing];
-        });
-        if (!insertions && !updates && !deletions) {
-            NSLog(@"Empty update");
-            return;
-        }
-        Group *group = [self.groupDataSource selectedGroup];
-        if (!group) {
-            group = [self.groupDataSource groupAtIndex:0];
-            [self.groupDataSource selectGroup:group];
-        }
-        [self updateDataSourceWithGroup:group];
-    } else if (datasource == self.dataSource) {
-        // Don’t crash the app by modifying the table while the user is searching
-        if (self.dataSource.searchQuery.length > 0) { return; }
-
-        // Otherwise update on changes
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.refreshControl endRefreshing];
-            [self updateNotificationButton];
-            if (!insertions && !updates && !deletions) {
-                NSLog(@"Empty update");
-                [self.tableView reloadData];
-                return;
-            }
-
-            [self.tableView beginUpdates];
-            [self.tableView deleteRowsAtIndexPaths:deletions
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView insertRowsAtIndexPaths:insertions
-                                  withRowAnimation:UITableViewRowAnimationTop];
-            [self.tableView reloadRowsAtIndexPaths:updates
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-            [self.tableView.refreshControl endRefreshing];
-        });
-    }
-}
-
-- (void)didFailToUpdateDataSource:(id<FeedProvider>)datasource withError:(NSError *)error {
-    [self handleError:error];
-    if (datasource == self.groupDataSource) {
-
-    } else if (datasource == self.dataSource) {
-        [self.tableView.refreshControl endRefreshing];
-    }
-}
 
 //MARK: - Details View
 
@@ -527,26 +448,6 @@ static CGFloat const eventCellAspectRatio = 1.352;
 
 - (CGFloat)groupsHeight {
     return 80;
-}
-
-//MARK: - Error Handling
-
-- (void)handleError:(NSError *)error {
-    NSLog(@"Error fetching events: %@", error);
-    NSString *errorTitle = NSLocalizedString(@"Error Fetching Events",
-                                              @"Title label for when a fetch from the network failed");
-    NSString *errorMessage = NSLocalizedString(@"There was an error fetching events. Please try again",
-                                               @"Title message body for when a fetch from the network failed");
-    UIAlertController *alert = [UIAlertController
-                                alertControllerWithTitle:errorTitle
-                                message:errorMessage
-                                preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    [alert addAction:okAction];
-
-    [self presentViewController:alert animated:true completion:nil];
 }
 
 //MARK: - First Load
@@ -588,3 +489,4 @@ static CGFloat const eventCellAspectRatio = 1.352;
     }];
 }
 @end
+

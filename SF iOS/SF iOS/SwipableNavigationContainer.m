@@ -8,9 +8,13 @@
 #import "SwipableNavigationContainer.h"
 #import "EventDataSource.h"
 #import "EventsFeedViewController.h"
+#import "EventsFeedTableView.h"
 #import "SettingsViewController.h"
 #import "GroupCollectionViewController.h"
-#import "GroupCollectionView.h"
+#import "GroupAndFeedLoadingCoordinator.h"
+
+// TODO copy pasted
+#define kSEARCHBARHEIGHT 32
 
 @interface SwipableNavigationContainer () <UIPageViewControllerDataSource, GroupCollectionViewControllerDelegate>
 
@@ -18,7 +22,7 @@
 @property (nonatomic) UIPageViewController *pageViewController;
 @property (nonatomic) UINavigationController *mainNav;
 @property (nonatomic, copy) NSArray *pageViewControllers;
-
+@property (nonatomic) GroupAndFeedLoadingCoordinator *groupAndFeedLoadingCoordinator;
 @end
 
 @implementation SwipableNavigationContainer
@@ -39,6 +43,7 @@
 
     GroupDataSource *groupDataSource = [[GroupDataSource alloc] init];
     GroupCollectionViewController *groupViewController = [[GroupCollectionViewController alloc] initWithDataSource:groupDataSource];
+    groupDataSource.delegate = groupViewController;
     groupViewController.selectionDelegate = self;
     self.mainNav = [[UINavigationController alloc] initWithRootViewController:groupViewController];
     [self.mainNav setNavigationBarHidden:false animated:false];
@@ -81,7 +86,19 @@
 
 - (void)controller:(nonnull GroupCollectionViewController *)controller tappedGroup:(nonnull Group *)group {
     GroupDataSource *groupDataSource = [GroupDataSource new];
-     EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:groupDataSource];
+    UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+
+    UIEdgeInsets safeInsets = controller.view.safeAreaInsets;
+    tableView.contentInset = UIEdgeInsetsMake(safeInsets.top + kSEARCHBARHEIGHT,
+                                              safeInsets.right,
+                                              safeInsets.bottom,
+                                              safeInsets.right);
+
+    EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:groupDataSource tableView:tableView];
+    self.groupAndFeedLoadingCoordinator = [[GroupAndFeedLoadingCoordinator alloc] initWithGroupDataSource:groupDataSource
+                                                                                                tableView:tableView
+                                                                                       feedViewController:feedController];
+    groupDataSource.delegate = self.groupAndFeedLoadingCoordinator;
     [self.mainNav pushViewController:feedController animated:true];
     [groupDataSource refresh];
 }

@@ -17,7 +17,8 @@ typedef NS_ENUM(NSInteger, FeedSections) {
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController : UIViewController
 
-- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataSource:(GroupDataSource *)groupDataSource tableView:(UITableView *)tableView NS_DESIGNATED_INITIALIZER;
+- (void)updateWithGroup:(Group *)group;
 
 @end
 NS_ASSUME_NONNULL_END
