@@ -23,12 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// Setting the searchQuery will filter events by Event.name
 @property (nonatomic, copy) NSString *searchQuery;
 
+@property (nonatomic, copy) NSString *groupID;
+
 /// Index of the next upcoming event. If not found, returns NSNotFound
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentEvent;
 
 - (Event *)eventAtIndex:(NSUInteger)index;
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 
-- (id)initWithFeedID:(NSString *)feedID forEventsInSection:(NSUInteger)section;
+// TODO we can get rid of the section
+- (id)initWithGroupID:(NSString *)feedID forEventsInSection:(NSUInteger)section;
 @end
 NS_ASSUME_NONNULL_END

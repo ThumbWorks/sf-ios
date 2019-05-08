@@ -8,7 +8,7 @@
 #ifndef FeedProvider_h
 #define FeedProvider_h
 
-@protocol FeedProvider
+@protocol FeedProvider <NSObject>
 @property (nonatomic, readonly, assign) NSUInteger numberOfItems;
 @property (nonatomic, readonly, assign) NSUInteger indexOfCurrentItem;
 - (void)refresh;

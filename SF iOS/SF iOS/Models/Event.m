@@ -15,6 +15,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)record {
     if (self = [super init]) {
         self.eventID = record[@"id"];
+        self.groupID = record[@"group_id"];
         self.type = 0;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

@@ -285,7 +285,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)updateDataSourceWithGroup:(Group *)group {
-    self.dataSource = [[EventDataSource alloc] initWithFeedID:group.groupID
+    self.dataSource = [[EventDataSource alloc] initWithGroupID:group.groupID
                                            forEventsInSection:0];
     [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView reloadData];

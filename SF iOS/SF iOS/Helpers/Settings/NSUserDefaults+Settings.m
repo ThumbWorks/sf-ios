@@ -41,6 +41,9 @@
     [self setObject:settingsDictionary forKey:key];
 }
 
+- (NSDictionary *)notificationSettings {
+    return [self dictionaryForKey:self.SFIOS_notifiationsDictionaryKey];
+}
 
 - (BOOL)notificationSettingForGroup:(nonnull Group *)group {
     NSString *groupID =  group.groupID;

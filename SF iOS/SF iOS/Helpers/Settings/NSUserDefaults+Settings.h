@@ -24,4 +24,7 @@ typedef NS_ENUM(NSInteger, SettingsDirectionProvider) {
  * @return BOOL true indicating that the user wants to receive pushes for this group, false otherwise
  */
 - (BOOL)notificationSettingForGroup:(nonnull Group *)group;
+
+- (NSDictionary *_Nullable)notificationSettings;
+
 @end

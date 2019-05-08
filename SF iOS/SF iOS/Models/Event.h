@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface Event : RLMObject
 
-@property Group *group;
+@property (nonatomic) NSString *groupID;
 
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic) NSDate* date;
