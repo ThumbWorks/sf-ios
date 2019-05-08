@@ -28,7 +28,7 @@
     if (self) {
         // set the delegate outside of this scope probably
         _dataSource = dataSource;
-
+        _cache = [[ImageStore alloc] init];
         _collectionView = [GroupCollectionView view];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
