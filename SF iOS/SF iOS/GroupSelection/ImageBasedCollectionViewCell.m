@@ -27,7 +27,7 @@
 }
 
 + (UIFont *)labelFont {
-    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
 }
 
 - (void)setupViews {
