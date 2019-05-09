@@ -12,8 +12,9 @@
 + (GroupCollectionView *)view {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     layout.minimumInteritemSpacing = 8.0;
+    layout.minimumLineSpacing = 20.0;
 
     GroupCollectionView *view = [[self alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     view.backgroundColor = [UIColor whiteColor];
