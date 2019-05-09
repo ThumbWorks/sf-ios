@@ -17,9 +17,7 @@
 		5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9E2267D6F200246C08 /* GroupFetchOperation.m */; };
 		5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA22267E60E00246C08 /* GroupFetchService.m */; };
 		5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175BA52267EB3B00246C08 /* GroupDataSource.m */; };
-		5F2CFE91226910B3004DB902 /* GroupSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CFE90226910B3004DB902 /* GroupSelectionTableViewCell.m */; };
 		5F2CFE94226914E3004DB902 /* GroupCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CFE93226914E3004DB902 /* GroupCollectionViewController.m */; };
-		5F2CFE972269350C004DB902 /* BasicTextCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CFE962269350C004DB902 /* BasicTextCollectionViewCell.m */; };
 		5F2FE4AC224F40F50081C2B1 /* secrets-example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F2FE4AB224F40F50081C2B1 /* secrets-example.plist */; };
 		5F313554227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F313553227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m */; };
 		5F313558227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F313557227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m */; };
@@ -926,7 +924,6 @@
 				C86E386B1F31B78300E35EBF /* UIImage+URL.m in Sources */,
 				C82516381F2FBE0E006B9D7E /* UIStackView+ConvenienceInitializer.m in Sources */,
 				C8CC494C1F33BA420064B03E /* TravelTimeView.m in Sources */,
-				5F2CFE972269350C004DB902 /* BasicTextCollectionViewCell.m in Sources */,
 				5F960DEE22838F2900D8A96C /* UIViewController+ErrorHandling.m in Sources */,
 				C8307A0E1F365969005CB3D2 /* HTTPRequestAsyncOperation.m in Sources */,
 				C8307A141F368BFB005CB3D2 /* LyftTravelTimeEstimateOperation.m in Sources */,
@@ -938,7 +935,6 @@
 				5FECEFD6224ECEDF00AA8A25 /* EventDetailsViewController.m in Sources */,
 				5F175BA62267EB3B00246C08 /* GroupDataSource.m in Sources */,
 				19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */,
-				5F2CFE91226910B3004DB902 /* GroupSelectionTableViewCell.m in Sources */,
 				C8810A241F2BFE6900DCFEB6 /* AppDelegate.m in Sources */,
 				C8CC493B1F3303170064B03E /* TravelTimeService.m in Sources */,
 				5FCD225D226E898A002A85B8 /* Analytics.m in Sources */,

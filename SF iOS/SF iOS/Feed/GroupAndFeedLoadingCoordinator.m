@@ -40,7 +40,6 @@
 
     if (datasource == self.groupDataSource) {
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.groupButton setHidden:false];
 //            [self updateNotificationButton];
             [self.tableView.refreshControl endRefreshing];
         });

@@ -40,10 +40,9 @@
                            };
     self.event = [[Event alloc] initWithDictionary:dict];
     self.event.type = EventTypeSFCoffee;
-    self.event.date = self.noon;
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     self.noon = [calendar dateBySettingHour:12 minute:0 second:0 ofDate:[NSDate date] options:0];
-
+    self.event.date = self.noon;
 }
 
 - (void)tearDown {
@@ -63,7 +62,6 @@
 
 - (void)testEventInToday {
     NSDate *tomorrow = [self dateByAddingUnit:NSCalendarUnitDay value:1 toDate:self.noon];
-    self.event.date = self.noon;
     self.event.endDate = tomorrow;
     FeedItem *item = [[FeedItem alloc] initWithEvent:self.event];
     

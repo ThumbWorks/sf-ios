@@ -14,6 +14,8 @@
 #import "ImageStore.h"
 #import "UIImage+URL.h"
 #import "GroupCollectionView.h"
+#import "UIViewController+ErrorHandling.h"
+
 @interface GroupCollectionViewController() <UICollectionViewDelegateFlowLayout>
 @property(nonatomic) id<FeedProvider> dataSource;
 @property(nonatomic) GroupCollectionView *collectionView;
@@ -49,13 +51,11 @@
         [self.collectionView insertItemsAtIndexPaths:insertions];
         [self.collectionView reloadItemsAtIndexPaths:updates];
         [self.collectionView deleteItemsAtIndexPaths:deletions];
-    } completion:^(BOOL finished) {
-        NSLog(@"done");
-    }];
+    } completion:nil];
 }
 
 - (void)didFailToUpdateDataSource:(nonnull id<FeedProvider>)datasource withError:(NSError * _Nonnull)error {
-    NSLog(@"we got an error %@", [error localizedDescription]);
+    [self handleError:error];
 }
 
 - (void)willUpdateDataSource:(nonnull id<FeedProvider>)datasource {

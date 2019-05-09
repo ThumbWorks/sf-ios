@@ -58,7 +58,6 @@
         return;
     }
 
-    // TODO until group interactions are merged in this is always sf-ios-coffee
     BOOL shouldAlert = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:nil];
     if (!shouldAlert) {
     // Tell the OS that we got new data but we don't really do anything about it

@@ -163,44 +163,7 @@ NS_ASSUME_NONNULL_END
 //    button.hidden = true;
 //    [self presentViewController:alert animated:true completion:nil];
 //}
-//
-//
-//- (void)changeGroups:(UIButton *)button {
-//    [button setHidden:true];
-//    NSString *groupSelectionTitle = NSLocalizedString(@"Select group",
-//                                                      @"Title for the group selection alert");
-//
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:groupSelectionTitle
-//                                                                   message:nil
-//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//    for (int i = 0; i < self.groupDataSource.numberOfItems; i++) {
-//        Group *group = [self.groupDataSource groupAtIndex:i];
-//        NSString *title;
-//        if ([self.groupDataSource indexOfCurrentItem] == i) {
-//            title = [NSString stringWithFormat:@"✓ %@ ", group.name];
-//        } else {
-//            title = group.name;
-//        }
-//        [alert addAction:[UIAlertAction actionWithTitle:title
-//                                                  style:UIAlertActionStyleDefault
-//                                                handler:^(UIAlertAction * _Nonnull action) {
-//                                                    NSLog(@"selected %@", group.name);
-//                                                    [self.groupDataSource selectGroup:group];
-//                                                    [self updateWithGroup:group];
-//                                                    [self.groupButton setHidden:false];
-//                                                }]];
-//    }
-//    NSString *cancel = NSLocalizedString(@"Cancel", @"Cancel");
-//
-//    [alert addAction:[UIAlertAction actionWithTitle:cancel
-//                                              style:UIAlertActionStyleCancel
-//                                            handler:^(UIAlertAction * _Nonnull action) {
-//                                                [self.groupButton setHidden:false];
-//                                            }]];
-//    [self presentViewController:alert animated:true completion:nil];
-//
-//}
+
 
 - (void)configureNoResultsView {
     self.noResultsView = [[UIView alloc] init];
