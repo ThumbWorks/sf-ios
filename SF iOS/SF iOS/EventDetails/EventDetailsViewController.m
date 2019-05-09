@@ -111,17 +111,7 @@ NS_ASSUME_NONNULL_END
     [self.containerStack.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
     [self.containerStack.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
     [self.containerStack.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
-    
-    UIButton *closeButton = [UIButton new];
-    [closeButton setImage:[UIImage imageNamed:@"close-button"] forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    closeButton.translatesAutoresizingMaskIntoConstraints = false;
-    [self.view addSubview:closeButton];
-    [closeButton.widthAnchor constraintEqualToConstant:44].active = true;
-    [closeButton.heightAnchor constraintEqualToConstant:44].active = true;
-    [closeButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:8].active = true;
-    [closeButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-12].active = true;
-    
+        
     [self addStatusBarBlurBackground];
     
     [self.mapView setDestinationToLocation:self.event.location.location withAnnotationGlyph:self.event.annotationGlyph];
