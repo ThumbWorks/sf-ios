@@ -18,8 +18,6 @@ static CGFloat const eventCellAspectRatio = 1.352;
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:CGRectZero style:UITableViewStylePlain]) {
-//        self.dataSource = self;
-//        self.tableView.delegate = self;
         [self registerClass:[FeedItemCell class] forCellReuseIdentifier:NSStringFromClass([FeedItemCell class])];
         self.rowHeight = self.cellHeight;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
