@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     self.view.backgroundColor = [UIColor whiteColor];
     self.extendedLayoutIncludesOpaqueBars = true;
     
