@@ -62,19 +62,8 @@
     return self.groups[index];
 }
 
-- (NSUInteger)indexOfCurrentItem {
-    if (!self.selectedGroup) {
-        return 0;
-    }
-    return [self.groups indexOfObject:self.selectedGroup];
-}
-
 - (NSUInteger)numberOfItems {
     return self.groups.count;
-}
-
-- (void)selectGroup:(Group *)group {
-    self.selectedGroup = group;
 }
 
 - (void)refresh {
@@ -140,5 +129,9 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:NSNotification.applicationBecameActiveNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [welf refresh];
     }];
+}
+
+- (Group *)groupWithID:(NSString *)groupID {
+    return [[Group objectsWhere:@"groupID = %@", groupID] firstObject];
 }
 @end

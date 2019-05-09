@@ -12,6 +12,7 @@
 #import "SettingsViewController.h"
 #import "GroupCollectionViewController.h"
 #import "GroupDataSource.h"
+#import "NSUserDefaults+Settings.h"
 #import "Group.h"
 
 // TODO copy pasted
@@ -45,7 +46,20 @@
     GroupCollectionViewController *groupViewController = [[GroupCollectionViewController alloc] initWithDataSource:groupDataSource];
     groupDataSource.delegate = groupViewController;
     groupViewController.selectionDelegate = self;
-    self.mainNav = [[UINavigationController alloc] initWithRootViewController:groupViewController];
+
+    self.mainNav = [[UINavigationController alloc] init];
+
+    NSArray <UIViewController *> *viewControllers;
+    NSString *groupID = [[NSUserDefaults standardUserDefaults] lastViewedGroupID];
+    if (groupID) {
+        Group *lastSelectedGroup = [groupDataSource groupWithID:groupID];
+        UIViewController *listViewController = [self viewControllerForGroup:lastSelectedGroup];
+        viewControllers = @[groupViewController, listViewController];
+    } else {
+        viewControllers = @[groupViewController];
+    }
+
+    [self.mainNav setViewControllers:viewControllers];
     self.mainNav.navigationBar.tintColor = [UIColor blackColor];
     [self.mainNav setNavigationBarHidden:false animated:false];
     [self.mainNav.navigationBar setPrefersLargeTitles:true];
@@ -86,14 +100,15 @@
 }
 
 - (void)controller:(nonnull GroupCollectionViewController *)controller tappedGroup:(nonnull Group *)group {
-    UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-
-    EventDataSource *dataSource = [[EventDataSource alloc] initWithGroup:group];
-
-    EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:dataSource
-                                                                                          tableView:tableView];
-    [self.mainNav pushViewController:feedController animated:true];
-    [dataSource refresh];
+     [self.mainNav pushViewController:[self viewControllerForGroup:group]
+                            animated:true];
 }
 
+- (UIViewController *)viewControllerForGroup:(Group *)group {
+    UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    EventDataSource *dataSource = [[EventDataSource alloc] initWithGroup:group];
+    [dataSource refresh];
+    return [[EventsFeedViewController alloc] initWithDataSource:dataSource
+                                                      tableView:tableView];
+}
 @end

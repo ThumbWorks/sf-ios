@@ -10,6 +10,10 @@
 
 @implementation NSUserDefaults (Settings)
 
+- (NSString *)SFIOS_lastViewedGroupKey {
+    return NSStringFromSelector(@selector(lastViewedGroupID));
+}
+
 - (NSString *)SFIOS_directionsProviderKey {
     return NSStringFromSelector(@selector(directionsProvider));
 }
@@ -51,4 +55,11 @@
     return [[settingsDictionary valueForKey:groupID] boolValue];
 }
 
+- (NSString *_Nullable)lastViewedGroupID {
+    return [self valueForKey:self.SFIOS_lastViewedGroupKey];
+}
+
+- (void)setLastViewedGroupID:(NSString *_Nullable)groupID {
+    [self setObject:groupID forKey:self.SFIOS_lastViewedGroupKey];
+}
 @end

@@ -256,6 +256,8 @@ NS_ASSUME_NONNULL_END
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                            target:self
                                                                                            action:@selector(share)];
+
+    [[NSUserDefaults standardUserDefaults] setLastViewedGroupID:self.dataSource.group.groupID];
 }
 
 - (void)share {
@@ -470,6 +472,14 @@ static CGFloat const eventCellAspectRatio = 1.352;
          }
          completion:nil];
     }];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+    // parent is nil if this view controller was removed
+    if (!parent) {
+        [[NSUserDefaults standardUserDefaults] setLastViewedGroupID:nil];
+    }
 }
 @end
 

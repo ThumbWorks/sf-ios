@@ -27,4 +27,6 @@ typedef NS_ENUM(NSInteger, SettingsDirectionProvider) {
 
 - (NSDictionary *_Nullable)notificationSettings;
 
+- (NSString *_Nullable)lastViewedGroupID;
+- (void)setLastViewedGroupID:(NSString *_Nullable)groupID;
 @end

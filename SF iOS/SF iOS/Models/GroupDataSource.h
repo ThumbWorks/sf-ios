@@ -14,11 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GroupDataSource : NSObject <FeedProvider>
 @property (nonatomic, weak) id<FeedProviderDelegate> delegate;
-@property (nonatomic, nullable) Group *selectedGroup;
 
 - (Group *)groupAtIndex:(NSUInteger)index;
-- (void)selectGroup:(Group *)group;
 - (void)refresh;
+- (Group *)groupWithID:(NSString *)groupID;
 @end
 
 NS_ASSUME_NONNULL_END

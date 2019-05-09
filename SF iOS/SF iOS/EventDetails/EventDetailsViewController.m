@@ -160,11 +160,5 @@ NS_ASSUME_NONNULL_END
     }];
 }
 
-// ---
-
-- (void)dismiss {
-    [self dismissViewControllerAnimated:true completion:nil];
-}
-
 @end
 

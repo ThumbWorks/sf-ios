@@ -185,9 +185,5 @@
     return self.events.count;
 }
 
-- (NSUInteger)indexOfCurrentItem {
-    return self.indexOfCurrentEvent;
-}
-
 @end
 

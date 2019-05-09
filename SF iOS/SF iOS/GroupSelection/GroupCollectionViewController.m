@@ -33,6 +33,7 @@
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _imageFetchQueue = [[NSOperationQueue alloc] init];
+        self.title = NSLocalizedString(@"Groups", @"Groups view title");
         [_collectionView registerClass:[ImageBasedCollectionViewCell class]
             forCellWithReuseIdentifier:[ImageBasedCollectionViewCell reuseID]];
     }
@@ -41,11 +42,6 @@
 
 - (void)loadView {
     self.view = self.collectionView;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = NSLocalizedString(@"Groups", @"Groups view title");
 }
 
 - (void)didChangeDataSource:(nonnull id<FeedProvider>)datasource withInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {

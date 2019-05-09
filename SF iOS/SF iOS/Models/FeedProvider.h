@@ -10,7 +10,6 @@
 
 @protocol FeedProvider <NSObject>
 @property (nonatomic, readonly, assign) NSUInteger numberOfItems;
-@property (nonatomic, readonly, assign) NSUInteger indexOfCurrentItem;
 - (void)refresh;
 @end
 
