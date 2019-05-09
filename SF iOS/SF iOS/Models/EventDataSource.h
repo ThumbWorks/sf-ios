@@ -31,5 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initWithGroup:(Group *)group;
 
+- (void)refresh;
+
 @end
 NS_ASSUME_NONNULL_END

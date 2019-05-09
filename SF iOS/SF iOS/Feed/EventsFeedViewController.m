@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation EventsFeedViewController
 
-#define kSEARCHBARHEIGHT 32
+#define kSEARCHBARHEIGHT 60
 #define kSEARCHBARMARGIN 12
 #define kTABLEHEADERHEIGHT (2 * kSEARCHBARHEIGHT)
 
@@ -238,7 +238,10 @@ NS_ASSUME_NONNULL_END
 
     [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
-    CGRect searchBarRect = CGRectMake(kSEARCHBARMARGIN, 0, self.view.frame.size.width-(kSEARCHBARMARGIN*2), kSEARCHBARHEIGHT);
+    CGRect searchBarRect = CGRectMake(kSEARCHBARMARGIN,
+                                      0,
+                                      self.view.frame.size.width-(kSEARCHBARMARGIN*2),
+                                      kSEARCHBARHEIGHT);
 //    [self setupNotificationsButton];
     self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
@@ -247,9 +250,6 @@ NS_ASSUME_NONNULL_END
 
     self.tableView.tableHeaderView = self.searchBar;
     self.tableView.tableHeaderView.backgroundColor = UIColor.whiteColor;
-    CGPoint contentOffest = self.tableView.contentOffset;
-    contentOffest.y += kSEARCHBARHEIGHT;
-    self.tableView.contentOffset = contentOffest;
 
     [self configureNoResultsView];
     [self addStatusBarBlurBackground];
@@ -258,6 +258,8 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
+    self.tableView.refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventAllEvents];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -24,8 +24,6 @@ static CGFloat const eventCellAspectRatio = 1.352;
         self.tableHeaderView.backgroundColor = UIColor.clearColor;
         self.translatesAutoresizingMaskIntoConstraints = false;
         self.delaysContentTouches = NO;
-
-        self.refreshControl = [[UIRefreshControl alloc] init];
     }
     return self;
 }
