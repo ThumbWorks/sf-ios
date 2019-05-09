@@ -46,6 +46,7 @@
     groupDataSource.delegate = groupViewController;
     groupViewController.selectionDelegate = self;
     self.mainNav = [[UINavigationController alloc] initWithRootViewController:groupViewController];
+    self.mainNav.navigationBar.tintColor = [UIColor blackColor];
     [self.mainNav setNavigationBarHidden:false animated:false];
     [self.mainNav.navigationBar setPrefersLargeTitles:true];
     
