@@ -44,7 +44,9 @@
     _shadowView.layer.cornerRadius = 15;
     _shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
     _shadowView.layer.shadowOpacity = 0.22;
+    _shadowView.layer.shadowRadius = 8;
     _shadowView.clipsToBounds = false;
+    _shadowView.layer.shadowOffset = CGSizeMake(0, 4);
     _shadowView.translatesAutoresizingMaskIntoConstraints = false;
     [self.contentView addSubview:self.shadowView];
 
