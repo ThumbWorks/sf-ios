@@ -81,6 +81,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.imageView.image = nil;
+    self.nameLabel.text = nil;
 }
 
 - (void)updateWithImage:(UIImage *)image title:(NSString *)title {

@@ -11,7 +11,6 @@
 #import "EventsFeedTableView.h"
 #import "SettingsViewController.h"
 #import "GroupCollectionViewController.h"
-#import "GroupAndFeedLoadingCoordinator.h"
 #import "GroupDataSource.h"
 #import "Group.h"
 
@@ -24,7 +23,6 @@
 @property (nonatomic) UIPageViewController *pageViewController;
 @property (nonatomic) UINavigationController *mainNav;
 @property (nonatomic, copy) NSArray *pageViewControllers;
-@property (nonatomic) GroupAndFeedLoadingCoordinator *groupAndFeedLoadingCoordinator;
 @end
 
 @implementation SwipableNavigationContainer
@@ -90,6 +88,7 @@
     UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
     EventDataSource *dataSource = [[EventDataSource alloc] initWithGroup:group];
+
     EventsFeedViewController *feedController = [[EventsFeedViewController alloc] initWithDataSource:dataSource
                                                                                           tableView:tableView];
     [self.mainNav pushViewController:feedController animated:true];

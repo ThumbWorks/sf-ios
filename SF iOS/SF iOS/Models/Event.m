@@ -24,7 +24,6 @@
         self.endDate = [formatter dateFromString:record[@"end_at"]];
         self.duration = [self.endDate timeIntervalSinceDate:self.date];
         self.venue = [[Venue alloc] initWithDictionary:record[@"venue"]];
-
         self.imageFileURLString = record[@"image_url"];
         self.name = record[@"name"];
     }

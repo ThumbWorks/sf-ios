@@ -12,7 +12,6 @@
 @import UIKit;
 @class Venue;
 @class Location;
-@class Group;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface Event : RLMObject

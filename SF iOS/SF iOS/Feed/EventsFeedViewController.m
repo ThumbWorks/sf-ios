@@ -20,11 +20,13 @@
 #import "EventDataSource.h"
 #import "Group.h"
 #import "UIViewController+ErrorHandling.h"
+#import "EventFeedDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerPreviewingDelegate, UISearchBarDelegate>
 
 @property (nonatomic, nonnull) EventDataSource *dataSource;
+@property (nonatomic, nonnull) EventFeedDelegate *feedDelegate;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) UIButton *groupButton;
 @property (nonatomic, assign) BOOL firstLoad;
@@ -45,12 +47,14 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView {
     if (self = [super initWithNibName:nil bundle:nil]) {
+        self.feedDelegate = [[EventFeedDelegate alloc] initWithTableView:tableView];
+        eventDataSource.delegate = self.feedDelegate;
         self.dataSource = eventDataSource;
         self.userLocationService = [UserLocation new];
         self.imageFetchQueue = [[NSOperationQueue alloc] init];
         self.imageFetchQueue.name = @"Image Fetch Queue";
         self.imageStore = [[ImageStore alloc] init];
-        self.firstLoad = self.dataSource.numberOfEvents == 0;
+        self.firstLoad = self.dataSource.numberOfItems == 0;
         self.tableView = tableView;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -235,7 +239,7 @@ NS_ASSUME_NONNULL_END
     [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     
     CGRect searchBarRect = CGRectMake(kSEARCHBARMARGIN, 0, self.view.frame.size.width-(kSEARCHBARMARGIN*2), kSEARCHBARHEIGHT);
-    [self setupNotificationsButton];
+//    [self setupNotificationsButton];
     self.searchBar = [[UISearchBar alloc] initWithFrame:searchBarRect];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.placeholder = NSLocalizedString(@"Filter", @"Prompt to search for event names. Here, `Filter` is a joke in English because people filter coffee and this list can be filtered by a term.");
@@ -251,14 +255,6 @@ NS_ASSUME_NONNULL_END
     [self addStatusBarBlurBackground];
 }
 
-- (void)updateWithGroup:(Group *)group {
-    self.dataSource = [[EventDataSource alloc] initWithGroup:group];
-    [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView reloadData];
-    self.dataSource.delegate = self;
-    [self.dataSource refresh];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
@@ -267,14 +263,13 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidDisappear:(BOOL)animated {
     [self.tableView.refreshControl endRefreshing];
     [self.imageFetchQueue cancelAllOperations];
-    
     [super viewDidDisappear:animated];
 }
 
 //MARK: - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.numberOfEvents;
+    return self.dataSource.numberOfItems;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView eventCellAtIndexPath:(NSIndexPath *)indexPath {
@@ -360,7 +355,7 @@ NS_ASSUME_NONNULL_END
 
 //MARK: - UISearchBarDelegate
 - (void)handleFilterResults {
-    if (self.dataSource.numberOfEvents < 1) {
+    if (self.dataSource.numberOfItems < 1) {
         [self.noResultsView setHidden:false];
         return;
     }

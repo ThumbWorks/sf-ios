@@ -29,10 +29,10 @@
 		5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A0224C90B400862294 /* FeedFetchOperation.m */; };
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
 		5F4DAB05228393B900C67238 /* EventsFeedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DAB04228393B900C67238 /* EventsFeedTableView.m */; };
+		5F4DAB082283A84500C67238 /* EventFeedDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DAB072283A84500C67238 /* EventFeedDelegate.m */; };
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
 		5F960DE52283757900D8A96C /* ImageBasedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */; };
 		5F960DE8228387C100D8A96C /* GroupCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F960DE7228387C100D8A96C /* GroupCollectionView.m */; };
-		5F960DEB22838C2500D8A96C /* GroupAndFeedLoadingCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F960DEA22838C2500D8A96C /* GroupAndFeedLoadingCoordinator.m */; };
 		5F960DEE22838F2900D8A96C /* UIViewController+ErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F960DED22838F2900D8A96C /* UIViewController+ErrorHandling.m */; };
 		5FCD225D226E898A002A85B8 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCD225C226E898A002A85B8 /* Analytics.m */; };
 		5FE80F68227A33D100080000 /* UNNotificationAttachment+EventNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE80F67227A33D100080000 /* UNNotificationAttachment+EventNotifications.m */; };
@@ -143,6 +143,8 @@
 		5F3820A4224C920F00862294 /* FeedFetchService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedFetchService.m; sourceTree = "<group>"; };
 		5F4DAB03228393B900C67238 /* EventsFeedTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsFeedTableView.h; sourceTree = "<group>"; };
 		5F4DAB04228393B900C67238 /* EventsFeedTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsFeedTableView.m; sourceTree = "<group>"; };
+		5F4DAB062283A84500C67238 /* EventFeedDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventFeedDelegate.h; sourceTree = "<group>"; };
+		5F4DAB072283A84500C67238 /* EventFeedDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventFeedDelegate.m; sourceTree = "<group>"; };
 		5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageBasedCollectionViewCell.h; sourceTree = "<group>"; };
 		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5F868EA32273C10300CEEBCA /* Coffup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coffup.entitlements; sourceTree = "<group>"; };
@@ -397,6 +399,8 @@
 				5F960DEA22838C2500D8A96C /* GroupAndFeedLoadingCoordinator.m */,
 				5F4DAB03228393B900C67238 /* EventsFeedTableView.h */,
 				5F4DAB04228393B900C67238 /* EventsFeedTableView.m */,
+				5F4DAB062283A84500C67238 /* EventFeedDelegate.h */,
+				5F4DAB072283A84500C67238 /* EventFeedDelegate.m */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -902,7 +906,6 @@
 				5F2CFE94226914E3004DB902 /* GroupCollectionViewController.m in Sources */,
 				C89401041F36C273001E8E27 /* DirectionsRequest.m in Sources */,
 				5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */,
-				5F960DEB22838C2500D8A96C /* GroupAndFeedLoadingCoordinator.m in Sources */,
 				C88A19C61F2DC52D00C08187 /* NSError+Constructor.m in Sources */,
 				19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */,
 				C86DD4381F3A3D3100C58723 /* NSAttributedString+Kerning.m in Sources */,
@@ -915,6 +918,7 @@
 				C86DD4351F3A389B00C58723 /* NSAttributedString+EventDetails.m in Sources */,
 				5FECEFD4224ECACC00AA8A25 /* Venue.m in Sources */,
 				5F313558227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m in Sources */,
+				5F4DAB082283A84500C67238 /* EventFeedDelegate.m in Sources */,
 				5F960DE52283757900D8A96C /* ImageBasedCollectionViewCell.m in Sources */,
 				5F175BA32267E60E00246C08 /* GroupFetchService.m in Sources */,
 				5FE80F68227A33D100080000 /* UNNotificationAttachment+EventNotifications.m in Sources */,

@@ -17,10 +17,10 @@
 
 @interface EventDataSource ()
 
-@property (nonatomic) RLMResults<Event *> *events;
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
 @property (nonatomic) Group *group;
+@property (nonatomic) NSString *groupID;
 
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
@@ -30,8 +30,8 @@
     if (self = [super init]) {
         self.searchQuery = @"";
         self.group = group;
-        self.events = [[Event objectsWhere:@"groupID == %@", group.groupID] sortedResultsUsingKeyPath:@"date" ascending:false];
-        self.service = [[FeedFetchService alloc] initWithGroupID:group.groupID];
+        self.groupID = group.groupID;
+        self.service = [[FeedFetchService alloc] initWithGroupID:self.groupID];
         [self observeAppActivationEvents];
         __weak typeof(self) welf = self;
         self.notificationToken = [self.events
@@ -76,7 +76,8 @@
     if (self.searchQuery.length > 0) {
         return [self filterEventsWithSearchTerm:self.searchQuery];
     }
-    return [[Event allObjects] sortedResultsUsingKeyPath:@"date" ascending:false];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@", self.groupID];
+    return [[[Event allObjects] objectsWithPredicate:predicate] sortedResultsUsingKeyPath:@"date" ascending:false];
 }
 
 
@@ -107,7 +108,10 @@
         }
         // Persist your data easily
         RLMRealm *realm = [RLMRealm defaultRealm];
-        NSMutableDictionary *existingEvents = [self mapEventIDs:[Event allObjects]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@", self.groupID];
+        RLMResults<Event *> *events = [[[Event allObjects] objectsWithPredicate:predicate] sortedResultsUsingKeyPath:@"date" ascending:false];
+
+        NSMutableDictionary *existingEvents = [self mapEventIDs:events];
 
         // determine if the
         NSMutableArray *addToRealm = [NSMutableArray array];
@@ -157,14 +161,10 @@
 ///     -searchTerm: string to search
 /// - returns: RLMResults<Event *>* array of Events
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm {    
-    NSPredicate *coffeeFilter = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@ OR venue.name CONTAINS[c] %@", searchTerm, searchTerm];
+    NSPredicate *coffeeFilter = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@ OR venue.name CONTAINS[c] %@ && groupID = %@", searchTerm, searchTerm, self.groupID];
     RLMResults<Event *> *filteredCoffee = [[Event objectsWithPredicate:coffeeFilter]
                                            sortedResultsUsingKeyPath:@"date" ascending:false];
     return filteredCoffee;
-}
-
-- (NSUInteger)numberOfEvents {
-    return self.events.count;
 }
 
 - (NSUInteger)indexOfCurrentEvent {
@@ -183,7 +183,7 @@
 /// FeedProvider protocol
 
 - (NSUInteger)numberOfItems {
-    return self.numberOfEvents;
+    return self.events.count;
 }
 
 - (NSUInteger)indexOfCurrentItem {

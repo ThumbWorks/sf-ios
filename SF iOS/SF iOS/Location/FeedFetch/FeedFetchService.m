@@ -19,7 +19,8 @@
 - (id)initWithGroupID:(NSString *)feedID {
     if (self = [super init]) {
         self.feedFetchQueue = [NSOperationQueue new];
-        self.urlString = [NSString stringWithFormat:@"https://coffeecoffeecoffee.coffee/api/groups/%@/events", feedID];
+        self.urlString = [NSString
+                          stringWithFormat:@"https://coffeecoffeecoffee.coffee/api/groups/%@/events", feedID];
     }
     return self;
 }

@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EventsFeedViewController : UIViewController
 
 - (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView NS_DESIGNATED_INITIALIZER;
-- (void)updateWithGroup:(Group *)group;
 
 @end
 NS_ASSUME_NONNULL_END
