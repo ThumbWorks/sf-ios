@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@class Group;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface BackgroundFetcher : NSObject
 
-- (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler;
+- (instancetype)initForGroup:(Group *)group
+         withCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler;
 
 @end
 

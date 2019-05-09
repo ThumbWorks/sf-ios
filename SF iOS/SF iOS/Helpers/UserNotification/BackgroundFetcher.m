@@ -9,8 +9,6 @@
 #import "EventDataSource.h"
 #import "UNUserNotificationCenter+EventNotifications.h"
 #import "NSDate+Utilities.h"
-#import "Analytics.h"
-#import "NSUserDefaults+Settings.h"
 
 @interface BackgroundFetcher () <FeedProviderDelegate>
 // The backgroundDataSource will tell us what if anything has changed
@@ -20,23 +18,12 @@
 
 @implementation BackgroundFetcher
 
-- (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+- (instancetype)initForGroup:(Group *)group
+         withCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     if (self = [super init]) {
-        // TODO need to figure out which of the data sources they care about
-        self.backgroundDataSource = [[EventDataSource alloc] init];
+        self.backgroundDataSource = [[EventDataSource alloc] initWithGroup:group];
         self.backgroundDataSource.delegate = self;
-        self.backgroundCompletionBlock = ^ (UIBackgroundFetchResult result) {
-            Analytics *analytics = [[Analytics alloc] init];
-            [analytics trackEvent:@"Background fetch complete"
-                   withProperties:@{@"result" :  @(result)}
-                     onCompletion:^(NSError * _Nullable error) {
-                         if (error) {
-                             NSLog(@"An error occured in analytics %@", error);
-                         }
-                         completionHandler(result);
-                   }];
-        };
-
+        self.backgroundCompletionBlock = completionHandler;
         // start the fetch/check process
         [self.backgroundDataSource refresh];
     }
@@ -55,13 +42,6 @@
     // all empty arrays also signifies no changes
     if ([updates count] == 0 && [deletions count] == 0 && [insertions count] == 0) {
         self.backgroundCompletionBlock(UIBackgroundFetchResultNoData);
-        return;
-    }
-
-    BOOL shouldAlert = [[NSUserDefaults standardUserDefaults] notificationSettingForGroup:nil];
-    if (!shouldAlert) {
-    // Tell the OS that we got new data but we don't really do anything about it
-        self.backgroundCompletionBlock(UIBackgroundFetchResultNewData);
         return;
     }
 
@@ -99,11 +79,10 @@
 }
 
 - (void)didFailToUpdateDataSource:(nonnull id<FeedProvider>)datasource withError:(NSError * _Nonnull)error {
-        self.backgroundCompletionBlock(UIBackgroundFetchResultFailed);
+    self.backgroundCompletionBlock(UIBackgroundFetchResultFailed);
 }
 
 - (void)willUpdateDataSource:(nonnull EventDataSource *)datasource {
-    NSLog(@"will update background fetcher data source ");
         // no op. We asked it to update
 }
 

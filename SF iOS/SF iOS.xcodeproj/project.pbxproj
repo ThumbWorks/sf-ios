@@ -28,6 +28,7 @@
 		5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3820A4224C920F00862294 /* FeedFetchService.m */; };
 		5F4DAB05228393B900C67238 /* EventsFeedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DAB04228393B900C67238 /* EventsFeedTableView.m */; };
 		5F4DAB082283A84500C67238 /* EventFeedDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DAB072283A84500C67238 /* EventFeedDelegate.m */; };
+		5F4DAB0B2284D6B900C67238 /* GroupBackgroundFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F4DAB0A2284D6B900C67238 /* GroupBackgroundFetcher.m */; };
 		5F868EA52273C10600CEEBCA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F868EA42273C10600CEEBCA /* CloudKit.framework */; };
 		5F960DE52283757900D8A96C /* ImageBasedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */; };
 		5F960DE8228387C100D8A96C /* GroupCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F960DE7228387C100D8A96C /* GroupCollectionView.m */; };
@@ -143,6 +144,8 @@
 		5F4DAB04228393B900C67238 /* EventsFeedTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsFeedTableView.m; sourceTree = "<group>"; };
 		5F4DAB062283A84500C67238 /* EventFeedDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventFeedDelegate.h; sourceTree = "<group>"; };
 		5F4DAB072283A84500C67238 /* EventFeedDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventFeedDelegate.m; sourceTree = "<group>"; };
+		5F4DAB092284D6B900C67238 /* GroupBackgroundFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupBackgroundFetcher.h; sourceTree = "<group>"; };
+		5F4DAB0A2284D6B900C67238 /* GroupBackgroundFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupBackgroundFetcher.m; sourceTree = "<group>"; };
 		5F6C1F792267FC9F00D96330 /* ImageBasedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageBasedCollectionViewCell.h; sourceTree = "<group>"; };
 		5F6C1F7A2267FC9F00D96330 /* ImageBasedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageBasedCollectionViewCell.m; sourceTree = "<group>"; };
 		5F868EA32273C10300CEEBCA /* Coffup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Coffup.entitlements; sourceTree = "<group>"; };
@@ -715,6 +718,8 @@
 				5F313557227A4B6A00751CE5 /* UNNotificationContent+EventNotifications.m */,
 				5F31355B227A546C00751CE5 /* NSString+EventNotifications.h */,
 				5F31355C227A546C00751CE5 /* NSString+EventNotifications.m */,
+				5F4DAB092284D6B900C67238 /* GroupBackgroundFetcher.h */,
+				5F4DAB0A2284D6B900C67238 /* GroupBackgroundFetcher.m */,
 			);
 			path = UserNotification;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				C8307A051F364DDF005CB3D2 /* SecretsStore.m in Sources */,
 				5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */,
 				C8CC49351F32A7260064B03E /* UIApplication+Metadata.m in Sources */,
+				5F4DAB0B2284D6B900C67238 /* GroupBackgroundFetcher.m in Sources */,
 				C8CC492A1F3293230064B03E /* MKMapCamera+OverlookingLocations.m in Sources */,
 				5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */,
 				C86DD4351F3A389B00C58723 /* NSAttributedString+EventDetails.m in Sources */,

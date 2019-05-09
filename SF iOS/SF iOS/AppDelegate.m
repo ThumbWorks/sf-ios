@@ -9,12 +9,12 @@
 #import "AppDelegate.h"
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "SwipableNavigationContainer.h"
-#import "BackgroundFetcher.h"
 #import <Realm/Realm.h>
+#import "GroupBackgroundFetcher.h"
 
 @interface AppDelegate ()
 @property (nonatomic) SwipableNavigationContainer *navigationContainer;
-@property (nonatomic) BackgroundFetcher *bgFetcher;
+@property (nonatomic) GroupBackgroundFetcher *bgFetcher;
 @end
 
 @implementation AppDelegate
@@ -72,11 +72,12 @@
 // MARK: - Background Fetch
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     completionHandler(UIBackgroundFetchResultNoData);
-    // TODO Temporarily shut off background notifications
-//    self.bgFetcher = [[BackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
-//        completionHandler(result);
-//        self.bgFetcher = nil;
-//    }];
+
+    self.bgFetcher = [[GroupBackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
+        completionHandler(result);
+        self.bgFetcher = nil;
+    }];
+    [self.bgFetcher start];
 }
 
 //MARK: - Configure cache

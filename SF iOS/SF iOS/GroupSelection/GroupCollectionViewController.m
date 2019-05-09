@@ -47,11 +47,13 @@
 }
 
 - (void)didChangeDataSource:(nonnull id<FeedProvider>)datasource withInsertions:(nullable NSArray<NSIndexPath *> *)insertions updates:(nullable NSArray<NSIndexPath *> *)updates deletions:(nullable NSArray<NSIndexPath *> *)deletions {
-    [self.collectionView performBatchUpdates:^{
-        [self.collectionView insertItemsAtIndexPaths:insertions];
-        [self.collectionView reloadItemsAtIndexPaths:updates];
-        [self.collectionView deleteItemsAtIndexPaths:deletions];
-    } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView insertItemsAtIndexPaths:insertions];
+            [self.collectionView reloadItemsAtIndexPaths:updates];
+            [self.collectionView deleteItemsAtIndexPaths:deletions];
+        } completion:nil];
+    });
 }
 
 - (void)didFailToUpdateDataSource:(nonnull id<FeedProvider>)datasource withError:(NSError * _Nonnull)error {

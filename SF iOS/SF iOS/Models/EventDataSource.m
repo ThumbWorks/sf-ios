@@ -19,7 +19,6 @@
 
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
-@property (nonatomic) NSString *groupID;
 
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;
 @end
@@ -28,8 +27,8 @@
 - (id)initWithGroup:(Group *)group {
     if (self = [super init]) {
         self.searchQuery = @"";
-        self.group = group;
         self.groupID = group.groupID;
+        self.groupName = group.name;
         self.service = [[FeedFetchService alloc] initWithGroupID:self.groupID];
         [self observeAppActivationEvents];
         __weak typeof(self) welf = self;
@@ -61,10 +60,6 @@
 
 - (void)dealloc {
     [self.notificationToken invalidate];
-}
-
-- (NSString *)groupName {
-    return self.group.name;
 }
 
 /// Events array
@@ -138,12 +133,10 @@
                 }
             }];
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [welf.delegate didChangeDataSource:welf
-                                    withInsertions:nil
-                                           updates:nil
-                                         deletions:nil];
-            });
+            [welf.delegate didChangeDataSource:welf
+                                withInsertions:nil
+                                       updates:nil
+                                     deletions:nil];
         }
 
     }];
