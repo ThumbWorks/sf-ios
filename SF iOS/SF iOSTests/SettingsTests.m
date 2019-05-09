@@ -33,33 +33,33 @@ static NSString *const kSettingTestSuiteName = @"coffee.coffeecoffeecoffee.setti
 
 - (void)testSettingGroup1StartsFalse {
     NSUserDefaults *testDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSettingTestSuiteName];
-    XCTAssertFalse([testDefaults notificationSettingForGroup:self.group1]);
+    XCTAssertFalse([testDefaults notificationSettingForGroupWithID:self.group1.groupID]);
 }
 
 - (void)testSettingGroup1ToTrue {
     NSUserDefaults *testDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSettingTestSuiteName];
-    [testDefaults setNotificationSetting:TRUE forGroup:self.group1];
-    XCTAssertTrue([testDefaults notificationSettingForGroup:self.group1]);
+    [testDefaults setNotificationSetting:TRUE forGroupWithID:self.group1.groupID];
+    XCTAssertTrue([testDefaults notificationSettingForGroupWithID:self.group1.groupID]);
 }
 
 - (void)testSettingGroup1ToFalse {
     NSUserDefaults *testDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSettingTestSuiteName];
-    [testDefaults setNotificationSetting:FALSE forGroup:self.group1];
-    XCTAssertFalse([testDefaults notificationSettingForGroup:self.group1]);
+    [testDefaults setNotificationSetting:FALSE forGroupWithID:self.group1.groupID];
+    XCTAssertFalse([testDefaults notificationSettingForGroupWithID:self.group1.groupID]);
 }
 
 - (void)testSettingGroup2ToFalseAfterGroup1SettingExists {
     NSUserDefaults *testDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSettingTestSuiteName];
-    [testDefaults setNotificationSetting:FALSE forGroup:self.group1];
-    [testDefaults setNotificationSetting:FALSE forGroup:self.group2];
-    XCTAssertFalse([testDefaults notificationSettingForGroup:self.group2]);
+    [testDefaults setNotificationSetting:FALSE forGroupWithID:self.group1.groupID];
+    [testDefaults setNotificationSetting:FALSE forGroupWithID:self.group2.groupID];
+    XCTAssertFalse([testDefaults notificationSettingForGroupWithID:self.group2.groupID]);
 }
 
 - (void)testSettingGroup2ToTrueAfterGroup1SettingExists {
     NSUserDefaults *testDefaults = [[NSUserDefaults alloc] initWithSuiteName:kSettingTestSuiteName];
-    [testDefaults setNotificationSetting:FALSE forGroup:self.group1];
-    [testDefaults setNotificationSetting:TRUE forGroup:self.group2];
-    XCTAssertTrue([testDefaults notificationSettingForGroup:self.group2]);
+    [testDefaults setNotificationSetting:FALSE forGroupWithID:self.group1.groupID];
+    [testDefaults setNotificationSetting:TRUE forGroupWithID:self.group2.groupID];
+    XCTAssertTrue([testDefaults notificationSettingForGroupWithID:self.group2.groupID]);
 }
 
 @end
