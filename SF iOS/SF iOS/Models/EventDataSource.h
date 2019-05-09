@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EventDataSource : NSObject <FeedProvider>
 
 @property (nonatomic, weak) id<FeedProviderDelegate> delegate;
-@property (nonatomic, readonly) NSString *groupName;
+@property (nonatomic) Group *group;
 
 /// Setting the searchQuery will filter events by Event.name
 @property (nonatomic, copy) NSString *searchQuery;

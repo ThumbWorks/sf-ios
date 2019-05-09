@@ -19,7 +19,6 @@
 
 @property (nonatomic) FeedFetchService *service;
 @property (nonatomic) RLMNotificationToken *notificationToken;
-@property (nonatomic) Group *group;
 @property (nonatomic) NSString *groupID;
 
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm;

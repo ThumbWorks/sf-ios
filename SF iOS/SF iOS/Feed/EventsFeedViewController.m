@@ -231,7 +231,7 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    self.title = self.dataSource.groupName;
+    self.title = self.dataSource.group.name;
     [self.view addSubview:self.groupButton];
 
     [self addConstraints];
@@ -253,8 +253,18 @@ NS_ASSUME_NONNULL_END
 
     [self configureNoResultsView];
     [self addStatusBarBlurBackground];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                           target:self
+                                                                                           action:@selector(share)];
 }
 
+- (void)share {
+    NSString *url = [NSString stringWithFormat:@"https://coffeecoffeecoffee.coffee/%@", self.dataSource.group.groupID];
+    NSArray *items = @[[NSURL URLWithString:url]];
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                             applicationActivities:nil];
+    [self presentViewController:shareSheet animated:true completion:nil];
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
