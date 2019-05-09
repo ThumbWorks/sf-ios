@@ -10,10 +10,13 @@
 #import "EventDataSource.h"
 #import "FeedProviderDelegate.h"
 #import <Realm/Realm.h>
+#import "Group.h"
+
 @interface EventDataSourceTests : XCTestCase <FeedProviderDelegate>
 @property (nonatomic) EventDataSource *dataSource;
 @property (nonatomic) XCTestExpectation *fetchingExpectation;
 @property (nonatomic) Event *event;
+@property (nonatomic) Group *group;
 @property (nonatomic) RLMRealmConfiguration *realmConfiguration;
 @end
 
@@ -37,6 +40,9 @@
                            @"venue": venue,
                            @"start_at": @"2019-04-03T15:30:00.000Z"
                            };
+
+    self.group = [[Group alloc] init];
+    self.group.groupID = @"28ef50f9-b909-4f03-9a69-a8218a8cbd99";
     self.event = [[Event alloc] initWithDictionary:dict];
 
     _fetchingExpectation = [self expectationWithDescription:@"Wait for events"];
@@ -48,7 +54,7 @@
 
     [RLMRealmConfiguration setDefaultConfiguration:self.realmConfiguration];
 
-    self.dataSource = [[EventDataSource alloc] initWithGroup:nil];
+    self.dataSource = [[EventDataSource alloc] initWithGroup:self.group];
 
     self.dataSource.delegate = self;
     [super setUp];
@@ -61,7 +67,7 @@
     }];
 
     [self waitForExpectationsWithTimeout:1.0 handler:^(NSError *error) {
-        XCTAssertEqual(self.dataSource.numberOfEvents, 1);
+        XCTAssertEqual(self.dataSource.numberOfItems, 1);
         if (error) {
             XCTFail(@"Expectation failed \(error)");
             NSLog(@"%@",error.localizedDescription);
