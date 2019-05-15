@@ -77,8 +77,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)setupNotificationsButton {
-    UIImage *unsubscribedImage = [UIImage imageNamed:@"NotificationsDisable"];
-    UIImage *subscribedImage = [UIImage imageNamed:@"NotificationsEnable"];
+    UIImage *unsubscribedImage = [UIImage imageNamed:@"NotificationsEnable"];
+    UIImage *subscribedImage = [UIImage imageNamed:@"NotificationsDisable"];
     self.notificationSettingButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.notificationSettingButton addTarget:self
                                        action:@selector(notificationTapped:)
