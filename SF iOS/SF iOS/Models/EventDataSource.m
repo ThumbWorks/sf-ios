@@ -160,7 +160,11 @@
 }
 
 - (NSUInteger)indexOfCurrentEvent {
-    return [self.events indexOfObjectWhere:@"endDate > %@", [NSDate date]];
+    NSPredicate *futureEvents = [NSPredicate predicateWithFormat:@"endDate > %@", [NSDate date]];
+    RLMResults<Event *> *filteredCoffee = [[Event objectsWithPredicate:futureEvents]
+                                           sortedResultsUsingKeyPath:@"date" ascending:true];
+    Event *next = [filteredCoffee firstObject];
+    return [self.events indexOfObject:next];
 }
 
 //MARK: - Respond To app Events

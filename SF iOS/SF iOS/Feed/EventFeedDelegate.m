@@ -38,8 +38,12 @@
         [self.tableView.refreshControl endRefreshing];
         //            [self updateNotificationButton];
         if (!insertions && !updates && !deletions) {
-            NSLog(@"Empty update");
             [self.tableView reloadData];
+            NSIndexPath *nextEventIndexPath = [NSIndexPath indexPathForRow:eventDataSource.indexOfCurrentEvent
+                                                                 inSection:0];
+            [self.tableView scrollToRowAtIndexPath:nextEventIndexPath
+                                  atScrollPosition:UITableViewScrollPositionTop
+                                          animated:true];
             return;
         }
 
@@ -52,6 +56,7 @@
                               withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         [self.tableView.refreshControl endRefreshing];
+
     });
 
 }
