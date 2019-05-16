@@ -36,7 +36,7 @@
     _imageView.backgroundColor = [UIColor alabaster];
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     _imageView.layer.cornerRadius = 15;
-    _imageView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner | kCALayerMinXMaxYCorner;
+    _imageView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
     _imageView.layer.masksToBounds = true;
 
     self.shadowView = [UIView new];
@@ -53,25 +53,29 @@
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = false;
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.textColor = UIColor.blackColor;
-    _nameLabel.backgroundColor = UIColor.whiteColor;
+    _nameLabel.textColor = [UIColor blackColor];
+    _nameLabel.backgroundColor = [UIColor whiteColor];
     _nameLabel.font = [ImageBasedCollectionViewCell labelFont];
+    _nameLabel.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+    _nameLabel.layer.masksToBounds = true;
+    _nameLabel.layer.cornerRadius = 15;
     _nameLabel.numberOfLines = 0;
+
     [self.contentView addSubview:self.imageView];
-    [self.imageView addSubview:self.nameLabel];
+    [self.contentView addSubview:self.nameLabel];
 
     self.contentView.clipsToBounds = false;
 }
 
 - (void)setupConstraints {
     [self.imageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.imageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = true;
+    [self.imageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-44].active = true;
     [self.imageView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
     [self.imageView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
 
-    [self.nameLabel.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor].active = true;
-    [self.nameLabel.leftAnchor constraintEqualToAnchor:self.imageView.leftAnchor].active = true;
-    [self.nameLabel.rightAnchor constraintEqualToAnchor:self.imageView.rightAnchor].active = true;
+    [self.nameLabel.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = true;
+    [self.nameLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
+    [self.nameLabel.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
     [self.nameLabel.heightAnchor constraintGreaterThanOrEqualToConstant:44].active = true;
 
     [self.shadowView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
