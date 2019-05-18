@@ -18,7 +18,7 @@
     return NSStringFromSelector(@selector(directionsProvider));
 }
 
-- (NSString *)SFIOS_notifiationsDictionaryKey {
+- (NSString *)SFIOS_notificationsDictionaryKey {
     return NSStringFromSelector(@selector(notificationSettingForGroup:));
 }
 
@@ -32,7 +32,7 @@
 
 - (void)setNotificationSetting:(BOOL)isOn forGroupWithID:(nonnull NSString *)groupID {
     NSNumber *newValue = [NSNumber numberWithBool:isOn];
-    NSString *key = self.SFIOS_notifiationsDictionaryKey;
+    NSString *key = self.SFIOS_notificationsDictionaryKey;
     NSMutableDictionary<NSString *, NSNumber *> *settingsDictionary = [[self dictionaryForKey:key] mutableCopy];
     if (settingsDictionary == nil) {
         settingsDictionary = [[NSMutableDictionary<NSString *, NSNumber *> alloc] initWithObjectsAndKeys:newValue,
@@ -45,11 +45,11 @@
 }
 
 - (NSDictionary *)notificationSettings {
-    return [self dictionaryForKey:self.SFIOS_notifiationsDictionaryKey];
+    return [self dictionaryForKey:self.SFIOS_notificationsDictionaryKey];
 }
 
 - (BOOL)notificationSettingForGroupWithID:(nonnull NSString *)groupID {
-    NSDictionary *settingsDictionary = [self dictionaryForKey:self.SFIOS_notifiationsDictionaryKey];
+    NSDictionary *settingsDictionary = [self dictionaryForKey:self.SFIOS_notificationsDictionaryKey];
     return [[settingsDictionary valueForKey:groupID] boolValue];
 }
 
