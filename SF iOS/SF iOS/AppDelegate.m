@@ -81,8 +81,7 @@
 }
 
 //MARK: - Configure cache
-- (void)setSharedNetworkCacheMemoryMegabytes:(NSInteger)memoryMiB diskMegabytes:(NSInteger)diskMiB
-{
+- (void)setSharedNetworkCacheMemoryMegabytes:(NSInteger)memoryMiB diskMegabytes:(NSInteger)diskMiB {
     NSUInteger cashSize = memoryMiB * 1024 * 1024;
     NSUInteger cashDiskSize = diskMiB * 1024 * 1024;
     NSURLCache *imageCache = [[NSURLCache alloc] initWithMemoryCapacity:cashSize

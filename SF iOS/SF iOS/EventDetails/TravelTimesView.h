@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Styleable.h"
 #import "TravelTime.h"
 #import "DirectionsRequestHandler.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface TravelTimesView : UIStackView
+@interface TravelTimesView : UIStackView <Styleable>
 
 @property (nonatomic, assign) BOOL loading;
 

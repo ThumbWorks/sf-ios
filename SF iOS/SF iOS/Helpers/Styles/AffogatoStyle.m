@@ -6,6 +6,7 @@
 //
 
 #import "AffogatoStyle.h"
+#import "DynamicTypeFonts.h"
 #import <UIKit/UIKit.h>
 
 @interface AffogatoStyleColors : NSObject <Colors>
@@ -43,29 +44,6 @@
 
 @end
 
-@interface AffogatoStyleFonts : NSObject <Fonts>
-@end
-
-@implementation AffogatoStyleFonts
-
-- (UIFont *)headerFont {
-	return [UIFont systemFontOfSize:34 weight:UIFontWeightBold];
-}
-
-- (UIFont *)primaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];;
-}
-
-- (UIFont *)secondaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];;
-}
-
-- (UIFont *)subtitleFont {
-	return [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-}
-
-@end
-
 @implementation AffogatoStyle
 
 + (NSString *)identifier {
@@ -80,7 +58,7 @@
 	NSAssert(self != nil, @"[super init] should never fail");
 
 	_colors = [[AffogatoStyleColors alloc] init];
-	_fonts = [[AffogatoStyleFonts alloc] init];
+	_fonts = [[DynamicTypeFonts alloc] init];
 
 	return self;
 }

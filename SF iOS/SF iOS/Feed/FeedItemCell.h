@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FeedItem.h"
+#import "Styleable.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface FeedItemCell : UITableViewCell
+
+@interface FeedItemCell : UITableViewCell <Styleable>
 
 @property (readonly, assign, nonatomic) CGRect contentFrame;
 @property (readonly, assign, nonatomic) CGSize coverImageSize;
@@ -19,4 +21,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCoverToImage:(UIImage *)image;
 
 @end
+
 NS_ASSUME_NONNULL_END

@@ -5,8 +5,10 @@
 //  Created by Zachary Drayer on 4/21/19.
 //
 
-#import "EspressoStyle.h"
 #import <UIKit/UIKit.h>
+
+#import "EspressoStyle.h"
+#import "DynamicTypeFonts.h"
 
 @interface EspressoStyleColors : NSObject <Colors>
 @end
@@ -21,9 +23,9 @@
 }
 
 - (UIColor *)tintColor {
-	return [UIColor colorWithRed:88.0 / 255.0
-						   green:52.0 / 255.0
-							blue:32.0 / 255.0
+	return [UIColor colorWithRed:216.0 / 255.0
+						   green:153.0 / 255.0
+							blue:85.0 / 255.0
 						   alpha:1.0];
 }
 
@@ -61,29 +63,6 @@
 
 @end
 
-@interface EspressoStyleFonts : NSObject <Fonts>
-@end
-
-@implementation EspressoStyleFonts
-
-- (UIFont *)headerFont {
-	return [UIFont systemFontOfSize:34 weight:UIFontWeightBold];
-}
-
-- (UIFont *)primaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];;
-}
-
-- (UIFont *)secondaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];;
-}
-
-- (UIFont *)subtitleFont {
-	return [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-}
-
-@end
-
 @implementation EspressoStyle
 
 + (NSString *)identifier {
@@ -98,7 +77,7 @@
 	NSAssert(self != nil, @"[super init] should never fail");
 
 	_colors = [[EspressoStyleColors alloc] init];
-	_fonts = [[EspressoStyleFonts alloc] init];
+	_fonts = [[DynamicTypeFonts alloc] init];
 
 	return self;
 }

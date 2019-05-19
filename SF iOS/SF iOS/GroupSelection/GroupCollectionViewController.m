@@ -6,22 +6,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedProvider.h"
+#import "Group.h"
+#import "GroupCollectionView.h"
 #import "GroupCollectionViewController.h"
 #import "GroupDataSource.h"
-#import "Group.h"
-#import "FeedProvider.h"
 #import "ImageBasedCollectionViewCell.h"
 #import "ImageStore.h"
-#import "UIImage+URL.h"
-#import "GroupCollectionView.h"
-#import "UIViewController+ErrorHandling.h"
+#import "Style.h"
 #import "UIActivityViewController+Utilities.h"
+#import "UIImage+URL.h"
+#import "UIViewController+ErrorHandling.h"
 
 @interface GroupCollectionViewController() <UICollectionViewDelegateFlowLayout>
 @property(nonatomic) id<FeedProvider> dataSource;
 @property(nonatomic) GroupCollectionView *collectionView;
 @property(nonatomic) ImageStore *cache;
 @property (nonatomic) NSOperationQueue *imageFetchQueue;
+@property (nonatomic) id<Style> style;
 @end
 
 @implementation GroupCollectionViewController
@@ -118,11 +120,21 @@
              [fetchedCell updateWithImage:image title:group.name];
          }];
     }
+	[cell applyStyle:self.style];
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.dataSource.numberOfItems;
+}
+
+#pragma mark - Styleable
+
+- (void)applyStyle:(id<Style>)style {
+	self.style = style;
+	self.collectionView.backgroundColor = self.style.colors.backgroundColor;
+
+	[self.collectionView reloadData];
 }
 
 @end

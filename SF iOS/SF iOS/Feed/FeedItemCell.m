@@ -7,8 +7,8 @@
 //
 
 #import "FeedItemCell.h"
+#import "Style.h"
 #import "UIStackView+ConvenienceInitializer.h"
-#import "UIColor+SFiOSColors.h"
 
 static const CGFloat kDepressedShadowRadius = 8.0f;
 
@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) UILabel *subtitleLabel;
 @property (nonatomic) UIStackView *itemImageStack;
 @property (nonatomic) UIImageView *coverImageView;
+
+@property (nonatomic) BOOL isActive;
 
 @end
 NS_ASSUME_NONNULL_END
@@ -58,9 +60,9 @@ NS_ASSUME_NONNULL_END
 //MARK: - Configuration
 
 - (void)configureWithFeedItem:(FeedItem *)item {
+	self.isActive = item.isActive;
     self.timeLabel.text = item.dateString;
-    self.timeLabel.alpha =  item.isActive ? 1 : 0.2;
-    
+
     self.titleLabel.text = item.title;
     self.subtitleLabel.attributedText = item.subtitle;
 }
@@ -73,13 +75,10 @@ NS_ASSUME_NONNULL_END
 
 - (void)setup {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = [UIColor whiteColor];
-    
+
     [self setupContainerStack];
     
     self.timeLabel = [UILabel new];
-    self.timeLabel.font = [UIFont systemFontOfSize:34 weight:UIFontWeightBold];
-    self.titleLabel.textColor = [UIColor blackColor];
     [self.timeLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.containerStack addArrangedSubview:self.timeLabel];
     
@@ -113,12 +112,11 @@ NS_ASSUME_NONNULL_END
 
 - (void)setupDetailsStack {
     CGFloat cornerRadius = 15;
-    
-    self.coverImageView = [UIImageView new];
+
+	self.coverImageView = [UIImageView new];
     self.coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.coverImageView.backgroundColor = [UIColor alabaster];
     self.coverImageView.layer.cornerRadius = cornerRadius;
-    self.coverImageView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+	self.coverImageView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
 
     self.coverImageView.clipsToBounds = true;
     self.coverImageView.translatesAutoresizingMaskIntoConstraints = false;
@@ -134,14 +132,10 @@ NS_ASSUME_NONNULL_END
     self.itemImageStack.translatesAutoresizingMaskIntoConstraints = false;
     
     self.titleLabel = [UILabel new];
-    self.titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];
-    self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
     self.titleLabel.numberOfLines = 0;
     
     self.subtitleLabel = [UILabel new];
-    self.subtitleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-    self.subtitleLabel.textColor = [UIColor abbey];
     self.subtitleLabel.numberOfLines = 2;
     self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = false;
 
@@ -166,10 +160,8 @@ NS_ASSUME_NONNULL_END
     detailsStack.translatesAutoresizingMaskIntoConstraints = false;
     
     self.detailStackContainer = [UIView new];
-    self.detailStackContainer.backgroundColor = [UIColor whiteColor];
     self.detailStackContainer.layer.cornerRadius = 15;
-    self.detailStackContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.detailStackContainer.layer.shadowOpacity = 0.22;
+	self.detailStackContainer.layer.shadowOpacity = 0.35;
     self.detailStackContainer.clipsToBounds = false;
     self.detailStackContainer.translatesAutoresizingMaskIntoConstraints = false;
     [self.detailStackContainer addSubview:detailsStack];
@@ -205,13 +197,33 @@ NS_ASSUME_NONNULL_END
   [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"shadowOffset", [NSValue valueWithCGSize:offsetFromValue]) forKey:@"shadowOffset"];
 }
 
-static CABasicAnimation *AnimationWithKeyPath(NSString *keyPath, NSValue *fromValue)
-{
+static CABasicAnimation *AnimationWithKeyPath(NSString *keyPath, NSValue *fromValue) {
   CABasicAnimation *const animation = [CABasicAnimation animationWithKeyPath:keyPath];
   animation.duration = 0.1;
   animation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.0 :0.0 :0.5 :2.0];
   animation.fromValue = fromValue;
   return animation;
+}
+
+- (void)applyStyle:(id<Style>)style {
+	self.contentView.backgroundColor = style.colors.backgroundColor;
+
+	if (self.isActive) {
+		self.titleLabel.textColor = style.colors.primaryTextColor;
+		self.timeLabel.textColor = style.colors.primaryTextColor;
+	} else {
+		self.titleLabel.textColor = style.colors.inactiveTextColor;
+		self.timeLabel.textColor = style.colors.inactiveTextColor;
+	}
+
+	self.coverImageView.backgroundColor = style.colors.loadingColor;
+	self.subtitleLabel.textColor = style.colors.secondaryTextColor;
+	self.detailStackContainer.backgroundColor = style.colors.backgroundColor;
+	self.detailStackContainer.layer.shadowColor = style.colors.shadowColor.CGColor;
+
+	self.timeLabel.font = style.fonts.primaryFont;
+	self.titleLabel.font = style.fonts.secondaryFont;
+	self.subtitleLabel.font = style.fonts.subtitleFont;
 }
 
 @end

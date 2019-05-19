@@ -13,6 +13,7 @@
 		1955ED712291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED702291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m */; };
 		1955ED742291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */; };
 		1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED762291440E00DC92A5 /* MochaStyle.m */; };
+		19C3C8A52294F66900953048 /* DynamicTypeFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3C8A42294F66900953048 /* DynamicTypeFonts.m */; };
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
 		19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */; };
@@ -116,6 +117,8 @@
 		1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewControllerForwardingNavigationController.m; sourceTree = "<group>"; };
 		1955ED752291440D00DC92A5 /* MochaStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MochaStyle.h; sourceTree = "<group>"; };
 		1955ED762291440E00DC92A5 /* MochaStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MochaStyle.m; sourceTree = "<group>"; };
+		19C3C8A32294F66900953048 /* DynamicTypeFonts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicTypeFonts.h; sourceTree = "<group>"; };
+		19C3C8A42294F66900953048 /* DynamicTypeFonts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicTypeFonts.m; sourceTree = "<group>"; };
 		19DD32F3225B294900C0EE5A /* NSUserDefaults+Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Settings.h"; sourceTree = "<group>"; };
 		19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Settings.m"; sourceTree = "<group>"; };
 		19DD32F6225EFC6100C0EE5A /* SwipableNavigationContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwipableNavigationContainer.h; sourceTree = "<group>"; };
@@ -448,6 +451,8 @@
 				1955ED6D22911ABB00DC92A5 /* Styleable.h */,
 				C825163A1F2FDF46006B9D7E /* UIColor+SFiOSColors.h */,
 				C825163B1F2FDF46006B9D7E /* UIColor+SFiOSColors.m */,
+				19C3C8A32294F66900953048 /* DynamicTypeFonts.h */,
+				19C3C8A42294F66900953048 /* DynamicTypeFonts.m */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -949,6 +954,7 @@
 				C8CC49351F32A7260064B03E /* UIApplication+Metadata.m in Sources */,
 				1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */,
 				5F4DAB0B2284D6B900C67238 /* GroupBackgroundFetcher.m in Sources */,
+				19C3C8A52294F66900953048 /* DynamicTypeFonts.m in Sources */,
 				C8CC492A1F3293230064B03E /* MKMapCamera+OverlookingLocations.m in Sources */,
 				5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */,
 				C86DD4351F3A389B00C58723 /* NSAttributedString+EventDetails.m in Sources */,

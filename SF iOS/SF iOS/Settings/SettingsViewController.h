@@ -7,7 +7,9 @@
 
 @import UIKit;
 
-@interface SettingsViewController : UIViewController
+#import "Styleable.h"
+
+@interface SettingsViewController : UIViewController <Styleable>
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 

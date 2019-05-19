@@ -7,6 +7,8 @@
 //
 
 #import "TravelTimeView.h"
+
+#import "Style.h"
 #import "UIColor+SFiOSColors.h"
 #import "UIStackView+ConvenienceInitializer.h"
 
@@ -24,22 +26,22 @@
 - (instancetype)initWithTravelTime:(TravelTime *)travelTime arrival:(Arrival)arrival directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler {
     if (self = [super initWithFrame:CGRectZero]) {
         [self setup];
-        self.iconView.image = travelTime.icon;
-        self.transportType = travelTime.transportType;
-        self.directionsRequestHandler = directionsRequestHandler;
+		_iconView.image = [travelTime.icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _transportType = travelTime.transportType;
+        _directionsRequestHandler = directionsRequestHandler;
         
-        self.timeLabel.text = travelTime.travelTimeEstimateString;
+        _timeLabel.text = travelTime.travelTimeEstimateString;
         switch (arrival) {
             case ArrivalOnTime:
-                self.timeLabel.textColor = [UIColor atlantis];
+                _timeLabel.textColor = [UIColor atlantis];
                 break;
             
             case ArrivalDuringEvent:
-                self.timeLabel.textColor = [UIColor saffron];
+                _timeLabel.textColor = [UIColor saffron];
                 break;
                 
             case ArrivalAfterEvent:
-                self.timeLabel.textColor = [UIColor mandy];
+                _timeLabel.textColor = [UIColor mandy];
                 break;
                 
             default:
@@ -60,16 +62,13 @@
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 8;
-    self.layer.shadowColor = [UIColor nobel].CGColor;
-    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowOpacity = 0.35;
     self.layer.shadowOffset = CGSizeMake(0, 2);
     self.layer.shadowRadius = 8;
     self.clipsToBounds = false;
     
     self.timeLabel = [UILabel new];
-    self.timeLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
     self.timeLabel.textColor = [UIColor atlantis];
     self.timeLabel.numberOfLines = 1;
     self.timeLabel.userInteractionEnabled = false;
@@ -98,12 +97,12 @@
        ]
      ];
     
-    [self addTarget:self action:@selector(requestdirections) forControlEvents:UIControlEventTouchUpInside];
+    [self addTarget:self action:@selector(requestDirections) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //MARK: - Touch Handling
 
-- (void)requestdirections {
+- (void)requestDirections {
     if (self.directionsRequestHandler) {
         self.directionsRequestHandler(self.transportType);
     }
@@ -115,6 +114,20 @@
     [UIView animateWithDuration:0.15 animations:^{
         self.transform = transform;
     }];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+	[super setBackgroundColor:backgroundColor];
+}
+
+- (void)applyStyle:(id<Style>)style {
+	self.backgroundColor = style.colors.backgroundColor;
+	self.timeLabel.font = style.fonts.subtitleFont;
+	self.iconView.tintColor = style.colors.tintColor;
+	self.layer.shadowColor = style.colors.shadowColor.CGColor;
+	self.layer.borderColor = style.colors.tintColor.CGColor;
+	self.layer.borderWidth = 1.0 / UIScreen.mainScreen.scale;
 }
 
 @end

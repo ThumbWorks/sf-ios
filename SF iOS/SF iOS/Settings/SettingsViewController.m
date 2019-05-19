@@ -7,9 +7,13 @@
 
 #import "SettingsViewController.h"
 #import "NSUserDefaults+Settings.h"
+#import "AffogatoStyle.h"
+#import "EspressoStyle.h"
+#import "MochaStyle.h"
 
 typedef NS_ENUM(NSInteger, SettingsSection) {
     SettingsSectionDirectionsProvider,
+	SettingsSectionStyle,
     SettingsSectionCount
 };
 
@@ -19,9 +23,18 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
     SettingsSectionDirectionsProviderCount
 };
 
+typedef NS_ENUM(NSInteger, SettingsSectionStyleValues) {
+	SettingsSectionStyleDefault, // based on UIUserInterfaceStyle, equivalent to .Affogato at the moment
+	SettingsSectionStyleAffogato,
+	SettingsSectionStyleEspresso,
+	SettingsSectionStyleMocha,
+	SettingsSectionStyleCount
+};
+
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) UITableView *tableView;
+@property (nonatomic, readonly) UITableView *tableView;
+@property (nonatomic) id<Style> style;
 
 @end
 
@@ -39,7 +52,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
     _tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     _tableView.translatesAutoresizingMaskIntoConstraints = false;
     _tableView.delaysContentTouches = NO;
-    _tableView.tintColor = UIColor.blackColor;
 
     return self;
 }
@@ -60,7 +72,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
      ];
 }
 
-#pragma mark -
+#pragma mark - UITableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return SettingsSectionCount;
@@ -70,6 +82,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
     switch ((SettingsSection)section) {
         case SettingsSectionDirectionsProvider:
             return SettingsSectionDirectionsProviderCount;
+		case SettingsSectionStyle:
+			return SettingsSectionStyleCount;
         case SettingsSectionCount:
             NSAssert(NO, @".Count enum value does not have any data to display");
     }
@@ -79,20 +93,28 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    switch ((SettingsSection)section) {
+	UITextView *headerView = nil;
+
+	switch ((SettingsSection)section) {
         case SettingsSectionDirectionsProvider: {
-            UITextView *headerView = [[UITextView alloc] initWithFrame:CGRectZero];
-            headerView.editable = NO;
-            headerView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
-            headerView.text = NSLocalizedString(@"Map Provider", @"Title for 'Map Provider' section in Settings.");
-            headerView.font = [UIFont systemFontOfSize:34 weight:UIFontWeightBold];
-            return headerView;
+            headerView = [[UITextView alloc] initWithFrame:CGRectZero];
+			headerView.text = NSLocalizedString(@"Map Provider", @"Title for 'Map Provider' section in Settings.");
+			break;
+		} case SettingsSectionStyle: {
+			headerView = [[UITextView alloc] initWithFrame:CGRectZero];
+			headerView.text = NSLocalizedString(@"Style", @"Title for 'Style' section in Settings.");
+			break;
         } case SettingsSectionCount:
             NSAssert(NO, @".Count enum value does not have any data to display");
     }
 
-    NSAssert(NO, @"Should not reach this point");
-    return nil;
+	headerView.backgroundColor = tableView.backgroundColor;
+	headerView.editable = NO;
+	headerView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
+	headerView.font = self.style.fonts.headerFont;
+	headerView.textColor = self.style.colors.primaryTextColor;
+
+    return headerView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,38 +124,61 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(UITableViewCell.class)];
 
+	BOOL isPreferredItem = NO;
+
     switch ((SettingsSection)indexPath.section) {
         case SettingsSectionDirectionsProvider: {
-            BOOL isPreferredDirectionsProvider = NO;
-
             switch ((SettingsSectionDirectionsProviderValues)indexPath.row) {
                 case SettingsSectionDirectionsProviderApple:
                     cell.textLabel.text = NSLocalizedString(@"Apple Maps", @"Title for 'Apple Maps' row in Settings.");
-                    isPreferredDirectionsProvider = NSUserDefaults.standardUserDefaults.directionsProvider == SettingsDirectionProviderApple;
+                    isPreferredItem = NSUserDefaults.standardUserDefaults.directionsProvider == SettingsDirectionProviderApple;
                     break;
                 case SettingsSectionDirectionsProviderGoogle:
                     cell.textLabel.text = NSLocalizedString(@"Google Maps", @"Title for 'Google Maps' row in Settings.");
-                    isPreferredDirectionsProvider = NSUserDefaults.standardUserDefaults.directionsProvider == SettingsDirectionProviderGoogle;
+                    isPreferredItem = NSUserDefaults.standardUserDefaults.directionsProvider == SettingsDirectionProviderGoogle;
                     break;
                 case SettingsSectionDirectionsProviderCount:
                     NSAssert(NO, @".Count enum value does not have any data to display");
             }
 
-            if (isPreferredDirectionsProvider) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                cell.textLabel.textColor = UIColor.blackColor;
-            } else {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.textLabel.textColor = [UIColor.blackColor colorWithAlphaComponent:0.2];
-            }
-
             break;
-        }
-        case SettingsSectionCount:
+        } case SettingsSectionStyle: {
+			switch ((SettingsSectionStyleValues)indexPath.row) {
+				case SettingsSectionStyleDefault:
+					cell.textLabel.text = NSLocalizedString(@"Default", @"Title for 'Default' row in Settings.");
+					isPreferredItem = NSUserDefaults.standardUserDefaults.activeStyleIdentifier == nil;
+					break;
+				case SettingsSectionStyleAffogato:
+					cell.textLabel.text = NSLocalizedString(@"Affogato", @"Title for 'Affogato' row in Settings.");
+					isPreferredItem = [NSUserDefaults.standardUserDefaults.activeStyleIdentifier isEqualToString:AffogatoStyle.identifier];
+					break;
+				case SettingsSectionStyleEspresso:
+					cell.textLabel.text = NSLocalizedString(@"Espresso", @"Title for 'Espresso' row in Settings.");
+					isPreferredItem = [NSUserDefaults.standardUserDefaults.activeStyleIdentifier isEqualToString:EspressoStyle.identifier];
+					break;
+				case SettingsSectionStyleMocha:
+					cell.textLabel.text = NSLocalizedString(@"Cherry Mocha", @"Title for 'Cherry Mocha' row in Settings.");
+					isPreferredItem = [NSUserDefaults.standardUserDefaults.activeStyleIdentifier isEqualToString:MochaStyle.identifier];
+					break;
+				case SettingsSectionStyleCount:
+					NSAssert(NO, @".Count enum value does not have any data to display");
+			}
+
+			break;
+		} case SettingsSectionCount:
             NSAssert(NO, @".Count enum value does not have any data to display");
     }
 
-    cell.textLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];
+	if (isPreferredItem) {
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		cell.textLabel.textColor = self.style.colors.primaryTextColor;
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.textLabel.textColor = self.style.colors.inactiveTextColor;
+	}
+
+	cell.backgroundColor = tableView.backgroundColor;
+	cell.textLabel.font = self.style.fonts.secondaryFont;
 
     return cell;
 }
@@ -152,11 +197,41 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
                     NSAssert(NO, @".Count enum value does not have any data to display");
             }
             break;
+		case SettingsSectionStyle:
+			switch ((SettingsSectionStyleValues)indexPath.row) {
+				case SettingsSectionStyleDefault:
+					NSUserDefaults.standardUserDefaults.activeStyleIdentifier = nil;
+					break;
+				case SettingsSectionStyleAffogato:
+					NSUserDefaults.standardUserDefaults.activeStyleIdentifier = AffogatoStyle.identifier;
+					break;
+				case SettingsSectionStyleEspresso:
+					NSUserDefaults.standardUserDefaults.activeStyleIdentifier = EspressoStyle.identifier;
+					break;
+				case SettingsSectionStyleMocha:
+					NSUserDefaults.standardUserDefaults.activeStyleIdentifier = MochaStyle.identifier;
+					break;
+				case SettingsSectionStyleCount:
+					NSAssert(NO, @".Count enum value does not have any data to display");
+			}
+			break;
         case SettingsSectionCount:
             NSAssert(NO, @".Count enum value does not have any data to display");
     }
 
     [tableView reloadData];
+}
+
+#pragma mark - Styleable
+
+- (void)applyStyle:(id<Style>)style {
+	self.style = style;
+
+	self.tableView.tintColor = style.colors.tintColor;
+	self.tableView.backgroundColor = style.colors.backgroundColor;
+
+	[self.tableView reloadData];
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

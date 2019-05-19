@@ -17,7 +17,6 @@
     layout.minimumLineSpacing = 20.0;
 
     GroupCollectionView *view = [[self alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    view.backgroundColor = [UIColor whiteColor];
     view.showsHorizontalScrollIndicator = false;
     view.translatesAutoresizingMaskIntoConstraints = false;
 

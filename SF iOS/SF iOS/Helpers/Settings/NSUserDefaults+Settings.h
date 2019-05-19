@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 typedef NS_ENUM(NSInteger, SettingsDirectionProvider) {
     SettingsDirectionProviderApple,
     SettingsDirectionProviderGoogle
@@ -14,6 +15,8 @@ typedef NS_ENUM(NSInteger, SettingsDirectionProvider) {
 @interface NSUserDefaults (Settings)
 
 @property (nonatomic, assign, readwrite) SettingsDirectionProvider directionsProvider;
+
+@property (nullable, nonatomic, assign, readwrite) NSString *activeStyleIdentifier;
 
 - (void)setNotificationSetting:(BOOL)isOn forGroupWithID:(nonnull NSString *)groupID;
 

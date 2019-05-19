@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Styleable.h"
 #import "TravelTime.h"
 #import "DirectionsRequestHandler.h"
 #import "TravelTime+Arrival.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface TravelTimeView : UIControl
+@interface TravelTimeView : UIControl <Styleable>
 
 - (instancetype)initWithTravelTime:(TravelTime *)travelTime arrival:(Arrival)arrival directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler NS_DESIGNATED_INITIALIZER;
 

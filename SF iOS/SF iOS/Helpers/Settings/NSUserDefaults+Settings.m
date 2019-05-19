@@ -10,16 +10,8 @@
 
 @implementation NSUserDefaults (Settings)
 
-- (NSString *)SFIOS_lastViewedGroupKey {
-    return NSStringFromSelector(@selector(lastViewedGroupID));
-}
-
 - (NSString *)SFIOS_directionsProviderKey {
     return NSStringFromSelector(@selector(directionsProvider));
-}
-
-- (NSString *)SFIOS_notificationsDictionaryKey {
-    return NSStringFromSelector(@selector(notificationSettingForGroup:));
 }
 
 - (SettingsDirectionProvider)directionsProvider {
@@ -28,6 +20,12 @@
 
 - (void)setDirectionsProvider:(SettingsDirectionProvider)directionsProvider {
     [self setInteger:directionsProvider forKey:self.SFIOS_directionsProviderKey];
+}
+
+#pragma mark -
+
+- (NSString *)SFIOS_notificationsDictionaryKey {
+    return NSStringFromSelector(@selector(notificationSettingForGroup:));
 }
 
 - (void)setNotificationSetting:(BOOL)isOn forGroupWithID:(nonnull NSString *)groupID {
@@ -53,11 +51,32 @@
     return [[settingsDictionary valueForKey:groupID] boolValue];
 }
 
+#pragma mark -
+
+- (NSString *)SFIOS_lastViewedGroupKey {
+    return NSStringFromSelector(@selector(lastViewedGroupID));
+}
+
 - (NSString *_Nullable)lastViewedGroupID {
-    return [self valueForKey:self.SFIOS_lastViewedGroupKey];
+    return [self objectForKey:self.SFIOS_lastViewedGroupKey];
 }
 
 - (void)setLastViewedGroupID:(NSString *_Nullable)groupID {
     [self setObject:groupID forKey:self.SFIOS_lastViewedGroupKey];
 }
+
+#pragma mark -
+
+- (NSString *)SFIOS_activeStyleIdentifier {
+	return NSStringFromSelector(@selector(SFIOS_activeStyleIdentifier));
+}
+
+- (NSString *)activeStyleIdentifier {
+	return [self objectForKey:self.SFIOS_activeStyleIdentifier];
+}
+
+- (void)setActiveStyleIdentifier:(NSString *)activeStyleIdentifier {
+	[self setObject:activeStyleIdentifier forKey:self.SFIOS_activeStyleIdentifier];
+}
+
 @end

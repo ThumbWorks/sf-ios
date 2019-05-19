@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "FeedProvider.h"
 #import "FeedProviderDelegate.h"
+#import "Styleable.h"
+
 @class Group;
 @class GroupCollectionViewController;
 
@@ -19,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface GroupCollectionViewController : UIViewController <FeedProviderDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface GroupCollectionViewController : UIViewController <FeedProviderDelegate, Styleable, UICollectionViewDataSource, UICollectionViewDelegate>
 - (instancetype)initWithDataSource:(id<FeedProvider>)dataSource;
 @property (nonatomic, weak) id<GroupCollectionViewControllerDelegate> selectionDelegate;
 

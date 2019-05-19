@@ -10,12 +10,6 @@
 
 @interface UIColor (SFiOSColors)
 
-/// #58595E
-+ (UIColor *)abbey;
-
-///#FEFEFE
-+ (UIColor *)alabaster;
-
 ///#8CD838
 + (UIColor *)atlantis;
 
@@ -24,11 +18,5 @@
 
 ///#E75D5A
 + (UIColor *)mandy;
-
-///#B7B7B7
-+ (UIColor *)nobel;
-
-///#A6A6A6
-+(UIColor *)boulder;
 
 @end

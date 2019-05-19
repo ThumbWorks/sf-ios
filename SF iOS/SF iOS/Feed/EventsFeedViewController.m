@@ -18,6 +18,7 @@
 #import "ImageBasedCollectionViewCell.h"
 #import "EventDataSource.h"
 #import "Group.h"
+#import "Style.h"
 #import "UIViewController+ErrorHandling.h"
 #import "EventFeedDelegate.h"
 #import "UIActivityViewController+Utilities.h"
@@ -32,9 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) ImageStore *imageStore;
 @property (nonatomic) NSOperationQueue *imageFetchQueue;
 @property (nullable, nonatomic) UserLocation *userLocationService;
+@property (nonatomic) UILabel *noResultsLabel;
 @property (nonatomic) UIView *noResultsView;
 @property (nonatomic) UIButton *notificationSettingButton;
 @property (nonatomic) UISearchController *searchController;
+@property (nonatomic) id<Style> style;
 
 @end
 NS_ASSUME_NONNULL_END
@@ -43,15 +46,17 @@ NS_ASSUME_NONNULL_END
 
 - (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView {
     if (self = [super initWithNibName:nil bundle:nil]) {
-        self.feedDelegate = [[EventFeedDelegate alloc] initWithTableView:tableView];
-        eventDataSource.delegate = self.feedDelegate;
-        self.dataSource = eventDataSource;
-        self.userLocationService = [UserLocation new];
-        self.imageFetchQueue = [[NSOperationQueue alloc] init];
-        self.imageFetchQueue.name = @"Image Fetch Queue";
-        self.imageStore = [[ImageStore alloc] init];
-        self.firstLoad = self.dataSource.numberOfItems == 0;
-        self.tableView = tableView;
+        _feedDelegate = [[EventFeedDelegate alloc] initWithTableView:tableView];
+        eventDataSource.delegate = _feedDelegate;
+
+        _dataSource = eventDataSource;
+        _userLocationService = [UserLocation new];
+        _imageFetchQueue = [[NSOperationQueue alloc] init];
+        _imageFetchQueue.name = @"Image Fetch Queue";
+        _imageStore = [[ImageStore alloc] init];
+        _firstLoad = _dataSource.numberOfItems == 0;
+        _tableView = tableView;
+
         tableView.delegate = self;
         tableView.dataSource = self;
     }
@@ -183,7 +188,7 @@ NS_ASSUME_NONNULL_END
     UILabel *noResultsLabel = [[UILabel alloc] initWithFrame:labelFrame];
     noResultsLabel.text = NSLocalizedString(@"No events", @"Displayed when no Event names match the given search term");
     noResultsLabel.textAlignment = NSTextAlignmentCenter;
-    noResultsLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    self.noResultsLabel = noResultsLabel;
     [self.noResultsView addSubview:noResultsLabel];
 }
 
@@ -328,6 +333,8 @@ NS_ASSUME_NONNULL_END
              [(FeedItemCell *)[tableView cellForRowAtIndexPath:indexPath] setCoverToImage:image];
          }];
     }
+
+    [cell applyStyle:self.style];
 
     return cell;
 }
@@ -474,5 +481,16 @@ static CGFloat const eventCellAspectRatio = 1.352;
         [[NSUserDefaults standardUserDefaults] setLastViewedGroupID:nil];
     }
 }
+
+- (void)applyStyle:(id<Style>)style {
+    self.style = style;
+    self.noResultsLabel.font = style.fonts.primaryFont;
+    self.noResultsLabel.textColor = style.colors.primaryTextColor;
+    self.tableView.backgroundColor = style.colors.backgroundColor;
+    self.view.backgroundColor = style.colors.backgroundColor;
+
+    [self.tableView reloadData];
+}
+
 @end
 

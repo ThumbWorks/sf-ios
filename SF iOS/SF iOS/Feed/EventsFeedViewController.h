@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EventDataSource.h"
+#import "Styleable.h"
 
 typedef NS_ENUM(NSInteger, FeedSections) {
     FeedSectionsEvents,
@@ -15,9 +16,11 @@ typedef NS_ENUM(NSInteger, FeedSections) {
 };
 
 NS_ASSUME_NONNULL_BEGIN
-@interface EventsFeedViewController : UIViewController
+
+@interface EventsFeedViewController : UIViewController <Styleable>
 
 - (instancetype)initWithDataSource:(EventDataSource *)eventDataSource tableView:(UITableView *)tableView NS_DESIGNATED_INITIALIZER;
 
 @end
+
 NS_ASSUME_NONNULL_END

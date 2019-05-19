@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Styleable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ImageBasedCollectionViewCell : UICollectionViewCell
+@interface ImageBasedCollectionViewCell : UICollectionViewCell <Styleable>
 - (void)updateWithImage:(UIImage *)image title:(NSString *)title;
 + (NSString *)reuseID;
 

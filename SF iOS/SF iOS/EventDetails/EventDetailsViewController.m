@@ -8,7 +8,6 @@
 
 #import "EventDetailsViewController.h"
 #import "UIStackView+ConvenienceInitializer.h"
-#import "UIColor+SFiOSColors.h"
 #import "NSAttributedString+EventDetails.h"
 #import "NSDate+Utilities.h"
 #import "MapView.h"
@@ -16,12 +15,14 @@
 #import "TravelTimesView.h"
 #import "DirectionsRequest.h"
 #import "Location.h"
+#import "Style.h"
 @import MapKit;
 
 
 NS_ASSUME_NONNULL_BEGIN
 @interface EventDetailsViewController ()
 
+@property (nonatomic) id<Style> style;
 @property (nonatomic) Event *event;
 @property (nonatomic) NSString *groupName;
 @property (nonatomic) MapView *mapView;
@@ -29,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) TravelTimeService *travelTimeService;
 @property (nonatomic) TravelTimesView *travelTimesView;
 @property (nullable, nonatomic) UserLocation *userLocationService;
+
+@property (nonatomic) UILabel *titleLabel;
+@property (nonatomic) UILabel *subtitleLabel;
 
 @end
 NS_ASSUME_NONNULL_END
@@ -58,7 +62,6 @@ NS_ASSUME_NONNULL_END
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    self.view.backgroundColor = [UIColor whiteColor];
     self.extendedLayoutIncludesOpaqueBars = true;
     
     // Show Share button for events in the future.
@@ -70,15 +73,13 @@ NS_ASSUME_NONNULL_END
     
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = self.event.name;
-    titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];
-    titleLabel.textColor = [UIColor blackColor];
     titleLabel.numberOfLines = 0;
+	self.titleLabel = titleLabel;
 
     UILabel *subtitleLabel = [UILabel new];
-    subtitleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-    subtitleLabel.textColor = [UIColor abbey];
     subtitleLabel.attributedText = [NSAttributedString attributedDetailsStringFromEvent:self.event];
     subtitleLabel.numberOfLines = 2;
+	self.subtitleLabel = subtitleLabel;
     UIStackView *titleStack = [[UIStackView alloc] initWithArrangedSubviews:@[titleLabel, subtitleLabel]
                                                                        axis:UILayoutConstraintAxisVertical
                                                                distribution:UIStackViewDistributionEqualSpacing
@@ -162,6 +163,8 @@ NS_ASSUME_NONNULL_END
             
             if (travelTimes.count > 0) {
                 [welf.travelTimesView configureWithTravelTimes:travelTimes eventStartDate:welf.event.date endDate:welf.event.endDate];
+				[welf.travelTimesView applyStyle:self.style];
+
                 [UIView animateWithDuration:0.3 animations:^{
                     [welf.mapView layoutIfNeeded];
                     [welf.containerStack layoutIfNeeded];
@@ -185,6 +188,17 @@ NS_ASSUME_NONNULL_END
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:items
                                                                              applicationActivities:nil];
     [self presentViewController:shareSheet animated:true completion:nil];
+}
+
+- (void)applyStyle:(id<Style>)style {
+	self.style = style;
+
+	self.view.backgroundColor = style.colors.backgroundColor;
+	self.titleLabel.textColor = style.colors.primaryTextColor;
+	self.titleLabel.font = style.fonts.primaryFont;
+	self.subtitleLabel.textColor = style.colors.secondaryTextColor;
+	self.subtitleLabel.font = style.fonts.subtitleFont;
+	[self.travelTimesView applyStyle:style];
 }
 
 @end

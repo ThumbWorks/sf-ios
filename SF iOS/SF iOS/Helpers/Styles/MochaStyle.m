@@ -5,8 +5,10 @@
 //  Created by Zachary Drayer on 4/21/19.
 //
 
-#import "MochaStyle.h"
 #import <UIKit/UIKit.h>
+
+#import "DynamicTypeFonts.h"
+#import "MochaStyle.h"
 
 @interface MochaStyleColors : NSObject <Colors>
 @end
@@ -61,28 +63,6 @@
 
 @end
 
-@interface MochaStyleFonts : NSObject <Fonts>
-@end
-
-@implementation MochaStyleFonts
-
-- (UIFont *)headerFont {
-	return [UIFont systemFontOfSize:34 weight:UIFontWeightBold];
-}
-
-- (UIFont *)primaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightSemibold];;
-}
-
-- (UIFont *)secondaryFont {
-	return [UIFont systemFontOfSize:28 weight:UIFontWeightRegular];;
-}
-
-- (UIFont *)subtitleFont {
-	return [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-}
-
-@end
 
 @implementation MochaStyle
 
@@ -98,7 +78,7 @@
 	NSAssert(self != nil, @"[super init] should never fail");
 
 	_colors = [[MochaStyleColors alloc] init];
-	_fonts = [[MochaStyleFonts alloc] init];
+	_fonts = [[DynamicTypeFonts alloc] init];
 
 	return self;
 }

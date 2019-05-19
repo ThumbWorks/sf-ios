@@ -7,6 +7,7 @@
 //
 
 #import "TravelTimesView.h"
+#import "Style.h"
 #import "TravelTimeView.h"
 #import "UIStackView+ConvenienceInitializer.h"
 
@@ -70,7 +71,6 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = false;
     
     self.axis = UILayoutConstraintAxisVertical;
@@ -169,6 +169,17 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
     }
     
     return @{@(TravelTimeTypeRegular) : regular, @(TravelTimeTypeRideSharing) : ridesharing};
+}
+
+- (void)applyStyle:(id<Style>)style {
+	self.backgroundColor = style.colors.backgroundColor;
+
+	for (TravelTimeView *view in self.regularStack.subviews) {
+		[view applyStyle:style];
+	}
+	for (TravelTimeView *view in self.ridesharingStack.subviews) {
+		[view applyStyle:style];
+	}
 }
 
 @end
