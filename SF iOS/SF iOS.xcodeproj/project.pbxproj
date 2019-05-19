@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0910754EFA129307D1836813 /* libPods-Coffup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB561B7A11FAA66CFCF67FE /* libPods-Coffup.a */; };
+		1955ED6B2290925100DC92A5 /* AffogatoStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED672290925100DC92A5 /* AffogatoStyle.m */; };
+		1955ED6C2290925100DC92A5 /* EspressoStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED692290925100DC92A5 /* EspressoStyle.m */; };
+		1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED762291440E00DC92A5 /* MochaStyle.m */; };
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
 		19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */; };
@@ -99,6 +102,14 @@
 
 /* Begin PBXFileReference section */
 		0EB561B7A11FAA66CFCF67FE /* libPods-Coffup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Coffup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1955ED6222908FA600DC92A5 /* Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Style.h; sourceTree = "<group>"; };
+		1955ED672290925100DC92A5 /* AffogatoStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AffogatoStyle.m; sourceTree = "<group>"; };
+		1955ED682290925100DC92A5 /* AffogatoStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AffogatoStyle.h; sourceTree = "<group>"; };
+		1955ED692290925100DC92A5 /* EspressoStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspressoStyle.m; sourceTree = "<group>"; };
+		1955ED6A2290925100DC92A5 /* EspressoStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EspressoStyle.h; sourceTree = "<group>"; };
+		1955ED6D22911ABB00DC92A5 /* Styleable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Styleable.h; sourceTree = "<group>"; };
+		1955ED752291440D00DC92A5 /* MochaStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MochaStyle.h; sourceTree = "<group>"; };
+		1955ED762291440E00DC92A5 /* MochaStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MochaStyle.m; sourceTree = "<group>"; };
 		19DD32F3225B294900C0EE5A /* NSUserDefaults+Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Settings.h"; sourceTree = "<group>"; };
 		19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Settings.m"; sourceTree = "<group>"; };
 		19DD32F6225EFC6100C0EE5A /* SwipableNavigationContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwipableNavigationContainer.h; sourceTree = "<group>"; };
@@ -418,6 +429,14 @@
 		C82516391F2FDF01006B9D7E /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				1955ED682290925100DC92A5 /* AffogatoStyle.h */,
+				1955ED672290925100DC92A5 /* AffogatoStyle.m */,
+				1955ED6A2290925100DC92A5 /* EspressoStyle.h */,
+				1955ED692290925100DC92A5 /* EspressoStyle.m */,
+				1955ED752291440D00DC92A5 /* MochaStyle.h */,
+				1955ED762291440E00DC92A5 /* MochaStyle.m */,
+				1955ED6222908FA600DC92A5 /* Style.h */,
+				1955ED6D22911ABB00DC92A5 /* Styleable.h */,
 				C825163A1F2FDF46006B9D7E /* UIColor+SFiOSColors.h */,
 				C825163B1F2FDF46006B9D7E /* UIColor+SFiOSColors.m */,
 			);
@@ -902,6 +921,7 @@
 				C89A8DDF1F2D8BCF007A5B0C /* Event.m in Sources */,
 				5F3820A1224C90B400862294 /* FeedFetchOperation.m in Sources */,
 				5FECEFD7224ED01800AA8A25 /* UserLocation.m in Sources */,
+				1955ED6C2290925100DC92A5 /* EspressoStyle.m in Sources */,
 				C825164D1F3054F6006B9D7E /* MapView.m in Sources */,
 				C8CC49491F33B9150064B03E /* TravelTimesView.m in Sources */,
 				5F31355D227A546C00751CE5 /* NSString+EventNotifications.m in Sources */,
@@ -910,11 +930,13 @@
 				5F175B9F2267D6F200246C08 /* GroupFetchOperation.m in Sources */,
 				C88A19C61F2DC52D00C08187 /* NSError+Constructor.m in Sources */,
 				19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */,
+				1955ED6B2290925100DC92A5 /* AffogatoStyle.m in Sources */,
 				C86DD4381F3A3D3100C58723 /* NSAttributedString+Kerning.m in Sources */,
 				C8CC49311F32A6820064B03E /* NSNotification+ApplicationEventNotifications.m in Sources */,
 				C8307A051F364DDF005CB3D2 /* SecretsStore.m in Sources */,
 				5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */,
 				C8CC49351F32A7260064B03E /* UIApplication+Metadata.m in Sources */,
+				1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */,
 				5F4DAB0B2284D6B900C67238 /* GroupBackgroundFetcher.m in Sources */,
 				C8CC492A1F3293230064B03E /* MKMapCamera+OverlookingLocations.m in Sources */,
 				5FECEFD5224ECB6800AA8A25 /* Location.m in Sources */,
