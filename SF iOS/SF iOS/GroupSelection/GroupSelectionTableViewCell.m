@@ -15,10 +15,14 @@
 @implementation GroupSelectionTableViewCell
 
 - (void)setupConstraints {
-    [self.collectionView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant: 20].active = true;
-    [self.collectionView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant: -20].active = true;
-    [self.collectionView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
-    [self.collectionView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.collectionView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant: 20],
+       [self.collectionView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant: -20],
+       [self.collectionView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor],
+       [self.collectionView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor]
+       ]
+     ];
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

@@ -68,20 +68,24 @@
 }
 
 - (void)setupConstraints {
-    [self.imageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.imageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-44].active = true;
-    [self.imageView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
-    [self.imageView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.imageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+       [self.imageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-44],
+       [self.imageView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor],
+       [self.imageView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor],
 
-    [self.nameLabel.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = true;
-    [self.nameLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
-    [self.nameLabel.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
-    [self.nameLabel.heightAnchor constraintGreaterThanOrEqualToConstant:44].active = true;
+       [self.nameLabel.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+       [self.nameLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor],
+       [self.nameLabel.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor],
+       [self.nameLabel.heightAnchor constraintGreaterThanOrEqualToConstant:44],
 
-    [self.shadowView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.shadowView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = true;
-    [self.shadowView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor].active = true;
-    [self.shadowView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor].active = true;
+       [self.shadowView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+       [self.shadowView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+       [self.shadowView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor],
+       [self.shadowView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor]
+       ]
+     ];
 }
 
 - (void)prepareForReuse {

@@ -173,10 +173,14 @@ NS_ASSUME_NONNULL_END
     self.detailStackContainer.clipsToBounds = false;
     self.detailStackContainer.translatesAutoresizingMaskIntoConstraints = false;
     [self.detailStackContainer addSubview:detailsStack];
-    [detailsStack.leftAnchor constraintEqualToAnchor:self.detailStackContainer.leftAnchor].active = true;
-    [detailsStack.rightAnchor constraintEqualToAnchor:self.detailStackContainer.rightAnchor].active = true;
-    [detailsStack.topAnchor constraintEqualToAnchor:self.detailStackContainer.topAnchor].active = true;
-    [detailsStack.bottomAnchor constraintEqualToAnchor:self.detailStackContainer.bottomAnchor].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [detailsStack.leftAnchor constraintEqualToAnchor:self.detailStackContainer.leftAnchor],
+       [detailsStack.rightAnchor constraintEqualToAnchor:self.detailStackContainer.rightAnchor],
+       [detailsStack.topAnchor constraintEqualToAnchor:self.detailStackContainer.topAnchor],
+       [detailsStack.bottomAnchor constraintEqualToAnchor:self.detailStackContainer.bottomAnchor]
+       ]
+     ];
     
     [self.containerStack addArrangedSubview:self.detailStackContainer];
 }

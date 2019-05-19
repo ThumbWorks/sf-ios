@@ -48,10 +48,15 @@ static NSString * const destAnnotationIdentifier = @"destinationAnnotationidenti
     
     self.mapView.translatesAutoresizingMaskIntoConstraints = false;
     [self addSubview:self.mapView];
-    [self.mapView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = true;
-    [self.mapView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = true;
-    [self.mapView.topAnchor constraintEqualToAnchor:self.topAnchor].active = true;
-    [self.mapView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = true;
+
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.mapView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
+       [self.mapView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
+       [self.mapView.topAnchor constraintEqualToAnchor:self.topAnchor],
+       [self.mapView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+       ]
+     ];
 
     self.mapView.showsCompass = false;
     [self setCameraOnSanFrancisco];

@@ -89,8 +89,13 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
     self.loadingIndicator.hidesWhenStopped = true;
     self.loadingIndicator.translatesAutoresizingMaskIntoConstraints = false;
     [self addSubview:self.loadingIndicator];
-    [self.loadingIndicator.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = true;
-    [self.loadingIndicator.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = true;
+
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.loadingIndicator.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+       [self.loadingIndicator.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]
+       ]
+     ];
 }
 
 - (void)populateTravelTimeViewsInStack:(nonnull UIStackView *)stack withTimes:(nonnull NSArray *)travelTimes startDate:(NSDate *)startDate endDate:(NSDate *)endDate {

@@ -47,13 +47,17 @@
 }
 
 - (void)setupConstraints {
-    [self.shadowView.topAnchor constraintEqualToAnchor:self.nameLabel.topAnchor constant: -5].active = true;
-    [self.shadowView.bottomAnchor constraintEqualToAnchor:self.nameLabel.bottomAnchor constant: 5].active = true;
-    [self.shadowView.leftAnchor constraintEqualToAnchor:self.nameLabel.leftAnchor constant: -15].active = true;
-    [self.shadowView.rightAnchor constraintEqualToAnchor:self.nameLabel.rightAnchor constant: 15].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.shadowView.topAnchor constraintEqualToAnchor:self.nameLabel.topAnchor constant: -5],
+       [self.shadowView.bottomAnchor constraintEqualToAnchor:self.nameLabel.bottomAnchor constant: 5],
+       [self.shadowView.leftAnchor constraintEqualToAnchor:self.nameLabel.leftAnchor constant: -15],
+       [self.shadowView.rightAnchor constraintEqualToAnchor:self.nameLabel.rightAnchor constant: 15],
 
-    [self.nameLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = true;
-    [self.nameLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = true;
+       [self.nameLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+       [self.nameLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor]
+       ]
+     ];
 }
 
 - (void)updateWithTitle:(NSString *)title {

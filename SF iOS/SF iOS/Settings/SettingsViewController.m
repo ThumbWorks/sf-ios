@@ -49,11 +49,15 @@ typedef NS_ENUM(NSInteger, SettingsSectionDirectionsProviderValues) {
 
     [self.view addSubview:self.tableView];
 
-    [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = true;
-    [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
-    [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
-    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
-    [self.tableView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+       [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+       [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
+       [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+       [self.tableView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor]
+       ]
+     ];
 }
 
 #pragma mark -

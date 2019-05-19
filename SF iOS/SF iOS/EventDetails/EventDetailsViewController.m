@@ -103,7 +103,6 @@ NS_ASSUME_NONNULL_END
                             }];
     self.travelTimesView.layoutMargins = UIEdgeInsetsMake(32, 21, 21, 21);
     self.travelTimesView.translatesAutoresizingMaskIntoConstraints = false;
-    [self.travelTimesView.heightAnchor constraintGreaterThanOrEqualToConstant:141].active = true;
     
     self.containerStack = [[UIStackView alloc] initWithArrangedSubviews:@[self.mapView, titleStack, self.travelTimesView]
                                                                    axis:UILayoutConstraintAxisVertical
@@ -115,10 +114,16 @@ NS_ASSUME_NONNULL_END
     
     [self.view addSubview:self.containerStack];
     // Extend under status bar
-    [self.containerStack.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = true;
-    [self.containerStack.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = true;
-    [self.containerStack.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = true;
-    [self.containerStack.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.travelTimesView.heightAnchor constraintGreaterThanOrEqualToConstant:141],
+
+       [self.containerStack.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+       [self.containerStack.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+       [self.containerStack.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+       [self.containerStack.rightAnchor constraintEqualToAnchor:self.view.rightAnchor]
+       ]
+     ];
             
     [self.mapView setDestinationToLocation:self.event.location.location withAnnotationGlyph:self.event.annotationGlyph];
     [self getTravelTimes];

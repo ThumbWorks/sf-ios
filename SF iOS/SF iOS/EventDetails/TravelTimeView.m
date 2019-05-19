@@ -88,11 +88,15 @@
     contentStack.translatesAutoresizingMaskIntoConstraints = false;
     [contentStack setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:contentStack];
-    [contentStack.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = true;
-    [contentStack.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = true;
-    [contentStack.topAnchor constraintEqualToAnchor:self.topAnchor].active = true;
-    [contentStack.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = true;
-    [contentStack.heightAnchor constraintEqualToConstant:36].active = true;
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [contentStack.leftAnchor constraintEqualToAnchor:self.leftAnchor],
+       [contentStack.rightAnchor constraintEqualToAnchor:self.rightAnchor],
+       [contentStack.topAnchor constraintEqualToAnchor:self.topAnchor],
+       [contentStack.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+       [contentStack.heightAnchor constraintEqualToConstant:36]
+       ]
+     ];
     
     [self addTarget:self action:@selector(requestdirections) forControlEvents:UIControlEventTouchUpInside];
 }
