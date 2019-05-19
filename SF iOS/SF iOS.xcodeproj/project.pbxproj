@@ -10,6 +10,8 @@
 		0910754EFA129307D1836813 /* libPods-Coffup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB561B7A11FAA66CFCF67FE /* libPods-Coffup.a */; };
 		1955ED6B2290925100DC92A5 /* AffogatoStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED672290925100DC92A5 /* AffogatoStyle.m */; };
 		1955ED6C2290925100DC92A5 /* EspressoStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED692290925100DC92A5 /* EspressoStyle.m */; };
+		1955ED712291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED702291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m */; };
+		1955ED742291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */; };
 		1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED762291440E00DC92A5 /* MochaStyle.m */; };
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
@@ -108,6 +110,10 @@
 		1955ED692290925100DC92A5 /* EspressoStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspressoStyle.m; sourceTree = "<group>"; };
 		1955ED6A2290925100DC92A5 /* EspressoStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EspressoStyle.h; sourceTree = "<group>"; };
 		1955ED6D22911ABB00DC92A5 /* Styleable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Styleable.h; sourceTree = "<group>"; };
+		1955ED6F2291255700DC92A5 /* ChildViewControllerForwardingPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChildViewControllerForwardingPageViewController.h; sourceTree = "<group>"; };
+		1955ED702291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewControllerForwardingPageViewController.m; sourceTree = "<group>"; };
+		1955ED722291269400DC92A5 /* ChildViewControllerForwardingNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChildViewControllerForwardingNavigationController.h; sourceTree = "<group>"; };
+		1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewControllerForwardingNavigationController.m; sourceTree = "<group>"; };
 		1955ED752291440D00DC92A5 /* MochaStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MochaStyle.h; sourceTree = "<group>"; };
 		1955ED762291440E00DC92A5 /* MochaStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MochaStyle.m; sourceTree = "<group>"; };
 		19DD32F3225B294900C0EE5A /* NSUserDefaults+Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Settings.h"; sourceTree = "<group>"; };
@@ -308,6 +314,17 @@
 				B59B6549D07F46BFC632E473 /* libPods-SF iOSUITests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1955ED6E229124FC00DC92A5 /* UIKit Overrides */ = {
+			isa = PBXGroup;
+			children = (
+				1955ED6F2291255700DC92A5 /* ChildViewControllerForwardingPageViewController.h */,
+				1955ED702291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m */,
+				1955ED722291269400DC92A5 /* ChildViewControllerForwardingNavigationController.h */,
+				1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */,
+			);
+			path = "UIKit Overrides";
 			sourceTree = "<group>";
 		};
 		19DD32EE225B25B300C0EE5A /* Settings */ = {
@@ -566,6 +583,7 @@
 				19DD32EE225B25B300C0EE5A /* Settings */,
 				C8E6A3EA1F3255F70098339C /* EventDetails */,
 				C8810A5A1F2C028900DCFEB6 /* Models */,
+				1955ED6E229124FC00DC92A5 /* UIKit Overrides */,
 				C8810A541F2BFE9400DCFEB6 /* SF iOS.entitlements */,
 				C8C337911F42AC5B00F307AD /* SF iOS-Debug.entitlements */,
 				C8810A221F2BFE6900DCFEB6 /* AppDelegate.h */,
@@ -933,6 +951,7 @@
 				1955ED6B2290925100DC92A5 /* AffogatoStyle.m in Sources */,
 				C86DD4381F3A3D3100C58723 /* NSAttributedString+Kerning.m in Sources */,
 				C8CC49311F32A6820064B03E /* NSNotification+ApplicationEventNotifications.m in Sources */,
+				1955ED712291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m in Sources */,
 				C8307A051F364DDF005CB3D2 /* SecretsStore.m in Sources */,
 				5F3820A5224C920F00862294 /* FeedFetchService.m in Sources */,
 				C8CC49351F32A7260064B03E /* UIApplication+Metadata.m in Sources */,
@@ -954,6 +973,7 @@
 				5F960DEE22838F2900D8A96C /* UIViewController+ErrorHandling.m in Sources */,
 				C8307A0E1F365969005CB3D2 /* HTTPRequestAsyncOperation.m in Sources */,
 				C8307A141F368BFB005CB3D2 /* LyftTravelTimeEstimateOperation.m in Sources */,
+				1955ED742291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m in Sources */,
 				5F313554227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m in Sources */,
 				C82516461F2FEB6F006B9D7E /* NSDate+Utilities.m in Sources */,
 				C82516341F2FBBD2006B9D7E /* FeedItemCell.m in Sources */,
