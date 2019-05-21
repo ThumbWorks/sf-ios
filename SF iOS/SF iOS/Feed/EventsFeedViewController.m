@@ -223,7 +223,8 @@ NS_ASSUME_NONNULL_END
     
     // Content Inset was causing some jank when loading SF Coffee, others were fine.
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 16)];
-    
+    self.tableView.estimatedRowHeight = self.cellHeight;
+
     [self configureNoResultsView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -281,7 +282,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
+
     self.tableView.refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView.refreshControl addTarget:self.dataSource action:@selector(refresh) forControlEvents:UIControlEventAllEvents];
 }
