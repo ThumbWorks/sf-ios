@@ -377,7 +377,7 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self presentViewController:viewControllerToCommit animated:true completion:nil];
+    [self.navigationController pushViewController:viewControllerToCommit animated:true];
 }
 
 
