@@ -13,9 +13,9 @@
 - (UIActivityViewController*)shareApp {
     NSString *itunesURL = @"https://itunes.apple.com/us/app/coffee-coffee-coffee/id1458031604?mt=8";
     
-    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Download the Coffee Coffee Coffee app: %@", @"Download the Coffee Coffee Coffee app: %@"), itunesURL];
+    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Download the Coffee Coffee Coffee app:", @"Download the Coffee Coffee Coffee app:")];
     
-    NSArray *activityItems = @[text];
+    NSArray *activityItems = @[text, itunesURL];
 
     return [self initWithActivityItems:activityItems applicationActivities:nil];
 }
