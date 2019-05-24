@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_END
 
     self.travelTimesView = [[TravelTimesView alloc]
                             initWithDirectionsRequestHandler:^(TransportType transportType) {
-                                [DirectionsRequest requestDirectionsToLocation:self.event.location.location
+                                [DirectionsRequest requestDirectionsToLocation:self.event.location
                                                                       withName:self.event.venueName
                                                             usingTransportType:transportType
                                                                     completion:^(BOOL success) {

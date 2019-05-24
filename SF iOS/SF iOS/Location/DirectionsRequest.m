@@ -7,6 +7,7 @@
 //
 
 #import "DirectionsRequest.h"
+#import "Location.h"
 #import "SecretsStore.h"
 #import "NSUserDefaults+Settings.h"
 @import MapKit;
@@ -32,26 +33,26 @@ static NSString *const DirectionsRequestGoogleMapsDirectionsModeFromMKLaunchOpti
 
 @implementation DirectionsRequest
 
-+ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingTransportType:(TransportType)transportType completion:(void (^)(BOOL success))completion {
++ (void)requestDirectionsToLocation:(Location *)location withName:(NSString *)name usingTransportType:(TransportType)transportType completion:(void (^)(BOOL success))completion {
     switch (transportType) {
         case TransportTypeTransit:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeTransit completion:completion];
+            [self requestDirectionsToLocation:location withName:name usingMode:MKLaunchOptionsDirectionsModeTransit completion:completion];
             break;
             
         case TransportTypeAutomobile:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeDriving completion:completion];
+            [self requestDirectionsToLocation:location withName:name usingMode:MKLaunchOptionsDirectionsModeDriving completion:completion];
             break;
             
         case TransportTypeWalking:
-            [self requestDirectionsToLocation:destination withName:name usingMode:MKLaunchOptionsDirectionsModeWalking completion:completion];
+            [self requestDirectionsToLocation:location withName:name usingMode:MKLaunchOptionsDirectionsModeWalking completion:completion];
             break;
             
         case TransportTypeUber:
-            [self requestUberRideToLocation:destination withName:name];
+            [self requestUberRideToLocation:location withName:name];
             break;
             
         case TransportTypeLyft:
-            [self requestLyftRideToLocation:destination];
+            [self requestLyftRideToLocation:location];
             break;
             
         default:
@@ -59,53 +60,53 @@ static NSString *const DirectionsRequestGoogleMapsDirectionsModeFromMKLaunchOpti
     }
 }
 
-+ (void)requestDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
++ (void)requestDirectionsToLocation:(Location *)location withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
     switch (NSUserDefaults.standardUserDefaults.directionsProvider) {
         case SettingsDirectionProviderApple:
-            [self requestAppleMapsDirectionsToLocation:destination withName:name usingMode:mode completion:completion];
+            [self requestAppleMapsDirectionsToLocation:location withName:name usingMode:mode completion:completion];
             break;
         case SettingsDirectionProviderGoogle:
-            [self requestGoogleMapsDirectionsToLocation:destination withName:name usingMode:mode completion:completion];
+            [self requestGoogleMapsDirectionsToLocation:location withName:name usingMode:mode completion:completion];
             break;
     }
 }
 
-+ (void)requestAppleMapsDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
-    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:destination.coordinate];
++ (void)requestAppleMapsDirectionsToLocation:(Location *)location withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.location.coordinate];
     MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
     mapItem.name = name;
     completion([mapItem openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey : mode}]);
 
 }
 
-+ (void)requestGoogleMapsDirectionsToLocation:(CLLocation *)destination withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
++ (void)requestGoogleMapsDirectionsToLocation:(Location *)location withName:(NSString *)name usingMode:(NSString *)mode completion:(void (^)(BOOL success))completion {
     NSURLComponents *components = [[NSURLComponents alloc] init];
     components.scheme = @"comgooglemapsurl";
     components.queryItems = @[
         [NSURLQueryItem queryItemWithName:@"directionsmode" value:DirectionsRequestGoogleMapsDirectionsModeFromMKLaunchOptionsDirectionsMode(mode)],
-        [NSURLQueryItem queryItemWithName:@"daddr" value:name],
-        [NSURLQueryItem queryItemWithName:@"center" value:[NSString stringWithFormat:@"%.4f,%.4f", destination.coordinate.latitude, destination.coordinate.longitude]]
+        [NSURLQueryItem queryItemWithName:@"daddr" value:[NSString stringWithFormat:@"%@ %@", name, location.streetAddress]],
+        [NSURLQueryItem queryItemWithName:@"center" value:[NSString stringWithFormat:@"%.4f,%.4f", location.location.coordinate.latitude, location.location.coordinate.longitude]]
     ];
 
     [[UIApplication sharedApplication] openURL:components.URL options:@{} completionHandler:completion];
 }
 
-+ (void)requestUberRideToLocation:(CLLocation *)destination withName:(NSString *)name {
++ (void)requestUberRideToLocation:(Location *)location withName:(NSString *)name {
     SecretsStore *store = [[SecretsStore alloc] init];
     NSString *clientID = store.uberClientID;
     NSString *escapedName = [name stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
     
     // https://stackoverflow.com/questions/26049950/uber-deeplinking-on-ios
-    NSString *query = [NSString stringWithFormat:@"?client_id=%@&action=setPickup&pickup=my_location&dropoff[latitude]=%f&dropoff[longitude]=%f&dropoff[nickname]=%@", clientID, destination.coordinate.latitude, destination.coordinate.longitude, escapedName];
+    NSString *query = [NSString stringWithFormat:@"?client_id=%@&action=setPickup&pickup=my_location&dropoff[latitude]=%f&dropoff[longitude]=%f&dropoff[nickname]=%@", clientID, location.location.coordinate.latitude, location.location.coordinate.longitude, escapedName];
     
     [self requestRideWithURLScheme:@"uber://" httpHost:@"https://m.uber.com/ul/" queryFragment:query];
 }
 
-+ (void)requestLyftRideToLocation:(CLLocation *)destination {
++ (void)requestLyftRideToLocation:(Location *)location {
     SecretsStore *store = [[SecretsStore alloc] init];
     NSString *clientID = store.lyftClientID;
     
-    NSString *query = [NSString stringWithFormat:@"?id=lyft&partner=%@&destination[latitude]=%f&destination[longitude]=%f", clientID, destination.coordinate.latitude, destination.coordinate.longitude];
+    NSString *query = [NSString stringWithFormat:@"?id=lyft&partner=%@&destination[latitude]=%f&destination[longitude]=%f", clientID, location.location.coordinate.latitude, location.location.coordinate.longitude];
     
     [self requestRideWithURLScheme:@"lyft://ridetype" httpHost:@"https://www.lyft.com/ride" queryFragment:query];
 }
