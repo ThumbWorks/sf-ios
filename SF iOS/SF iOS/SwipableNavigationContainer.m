@@ -47,20 +47,16 @@
     groupDataSource.delegate = groupViewController;
     groupViewController.selectionDelegate = self;
 
-    self.mainNav = [[UINavigationController alloc] init];
+	self.mainNav = [[UINavigationController alloc] initWithRootViewController:groupViewController];
 
-    NSArray <UIViewController *> *viewControllers;
-    NSString *groupID = [[NSUserDefaults standardUserDefaults] lastViewedGroupID];
-    if (groupID) {
-        Group *lastSelectedGroup = [groupDataSource groupWithID:groupID];
-        UIViewController *listViewController = [self viewControllerForGroup:lastSelectedGroup];
-        viewControllers = @[groupViewController, listViewController];
-    } else {
-        viewControllers = @[groupViewController];
-    }
+	NSString *groupID = [[NSUserDefaults standardUserDefaults] lastViewedGroupID];
+	if (groupID) {
+		Group *lastSelectedGroup = [groupDataSource groupWithID:groupID];
+		UIViewController *listViewController = [self viewControllerForGroup:lastSelectedGroup];
+		[self.mainNav presentViewController:listViewController animated:NO completion:nil];
+	}
 
-    [self.mainNav setViewControllers:viewControllers];
-    self.mainNav.navigationBar.tintColor = [UIColor blackColor];
+	self.mainNav.navigationBar.tintColor = [UIColor blackColor];
     [self.mainNav setNavigationBarHidden:false animated:false];
     [self.mainNav.navigationBar setPrefersLargeTitles:true];
     
@@ -100,15 +96,21 @@
 }
 
 - (void)controller:(nonnull GroupCollectionViewController *)controller tappedGroup:(nonnull Group *)group {
-     [self.mainNav pushViewController:[self viewControllerForGroup:group]
-                            animated:true];
+	[self.mainNav presentViewController:[self viewControllerForGroup:group] animated:YES completion:nil];
 }
 
 - (UIViewController *)viewControllerForGroup:(Group *)group {
     UITableView *tableView = [[EventsFeedTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     EventDataSource *dataSource = [[EventDataSource alloc] initWithGroup:group];
     [dataSource refresh];
-    return [[EventsFeedViewController alloc] initWithDataSource:dataSource
-                                                      tableView:tableView];
+    EventsFeedViewController *eventsFeedViewController = [[EventsFeedViewController alloc] initWithDataSource:dataSource
+																									tableView:tableView];
+	eventsFeedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];
+	return [[UINavigationController alloc] initWithRootViewController:eventsFeedViewController];
 }
+
+- (void)dismiss:(nullable id)sender {
+	[self.mainNav dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
