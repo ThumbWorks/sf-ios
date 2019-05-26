@@ -138,10 +138,10 @@
     EventsFeedViewController *eventsFeedViewController = [[EventsFeedViewController alloc] initWithDataSource:dataSource
 																									tableView:tableView];
 	eventsFeedViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];
-	ChildViewControllerForwardingNavigationController *navigationController = [[ChildViewControllerForwardingNavigationController alloc] initWithRootViewController:eventsFeedViewController];
-	navigationController.delegate = self;
-
-	return navigationController;
+    ChildViewControllerForwardingNavigationController *navigationController = [[ChildViewControllerForwardingNavigationController alloc] initWithRootViewController:eventsFeedViewController];
+    navigationController.delegate = self;
+    navigationController.navigationBar.prefersLargeTitles = true;
+    return navigationController;
 }
 
 - (void)dismiss:(nullable id)sender {
