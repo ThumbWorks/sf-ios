@@ -36,8 +36,8 @@
 	}
 
 	{
-		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote compatibleWithTraitCollection:UIApplication.sharedApplication.keyWindow.traitCollection];
-		UIFontDescriptor *descriptor = [font.fontDescriptor fontDescriptorByAddingAttributes:@{ UIFontDescriptorTraitsAttribute: @{ UIFontWeightTrait: @(UIFontWeightSemibold) } }];
+		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout compatibleWithTraitCollection:UIApplication.sharedApplication.keyWindow.traitCollection];
+		UIFontDescriptor *descriptor = [font.fontDescriptor fontDescriptorByAddingAttributes:@{ UIFontDescriptorTraitsAttribute: @{ UIFontWeightTrait: @(UIFontWeightThin) } }];
 		_subtitleFont = [UIFont fontWithDescriptor:descriptor size:font.pointSize];
 	}
 
