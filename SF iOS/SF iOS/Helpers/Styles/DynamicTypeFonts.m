@@ -31,7 +31,7 @@
 
 	{
 		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1 compatibleWithTraitCollection:UIApplication.sharedApplication.keyWindow.traitCollection];
-		UIFontDescriptor *descriptor = [font.fontDescriptor fontDescriptorByAddingAttributes:@{ UIFontDescriptorTraitsAttribute: @{ UIFontWeightTrait: @(UIFontWeightRegular) } }];
+		UIFontDescriptor *descriptor = [font.fontDescriptor fontDescriptorByAddingAttributes:@{ UIFontDescriptorTraitsAttribute: @{ UIFontWeightTrait: @(UIFontWeightBold) } }];
 		_secondaryFont = [UIFont fontWithDescriptor:descriptor size:font.pointSize];
 	}
 
