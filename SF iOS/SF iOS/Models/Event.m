@@ -19,6 +19,8 @@
         self.type = 0;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [formatter setLocale:locale];
         NSString *startAt = record[@"start_at"];
         self.date = [formatter dateFromString:startAt];
         self.endDate = [formatter dateFromString:record[@"end_at"]];
