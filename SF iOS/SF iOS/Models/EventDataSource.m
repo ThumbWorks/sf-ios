@@ -70,7 +70,7 @@
     if (self.searchQuery.length > 0) {
         return [self filterEventsWithSearchTerm:self.searchQuery];
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@", self.groupID];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@ && date != %@", self.groupID, NULL];
     return [[[Event allObjects] objectsWithPredicate:predicate] sortedResultsUsingKeyPath:@"date" ascending:false];
 }
 
@@ -102,7 +102,7 @@
         }
         // Persist your data easily
         RLMRealm *realm = [RLMRealm defaultRealm];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@", self.groupID];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"groupID = %@ && date != %@", self.groupID, NULL];
         RLMResults<Event *> *events = [[[Event allObjects] objectsWithPredicate:predicate] sortedResultsUsingKeyPath:@"date" ascending:false];
 
         NSMutableDictionary *existingEvents = [self mapEventIDs:events];
@@ -153,7 +153,7 @@
 ///     -searchTerm: string to search
 /// - returns: RLMResults<Event *>* array of Events
 - (RLMResults<Event *> *)filterEventsWithSearchTerm:(NSString *)searchTerm {    
-    NSPredicate *coffeeFilter = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@ OR venue.name CONTAINS[c] %@) && groupID = %@", searchTerm, searchTerm, self.groupID];
+    NSPredicate *coffeeFilter = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@ OR venue.name CONTAINS[c] %@) && groupID = %@ && date != %@", searchTerm, searchTerm, self.groupID, NULL];
     RLMResults<Event *> *filteredCoffee = [[Event objectsWithPredicate:coffeeFilter]
                                            sortedResultsUsingKeyPath:@"date" ascending:false];
     return filteredCoffee;
