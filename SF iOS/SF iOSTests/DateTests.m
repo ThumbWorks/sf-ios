@@ -26,21 +26,5 @@
     XCTAssertTrue([earlier isEarlierThanDate:now]);
 }
 
-- (void)testTimeSlotWhenStartAndEndDatesAreInTheSamePeriod {
-    NSDate *now = [[NSDate alloc] initWithTimeIntervalSince1970:2000];
-    NSDate *start = [[NSCalendar currentCalendar] startOfDayForDate:now];
-    NSString *timesot = [NSDate timeslotStringFromStartDate:start duration:1800];
-    
-    XCTAssertTrue([@"12:00 - 12:30AM" isEqualToString:timesot]);
-}
-
-- (void)testTimeSlotWhenStartAndEndDatesAreInDifferentPeriod {
-    NSDate *now = [[NSDate alloc] initWithTimeIntervalSince1970:2000];
-    NSDate *start = [[NSCalendar currentCalendar] startOfDayForDate:now];
-    NSString *timesot = [NSDate timeslotStringFromStartDate:start duration:13 * 60 * 60]; // 13hrs later
-    
-    XCTAssertTrue([@"12:00AM - 1:00PM" isEqualToString:timesot]);
-}
-
 
 @end
