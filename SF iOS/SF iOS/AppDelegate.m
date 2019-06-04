@@ -10,11 +10,13 @@
 #import "NSNotification+ApplicationEventNotifications.h"
 #import "SwipableNavigationContainer.h"
 #import <Realm/Realm.h>
-#import "GroupBackgroundFetcher.h"
+#import "BackgroundFetchScheduler.h"
 
 @interface AppDelegate ()
+
 @property (nonatomic) SwipableNavigationContainer *navigationContainer;
-@property (nonatomic) GroupBackgroundFetcher *bgFetcher;
+@property (nonatomic) BackgroundFetchScheduler *backgroundFetchScheduler;
+
 @end
 
 @implementation AppDelegate
@@ -22,7 +24,13 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self migrations];
     self.navigationContainer = [[SwipableNavigationContainer alloc] init];
-    return YES;
+	self.backgroundFetchScheduler = [[BackgroundFetchScheduler alloc] init];
+
+	// background tasks must be registered before didFinishLaunchingWithOptions: returns
+	[self.backgroundFetchScheduler registerLaunchHandlers];
+	[self.backgroundFetchScheduler schedule];
+
+	return YES;
 }
 
 - (void)migrations {
@@ -52,7 +60,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setSharedNetworkCacheMemoryMegabytes:5
                                  diskMegabytes:25];
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     [self.navigationContainer.window makeKeyAndVisible];
     return YES;
@@ -71,13 +78,7 @@
 
 // MARK: - Background Fetch
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    completionHandler(UIBackgroundFetchResultNoData);
-
-    self.bgFetcher = [[GroupBackgroundFetcher alloc] initWithCompletionHandler:^(UIBackgroundFetchResult result) {
-        completionHandler(result);
-        self.bgFetcher = nil;
-    }];
-    [self.bgFetcher start];
+	[self.backgroundFetchScheduler startWithCompletionHandler:completionHandler];
 }
 
 //MARK: - Configure cache

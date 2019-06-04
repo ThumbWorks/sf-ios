@@ -21,7 +21,7 @@
 
 @implementation GroupBackgroundFetcher
 
-- (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+- (instancetype)initWithCompletionHandler:(void (^)(GroupBackgroundFetcherResult result))completionHandler {
     self = [super init];
     if (self) {
         self.backgroundCompletionBlock = ^ (UIBackgroundFetchResult result) {
@@ -51,7 +51,6 @@
 
     __weak typeof(self) welf = self;
     for (Group *group in groups) {
-        NSString *groupName = group.name;
         dispatch_group_enter(dipatchGroup);
         BackgroundFetcher *fetcher = [[BackgroundFetcher alloc] initForGroup:group withCompletionHandler:^(UIBackgroundFetchResult result) {
             switch (result) {

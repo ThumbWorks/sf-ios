@@ -6,12 +6,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSInteger, GroupBackgroundFetcherResult) {
+	GroupBackgroundFetcherResultNoData,
+	GroupBackgroundFetcherResultNewData,
+	GroupBackgroundFetcherResultFailed
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GroupBackgroundFetcher : NSObject
-- (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler;
+- (instancetype)initWithCompletionHandler:(void (^)(GroupBackgroundFetcherResult result))completionHandler;
 - (void)start;
 @end
 
