@@ -21,7 +21,7 @@
 
 @implementation GroupBackgroundFetcher
 
-- (instancetype)initWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+- (instancetype)initWithCompletionHandler:(void (^)(GroupBackgroundFetcherResult result))completionHandler {
     self = [super init];
     if (self) {
         self.backgroundCompletionBlock = ^ (UIBackgroundFetchResult result) {

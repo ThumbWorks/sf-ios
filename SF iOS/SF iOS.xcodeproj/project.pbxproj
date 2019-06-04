@@ -13,6 +13,7 @@
 		1955ED712291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED702291255700DC92A5 /* ChildViewControllerForwardingPageViewController.m */; };
 		1955ED742291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */; };
 		1955ED772291440E00DC92A5 /* MochaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955ED762291440E00DC92A5 /* MochaStyle.m */; };
+		19AA083322A60A3000081A9B /* BackgroundFetchScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA083222A60A3000081A9B /* BackgroundFetchScheduler.m */; };
 		19C3C8A52294F66900953048 /* DynamicTypeFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3C8A42294F66900953048 /* DynamicTypeFonts.m */; };
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
@@ -117,6 +118,8 @@
 		1955ED732291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewControllerForwardingNavigationController.m; sourceTree = "<group>"; };
 		1955ED752291440D00DC92A5 /* MochaStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MochaStyle.h; sourceTree = "<group>"; };
 		1955ED762291440E00DC92A5 /* MochaStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MochaStyle.m; sourceTree = "<group>"; };
+		19AA083122A60A3000081A9B /* BackgroundFetchScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundFetchScheduler.h; sourceTree = "<group>"; };
+		19AA083222A60A3000081A9B /* BackgroundFetchScheduler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackgroundFetchScheduler.m; sourceTree = "<group>"; };
 		19C3C8A32294F66900953048 /* DynamicTypeFonts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicTypeFonts.h; sourceTree = "<group>"; };
 		19C3C8A42294F66900953048 /* DynamicTypeFonts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicTypeFonts.m; sourceTree = "<group>"; };
 		19DD32F3225B294900C0EE5A /* NSUserDefaults+Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Settings.h"; sourceTree = "<group>"; };
@@ -739,6 +742,8 @@
 		E2EDC103225D059100F618C9 /* UserNotification */ = {
 			isa = PBXGroup;
 			children = (
+				19AA083122A60A3000081A9B /* BackgroundFetchScheduler.h */,
+				19AA083222A60A3000081A9B /* BackgroundFetchScheduler.m */,
 				E28D38DF2267B259004266BA /* BackgroundFetcher.h */,
 				E28D38E02267B259004266BA /* BackgroundFetcher.m */,
 				E2EDC105225D059100F618C9 /* UNUserNotificationCenter+ConvenienceInitializer.h */,
@@ -926,6 +931,7 @@
 				C82516421F2FE9E7006B9D7E /* FeedItem.m in Sources */,
 				E28D38E12267B259004266BA /* BackgroundFetcher.m in Sources */,
 				C8CC493F1F3307DD0064B03E /* TravelTime.m in Sources */,
+				19AA083322A60A3000081A9B /* BackgroundFetchScheduler.m in Sources */,
 				C8709C661F42632300DFE7A9 /* ImageStore.m in Sources */,
 				C825163C1F2FDF46006B9D7E /* UIColor+SFiOSColors.m in Sources */,
 				C86DD43B1F3A4A6200C58723 /* TravelTime+Arrival.m in Sources */,
