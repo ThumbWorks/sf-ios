@@ -95,6 +95,23 @@
     return 8.0;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    cell.layer.transform = CATransform3DMakeScale(.97, .97, 1);
+
+    const CATransform3D transformFromValue = cell.layer.transform;
+
+    [cell.layer addAnimation:AnimationWithKeyPath(@"transform", [NSValue valueWithCATransform3D:transformFromValue]) forKey:@"transform"];
+    return true;
+}
+
+static CABasicAnimation *AnimationWithKeyPath(NSString *keyPath, NSValue *fromValue) {
+    CABasicAnimation *const animation = [CABasicAnimation animationWithKeyPath:keyPath];
+    animation.duration = 0.1;
+    animation.fromValue = fromValue;
+    return animation;
+}
+
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ImageBasedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[ImageBasedCollectionViewCell reuseID] forIndexPath:indexPath];
     Group *group = [((GroupDataSource *)self.dataSource) groupAtIndex:indexPath.row];
