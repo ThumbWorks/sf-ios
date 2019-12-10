@@ -17,6 +17,7 @@
 		19DD32F5225B294900C0EE5A /* NSUserDefaults+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F4225B294900C0EE5A /* NSUserDefaults+Settings.m */; };
 		19DD32F8225EFC6100C0EE5A /* SwipableNavigationContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F7225EFC6100C0EE5A /* SwipableNavigationContainer.m */; };
 		19DD32FB225EFE9700C0EE5A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */; };
+		5C6420F9239F75AB00B5E3E1 /* AnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C6420F8239F75AB00B5E3E1 /* AnimationHelper.m */; };
 		5F0DE173227CA592003467DC /* SettingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F0DE172227CA592003467DC /* SettingsTests.m */; };
 		5F175B992267D2BA00246C08 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B982267D2BA00246C08 /* Group.m */; };
 		5F175B9B2267D47E00246C08 /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F175B9A2267D47E00246C08 /* GroupTests.m */; };
@@ -126,6 +127,8 @@
 		19DD32F9225EFE9700C0EE5A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		19DD32FA225EFE9700C0EE5A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		238F3C1035E918F044128123 /* libPods-SF iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SF iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C6420F8239F75AB00B5E3E1 /* AnimationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationHelper.m; sourceTree = "<group>"; };
+		5C6420FA239F773500B5E3E1 /* AnimationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationHelper.h; sourceTree = "<group>"; };
 		5F0DE172227CA592003467DC /* SettingsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTests.m; sourceTree = "<group>"; };
 		5F175B972267D2BA00246C08 /* Group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		5F175B982267D2BA00246C08 /* Group.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
@@ -344,6 +347,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		5C6420F7239F74FF00B5E3E1 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				5C6420FA239F773500B5E3E1 /* AnimationHelper.h */,
+				5C6420F8239F75AB00B5E3E1 /* AnimationHelper.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		5F175B9C2267D6D600246C08 /* GroupFetch */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +481,7 @@
 		C82516491F3054BE006B9D7E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5C6420F7239F74FF00B5E3E1 /* Animation */,
 				E22CBCD0228FA2AF0091B99B /* ActivityController */,
 				19DD32F2225B293600C0EE5A /* Settings */,
 				C8CC49401F330F1E0064B03E /* Concurrency */,
@@ -970,6 +983,7 @@
 				C8CC494C1F33BA420064B03E /* TravelTimeView.m in Sources */,
 				5F960DEE22838F2900D8A96C /* UIViewController+ErrorHandling.m in Sources */,
 				C8307A0E1F365969005CB3D2 /* HTTPRequestAsyncOperation.m in Sources */,
+				5C6420F9239F75AB00B5E3E1 /* AnimationHelper.m in Sources */,
 				C8307A141F368BFB005CB3D2 /* LyftTravelTimeEstimateOperation.m in Sources */,
 				1955ED742291269400DC92A5 /* ChildViewControllerForwardingNavigationController.m in Sources */,
 				5F313554227A366F00751CE5 /* UNUserNotificationCenter+EventNotifications.m in Sources */,
