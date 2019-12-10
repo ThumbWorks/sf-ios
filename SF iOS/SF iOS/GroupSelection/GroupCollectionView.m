@@ -17,6 +17,7 @@
     layout.minimumLineSpacing = 20.0;
 
     GroupCollectionView *view = [[self alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    view.delaysContentTouches = false;
     view.showsHorizontalScrollIndicator = false;
     view.translatesAutoresizingMaskIntoConstraints = false;
 
