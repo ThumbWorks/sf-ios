@@ -100,6 +100,11 @@
 	self.nameLabel.font = style.fonts.subtitleFont;
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+    AnimationHelper *animator = [AnimationHelper alloc];
+    [animator transformSelected:self.layer highlighted:highlighted];
+}
+
 + (NSString *)reuseID {
     return NSStringFromClass([self class]);
 }

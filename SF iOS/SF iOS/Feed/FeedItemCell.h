@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FeedItem.h"
 #import "Styleable.h"
+#import "AnimationHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -178,31 +178,8 @@ NS_ASSUME_NONNULL_END
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-  const CATransform3D transformFromValue = self.layer.transform;
-  const CGFloat radiusFromValue = self.detailStackContainer.layer.shadowRadius;
-  const CGSize offsetFromValue = self.detailStackContainer.layer.shadowOffset;
-
-  if (highlighted) {
-    self.detailStackContainer.layer.transform = CATransform3DMakeScale(0.98, 0.98, 1.0);
-    self.detailStackContainer.layer.shadowRadius = 4;
-    self.detailStackContainer.layer.shadowOffset = CGSizeMake(0, 0);
-  } else {
-    self.detailStackContainer.layer.transform = CATransform3DIdentity;
-    self.detailStackContainer.layer.shadowRadius = kDepressedShadowRadius;
-    self.detailStackContainer.layer.shadowOffset = CGSizeMake(0, 8);
-  }
-
-  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"transform", [NSValue valueWithCATransform3D:transformFromValue]) forKey:@"transform"];
-  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"shadowRadius", @(radiusFromValue)) forKey:@"shadowRadius"];
-  [self.detailStackContainer.layer addAnimation:AnimationWithKeyPath(@"shadowOffset", [NSValue valueWithCGSize:offsetFromValue]) forKey:@"shadowOffset"];
-}
-
-static CABasicAnimation *AnimationWithKeyPath(NSString *keyPath, NSValue *fromValue) {
-  CABasicAnimation *const animation = [CABasicAnimation animationWithKeyPath:keyPath];
-  animation.duration = 0.1;
-  animation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.0 :0.0 :0.5 :2.0];
-  animation.fromValue = fromValue;
-  return animation;
+    AnimationHelper *animator = [AnimationHelper alloc];
+    [animator transformSelected:self.detailStackContainer.layer highlighted:highlighted];
 }
 
 - (void)applyStyle:(id<Style>)style {

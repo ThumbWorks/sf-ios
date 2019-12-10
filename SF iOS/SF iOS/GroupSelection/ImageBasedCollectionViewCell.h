@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Styleable.h"
+#import "AnimationHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
