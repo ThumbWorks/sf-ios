@@ -70,6 +70,9 @@
 }
 
 - (NSString *)travelTimeEstimateString {
+    if (self.travelTime < 0) {
+        return @"—";
+    }
     return [NSDate abbreviatedTimeIntervalForTimeInterval:self.travelTime];
 }
 

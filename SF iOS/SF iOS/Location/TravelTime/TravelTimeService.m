@@ -93,12 +93,14 @@
     return [[AsyncBlockOperation alloc] initWithAsyncBlock:^(dispatch_block_t  _Nonnull completionHandler) {
         MKDirections *direction = [[MKDirections alloc] initWithRequest:request];
         [direction calculateETAWithCompletionHandler:^(MKETAResponse * _Nullable response, NSError * _Nullable error) {
+            NSTimeInterval travelTime;
             if (!response) {
                 NSLog(@"Could not get travel time for request:\n%@\n%@", request, error);
-                resultHandler(nil);
-                completionHandler();
+                travelTime = -1;
+            } else {
+                travelTime = response.expectedTravelTime;
             }
-            TravelTime *result = [[TravelTime alloc] initWithMKDirectionsTransportType:request.transportType travelTime:response.expectedTravelTime];
+            TravelTime *result = [[TravelTime alloc] initWithMKDirectionsTransportType:request.transportType travelTime:travelTime];
             resultHandler(result);
             completionHandler();
         }];

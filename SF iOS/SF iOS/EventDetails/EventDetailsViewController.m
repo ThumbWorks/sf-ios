@@ -101,6 +101,9 @@ NS_ASSUME_NONNULL_END
                                                                             // show error
                                                                         }
                                                                     }];
+                            }
+                            noDirectionsAvailableHandler:^(TransportType transportType) {
+                                [self presentNoDirectionsAvailableAlertFor:transportType];
                             }];
     self.travelTimesView.layoutMargins = UIEdgeInsetsMake(32, 21, 21, 21);
     self.travelTimesView.translatesAutoresizingMaskIntoConstraints = false;
@@ -174,6 +177,36 @@ NS_ASSUME_NONNULL_END
     } shouldQueueIfLocationIsUnavailable:true];
 }
 
+- (void) presentNoDirectionsAvailableAlertFor:(TransportType )transportType {
+    NSString *transportDirectionsTypeName;
+    switch (transportType) {
+        case TransportTypeTransit:
+            transportDirectionsTypeName = @"Transit directions";
+            break;
+        case TransportTypeWalking:
+            transportDirectionsTypeName = @"Walking directions";
+            break;
+        case TransportTypeAutomobile:
+            transportDirectionsTypeName = @"Driving directions";
+            break;
+        case TransportTypeUber:
+            transportDirectionsTypeName = @"Uber rides";
+            break;
+        case TransportTypeLyft:
+            transportDirectionsTypeName = @"Lyft rides";
+            break;
+    }
+    NSString *transportMessage = [NSString stringWithFormat: @"%@ are not available from this location.", transportDirectionsTypeName];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Sorry!"
+                                                                   message:transportMessage
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 // MARK: Share
 
 - (void)share {

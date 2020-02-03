@@ -17,20 +17,27 @@
 @property (nonatomic) UIImageView *iconView;
 @property (nonatomic) UILabel *timeLabel;
 @property (nonatomic) TransportType transportType;
+@property (nonatomic) NSTimeInterval travelTime;
 @property (nonatomic, copy) DirectionsRequestHandler directionsRequestHandler;
+@property (nonatomic, copy) DirectionsRequestHandler noDirectionsAvailableHandler;
 
 @end
 
 @implementation TravelTimeView
 
-- (instancetype)initWithTravelTime:(TravelTime *)travelTime arrival:(Arrival)arrival directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler {
+- (instancetype)initWithTravelTime:(TravelTime *)travelTime
+                           arrival:(Arrival)arrival
+          directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler
+      noDirectionsAvailableHandler:(DirectionsRequestHandler)noDirectionsAvailableHandler {
     if (self = [super initWithFrame:CGRectZero]) {
         [self setup];
 		_iconView.image = [travelTime.icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _transportType = travelTime.transportType;
         _directionsRequestHandler = directionsRequestHandler;
+        _noDirectionsAvailableHandler = noDirectionsAvailableHandler;
         
         _timeLabel.text = travelTime.travelTimeEstimateString;
+        _travelTime = travelTime.travelTime;
         switch (arrival) {
             case ArrivalOnTime:
                 _timeLabel.textColor = [UIColor atlantis];
@@ -43,7 +50,11 @@
             case ArrivalAfterEvent:
                 _timeLabel.textColor = [UIColor mandy];
                 break;
-                
+
+            case ArrivalImpossible:
+                _timeLabel.textColor = [UIColor blackColor];
+                break;
+
             default:
                 break;
         }
@@ -53,12 +64,18 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     NSAssert(false, @"Use initWithTravelTime:");
-    return [self initWithTravelTime:[TravelTime new] arrival:ArrivalOnTime directionsRequestHandler:^(TransportType transportType) {}];
+    return [self initWithTravelTime:[TravelTime new]
+                            arrival:ArrivalOnTime
+           directionsRequestHandler:^(TransportType transportType) {}
+       noDirectionsAvailableHandler:^(TransportType transportType) {}];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     NSAssert(false, @"Use initWithTravelTime:");
-    return [self initWithTravelTime:[TravelTime new] arrival:ArrivalOnTime directionsRequestHandler:^(TransportType transportType) {}];
+    return [self initWithTravelTime:[TravelTime new]
+                            arrival:ArrivalOnTime
+           directionsRequestHandler:^(TransportType transportType) {}
+       noDirectionsAvailableHandler:^(TransportType transportType) {}];
 }
 
 - (void)setup {
@@ -96,14 +113,16 @@
        [contentStack.heightAnchor constraintEqualToConstant:36]
        ]
      ];
-    
+
     [self addTarget:self action:@selector(requestDirections) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //MARK: - Touch Handling
 
 - (void)requestDirections {
-    if (self.directionsRequestHandler) {
+    if ((self.travelTime < 0) && self.noDirectionsAvailableHandler) {
+        self.noDirectionsAvailableHandler(self.transportType);
+    } else if (self.directionsRequestHandler) {
         self.directionsRequestHandler(self.transportType);
     }
 }

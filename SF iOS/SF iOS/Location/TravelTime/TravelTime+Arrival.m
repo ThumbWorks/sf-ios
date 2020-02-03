@@ -12,6 +12,10 @@
 @implementation TravelTime (Arrival)
 
 - (Arrival)arrivalToEventWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    if (self.travelTime < 0) {
+        return ArrivalImpossible;
+    }
+
     // if the event is in the past, magnitudes do not matter
     if ([endDate isEarlierThanDate:[NSDate new]]) {
         return ArrivalOnTime;

@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface TravelTimeView : UIControl <Styleable>
 
-- (instancetype)initWithTravelTime:(TravelTime *)travelTime arrival:(Arrival)arrival directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTravelTime:(TravelTime *)travelTime arrival:(Arrival)arrival directionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler noDirectionsAvailableHandler:(DirectionsRequestHandler)noDirectionsAvailableHandler NS_DESIGNATED_INITIALIZER;
 
 @end
 NS_ASSUME_NONNULL_END

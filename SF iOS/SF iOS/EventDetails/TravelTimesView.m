@@ -22,14 +22,17 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
 @property (nonatomic) UIStackView *ridesharingStack;
 @property (nonatomic) UIActivityIndicatorView *loadingIndicator;
 @property (copy, nonatomic) DirectionsRequestHandler directionsRequestHandler;
+@property (copy, nonatomic) DirectionsRequestHandler noDirectionsAvailableHandler;
 
 @end
 
 @implementation TravelTimesView
 
-- (instancetype)initWithDirectionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler {
+- (instancetype)initWithDirectionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler
+                    noDirectionsAvailableHandler:(DirectionsRequestHandler)noDirectionsAvailableHandler {
     if (self = [super initWithFrame:CGRectZero]) {
         self.directionsRequestHandler = directionsRequestHandler;
+        self.noDirectionsAvailableHandler = noDirectionsAvailableHandler;
         [self setup];
     }
     return self;
@@ -37,12 +40,14 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     NSAssert(false, @"use initWithDirectionsRequestHandler:");
-    return [self initWithDirectionsRequestHandler:^(TransportType transportType) {}];
+    return [self initWithDirectionsRequestHandler:^(TransportType transportType) {}
+                     noDirectionsAvailableHandler:^(TransportType transportType) {}];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     NSAssert(false, @"use initWithDirectionsRequestHandler:");
-    return [self initWithDirectionsRequestHandler:^(TransportType transportType) {}];
+    return [self initWithDirectionsRequestHandler:^(TransportType transportType) {}
+                     noDirectionsAvailableHandler:^(TransportType transportType) {}];
 }
 
 - (void)setLoading:(BOOL)loading {
@@ -101,7 +106,10 @@ typedef NS_ENUM(NSUInteger, TravelTimeType) {
 - (void)populateTravelTimeViewsInStack:(nonnull UIStackView *)stack withTimes:(nonnull NSArray *)travelTimes startDate:(NSDate *)startDate endDate:(NSDate *)endDate {
     for (TravelTime *time in travelTimes) {
         Arrival arrival = [time arrivalToEventWithStartDate:startDate endDate:endDate];
-        TravelTimeView *view = [[TravelTimeView alloc] initWithTravelTime:time arrival:arrival directionsRequestHandler:self.directionsRequestHandler];
+        TravelTimeView *view = [[TravelTimeView alloc] initWithTravelTime:time
+                                                                  arrival:arrival
+                                                 directionsRequestHandler:self.directionsRequestHandler
+                                             noDirectionsAvailableHandler:self.noDirectionsAvailableHandler];
         [stack addArrangedSubview:view];
     }
 }

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL loading;
 
-- (instancetype)initWithDirectionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDirectionsRequestHandler:(DirectionsRequestHandler)directionsRequestHandler noDirectionsAvailableHandler:(DirectionsRequestHandler)noDirectionsAvailableHandler NS_DESIGNATED_INITIALIZER;
 
 - (void)configureWithTravelTimes:(NSArray<TravelTime *> *)travelTimes eventStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 

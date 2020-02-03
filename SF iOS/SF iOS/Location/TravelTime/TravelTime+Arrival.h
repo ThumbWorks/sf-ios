@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, Arrival) {
     ArrivalOnTime,
     ArrivalDuringEvent,
     ArrivalAfterEvent,
+    ArrivalImpossible,
 };
 
 @interface TravelTime (Arrival)
