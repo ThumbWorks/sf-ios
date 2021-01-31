@@ -16,6 +16,7 @@
 #import "DirectionsRequest.h"
 #import "Location.h"
 #import "Style.h"
+#import "UIActivityViewController+Utilities.h"
 @import MapKit;
 
 
@@ -174,9 +175,54 @@ NS_ASSUME_NONNULL_END
     } shouldQueueIfLocationIsUnavailable:true];
 }
 
+- (void)applyStyle:(id<Style>)style {
+    self.style = style;
+    
+    self.view.backgroundColor = style.colors.backgroundColor;
+    self.titleLabel.textColor = style.colors.primaryTextColor;
+    self.titleLabel.font = style.fonts.primaryFont;
+    self.subtitleLabel.textColor = style.colors.secondaryTextColor;
+    self.subtitleLabel.font = style.fonts.subtitleFont;
+    [self.travelTimesView applyStyle:style];
+}
+
 // MARK: Share
 
 - (void)share {
+    NSString *shareGroupButtonTitle = NSLocalizedString(@"Share Event",
+                                                        @"Share Event");
+    
+    NSString *shareAppButtonTitle = NSLocalizedString(@"Share App",
+                                                      @"Share App");
+    
+    NSString *cancelButtonTitle = NSLocalizedString(@"Cancel", @"Cancel");
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:shareGroupButtonTitle
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                [self shareEvent];
+                                            }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:shareAppButtonTitle
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                [self shareApp];
+                                            }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:cancelButtonTitle
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                
+                                            }]];
+    
+    [self presentViewController:alert animated:true completion:nil];
+}
+
+- (void)shareEvent {
     // TODO: Use coffeecoffeecoffee.coffee url.
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
@@ -190,15 +236,9 @@ NS_ASSUME_NONNULL_END
     [self presentViewController:shareSheet animated:true completion:nil];
 }
 
-- (void)applyStyle:(id<Style>)style {
-	self.style = style;
-
-	self.view.backgroundColor = style.colors.backgroundColor;
-	self.titleLabel.textColor = style.colors.primaryTextColor;
-	self.titleLabel.font = style.fonts.primaryFont;
-	self.subtitleLabel.textColor = style.colors.secondaryTextColor;
-	self.subtitleLabel.font = style.fonts.subtitleFont;
-	[self.travelTimesView applyStyle:style];
+- (void)shareApp {
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] shareApp];
+    [self presentViewController:shareSheet animated:true completion:nil];
 }
 
 @end
