@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "EventDataSource.h"
+#import "NSDate+Utilities.h"
 #import "FeedProviderDelegate.h"
 #import <Realm/Realm.h>
 #import "Group.h"
@@ -43,8 +44,9 @@
 
     self.group = [[Group alloc] init];
     self.group.groupID = @"28ef50f9-b909-4f03-9a69-a8218a8cbd99";
-    self.event = [[Event alloc] initWithDictionary:dict];
 
+    self.event = [[Event alloc] initWithDictionary:dict dateFormatter:[NSDate formatter]];
+    XCTAssertNotNil(self.event.date);
     _fetchingExpectation = [self expectationWithDescription:@"Wait for events"];
 
     self.realmConfiguration = [RLMRealmConfiguration defaultConfiguration];

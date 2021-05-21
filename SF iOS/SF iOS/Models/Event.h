@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *venueName;
 @property (nonatomic, readonly) Location *location;
 
-- (instancetype)initWithDictionary:(NSDictionary *)record;
+- (instancetype)initWithDictionary:(NSDictionary *)record dateFormatter:(NSISO8601DateFormatter *)formatter;
 
 - (nullable NSURL *)imageFileURL;
 - (nullable NSURL *)venueURL;

@@ -8,6 +8,7 @@
 #import <XCTest/XCTest.h>
 #import "UNNotificationContent+EventNotifications.h"
 #import "Event.h"
+#import "NSDate+Utilities.h"
 
 @interface UNNotificationContentTests : XCTestCase
 @property (nonatomic) Event *event;
@@ -35,7 +36,7 @@
                            @"venue": venue,
                            @"start_at": @"2019-04-03T15:30:00.000Z"
                            };
-    self.event = [[Event alloc] initWithDictionary:dict];
+    self.event = [[Event alloc] initWithDictionary:dict dateFormatter:[NSDate formatter]];
     self.event.type = EventTypeSFCoffee;
     self.event.date = [NSDate new];
 }

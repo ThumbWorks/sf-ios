@@ -8,6 +8,7 @@
 #import "FeedFetchService.h"
 #import "FeedFetchOperation.h"
 #import "Event.h"
+#import "NSDate+Utilities.h"
 
 @interface FeedFetchService ()
 @property (nonatomic) NSOperationQueue *feedFetchQueue;
@@ -31,7 +32,7 @@
                                                                                     NSError *_Nullable error) {
         NSMutableArray<Event *> *events = [[NSMutableArray alloc] initWithCapacity:feed.count];
         for (NSDictionary *dict in feed) {
-            [events addObject:[[Event alloc] initWithDictionary:dict]];
+            [events addObject:[[Event alloc] initWithDictionary:dict dateFormatter:[NSDate formatter]]];
         }
         completionHandler(events, error);
     }];

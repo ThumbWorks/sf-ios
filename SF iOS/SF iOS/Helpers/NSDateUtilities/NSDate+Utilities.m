@@ -58,6 +58,18 @@
     return [NSDate abbreviatedTimeIntervalForTimeInterval:difference];
 }
 
++ (NSISO8601DateFormatter *)formatter {
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    [formatter setFormatOptions: NSISO8601DateFormatWithFullDate |
+     NSISO8601DateFormatWithFullTime |
+     NSISO8601DateFormatWithTimeZone |
+     NSISO8601DateFormatWithDashSeparatorInDate |
+     NSISO8601DateFormatWithColonSeparatorInTime |
+     NSISO8601DateFormatWithColonSeparatorInTimeZone |
+     NSISO8601DateFormatWithFractionalSeconds];
+    return formatter;
+}
+
 + (NSString *)abbreviatedTimeIntervalForTimeInterval:(NSTimeInterval)timeInterval {
     NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
     formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleAbbreviated;

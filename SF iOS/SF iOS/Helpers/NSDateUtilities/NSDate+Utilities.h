@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)stringWithformat:(NSString *)format;
 
++ (NSISO8601DateFormatter *)formatter;
+
 - (NSString *)weekdayName;
 
 - (BOOL)isLaterThanDate:(NSDate *)date;
